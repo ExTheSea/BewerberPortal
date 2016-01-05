@@ -30,7 +30,7 @@ public class BewerberportalUI extends UI {
 		Button button = new Button("Click Me Test");
 		button.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				layout.addComponent(new Label("Thank you for clicking, da Paddy nix kann"));
+				layout.addComponent(new Label("Thank you for clicking, da Paddy kann"));
 			}
 		});
 		layout.addComponent(button);
