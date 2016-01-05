@@ -17,7 +17,7 @@ import com.vaadin.ui.VerticalLayout;
 public class BewerberportalUI extends UI {
 
 	@WebServlet(value = "/*", asyncSupported = true)
-	@VaadinServletConfiguration(productionMode = false, ui = BewerberportalUI.class)
+	@VaadinServletConfiguration(productionMode = false, ui = BewerberportalUI.class, widgetset = "com.example.bewerberportal.widgetset.BewerberportalWidgetset")
 	public static class Servlet extends VaadinServlet {
 	}
 
@@ -30,7 +30,7 @@ public class BewerberportalUI extends UI {
 		Button button = new Button("Click Me Test");
 		button.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				layout.addComponent(new Label("Thank you for clicking"));
+				layout.addComponent(new Label("Thank you for clicking, da Paddy nix kann"));
 			}
 		});
 		layout.addComponent(button);
