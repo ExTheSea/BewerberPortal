@@ -27,10 +27,52 @@
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
 
+$v-app-loading-text: "Go2DHBW";
+
+$v-font-family: "Source Sans Pro", sans-serif;
+$v-app-background-color: #d6dde0;
+$v-background-color: #55626c;
+$v-focus-color: #55626c;
+$v-focus-style: 0 0 0 1px $v-focus-color;
+$valo-menu-background-color: darken($v-focus-color, 10%);
+$v-border: 0 solid v-shade;
+$v-border-radius: 0px;
+$v-bevel: false;
+$v-gradient: false;
+$v-shadow: false;
+$v-textfield-bevel: false;
+$v-textfield-shadow: false;
+$v-textfield-border: 1px solid v-shade;
+$v-link-text-decoration: none;
+$v-overlay-shadow: 0 0 0 2px #000;
+$v-overlay-border-width: 2px; // For IE8
+$v-window-shadow: $v-overlay-shadow;
+$v-selection-overlay-background-color: #fff;
+$v-selection-overlay-padding-horizontal: 0;
+$v-selection-overlay-padding-vertical: 6px;
+$v-panel-border: 2px solid v-shade;
+
 @import "../valo/valo.scss";
 
 @mixin bewerberportal {
   @include valo;
 
+
+	.v-panel-logo{
+		background-color: #e00019;
+		.v-label{
+			font-size: 2em;
+			font-weight: bold;
+			font-color: #55626c;
+		}
+	}
+	
+	.whitebackground{
+		background-color: #f3f3f3;
+	}
+	
+	.v-panel-headerborderless{
+		border: none;
+	}
   // Insert your own theme rules here
 }
