@@ -26,6 +26,7 @@ public class MenuPanel extends Panel {
 	public MenuPanel(CssLayout componentContainer) {
 		setStyleName(ValoTheme.PANEL_BORDERLESS);
 		addStyleName(ValoTheme.PANEL_WELL);
+		addStyleName("menupnl");
 		vl_menu = new VerticalLayout();
 		setContent(vl_menu);
 		setWidth("200px");

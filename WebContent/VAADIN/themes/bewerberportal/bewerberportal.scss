@@ -31,7 +31,7 @@ $v-app-loading-text: "Go2DHBW";
 
 $v-font-family: "Source Sans Pro", sans-serif;
 $v-app-background-color: #d6dde0;
-$v-background-color: #55626c;
+$v-background-color: #d6dde0;
 $v-focus-color: #55626c;
 $v-focus-style: 0 0 0 1px $v-focus-color;
 $valo-menu-background-color: darken($v-focus-color, 10%);
@@ -73,6 +73,10 @@ $v-panel-border: 2px solid v-shade;
 	
 	.v-panel-headerborderless{
 		border: none;
+	}
+	
+	.menupnl{
+		background-color: #55626c;
 	}
   // Insert your own theme rules here
 }

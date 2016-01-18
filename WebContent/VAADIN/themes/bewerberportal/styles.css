@@ -1709,9 +1709,9 @@ div.v-layout.v-horizontal.v-widget {
 	padding: 5px;
 	margin: 0;
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
-	color: #cfd3d6;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
+	color: #384043;
 }
 
 .bewerberportal select:focus {
@@ -1761,11 +1761,11 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-tooltip {
-	background-color: #dce0e3;
-	background-color: rgba(220, 224, 227, 0.9);
+	background-color: #262e32;
+	background-color: rgba(38, 46, 50, 0.9);
 	-webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-	color: black;
+	color: white;
 	padding: 5px 9px;
 	border-radius: -1px;
 	max-width: 35em;
@@ -1967,12 +1967,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-verticallayout-well, .bewerberportal .v-horizontallayout-well {
-	background: #515d66;
-	color: #ced2d5;
+	background: #d0d8dc;
+	color: #373e41;
 	-webkit-box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05), inset false;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05), inset false;
 	border-radius: 0px;
-	border: 0 solid #3b444b;
+	border: 0 solid #959a9c;
 }
 
 .bewerberportal .v-verticallayout-well  > div > [class*="-caption"], .bewerberportal .v-horizontallayout-well  > div > [class*="-caption"] {
@@ -2044,13 +2044,13 @@ div.v-layout.v-horizontal.v-widget {
 	cursor: pointer;
 	height: 37px;
 	padding: 0 15px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 }
@@ -2116,17 +2116,17 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-button:hover:after {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 }
 
 .bewerberportal .v-button:focus:after {
-	border: inherit;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 }
 
 .bewerberportal .v-button:active:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-button-primary {
@@ -2180,7 +2180,7 @@ div.v-layout.v-horizontal.v-widget {
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
+	border: 0 solid #1e6916;
 	background: #2c9720;
 	
 	
@@ -2216,7 +2216,7 @@ div.v-layout.v-horizontal.v-widget {
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
+	border: 0 solid #a53129;
 	background: #ed473b;
 	
 	
@@ -2505,7 +2505,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-checkbox > input:focus ~ label:before {
-	border: 0 solid #3b444b;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -2531,13 +2531,13 @@ div.v-layout.v-horizontal.v-widget {
 :root .bewerberportal .v-checkbox > input ~ label:before {
 	height: 18.5px;
 	padding: 0 8px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -2554,7 +2554,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-checkbox > input:active ~ label:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 :root .bewerberportal .v-checkbox > input:checked ~ label:after {
@@ -2630,7 +2630,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-checkbox-small > input:focus ~ label:before {
-	border: 0 solid #3b444b;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -2656,13 +2656,13 @@ div.v-layout.v-horizontal.v-widget {
 :root .bewerberportal .v-checkbox-small > input ~ label:before {
 	height: 15.5px;
 	padding: 0 6px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -2679,7 +2679,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-checkbox-small > input:active ~ label:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 :root .bewerberportal .v-checkbox-small > input:checked ~ label:after {
@@ -2755,7 +2755,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-checkbox-large > input:focus ~ label:before {
-	border: 0 solid #3b444b;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -2781,13 +2781,13 @@ div.v-layout.v-horizontal.v-widget {
 :root .bewerberportal .v-checkbox-large > input ~ label:before {
 	height: 22px;
 	padding: 0 9px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -2804,7 +2804,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-checkbox-large > input:active ~ label:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 :root .bewerberportal .v-checkbox-large > input:checked ~ label:after {
@@ -2907,6 +2907,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-transition: none;
 	-moz-transition: none;
 	transition: none;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -3111,8 +3112,8 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-filterselect-suggestpopup [class$="status"] {
 	position: absolute;
 	right: 0px;
-	background: rgba(72, 83, 92, 0.9);
-	color: #cbcfd2;
+	background: rgba(177, 190, 196, 0.9);
+	color: #2f3639;
 	border-radius: 0 0 0px 0px;
 	height: 23px;
 	bottom: -23px;
@@ -3127,7 +3128,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-filterselect-suggestpopup [class$="status"]  > * {
-	color: #cbcfd2;
+	color: #2f3639;
 	text-decoration: none;
 }
 
@@ -3151,7 +3152,7 @@ div.v-layout.v-horizontal.v-widget {
 	-ms-transform: scale(0.8);
 	-o-transform: scale(0.8);
 	transform: scale(0.8);
-	color: #cfd3d6;
+	color: #384043;
 }
 
 .bewerberportal .v-filterselect-suggestpopup div[class*="page"]:after {
@@ -3164,7 +3165,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-filterselect-suggestpopup div[class*="page"]:hover {
 	opacity: 1;
 	filter: none ;
-	background: rgba(85, 98, 108, 0.5);
+	background: rgba(214, 221, 224, 0.5);
 }
 
 .bewerberportal .v-filterselect-suggestpopup div[class*="page"]:hover:after {
@@ -3228,11 +3229,11 @@ div.v-layout.v-horizontal.v-widget {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	background: #55626c;
+	background: #d6dde0;
 	cursor: inherit;
 	
 	
-	border: 0 solid #3b444b;
+	border: 0 solid #959a9c;
 	text-shadow: inherit;
 	text-overflow: ellipsis;
 	border-radius: inherit;
@@ -3243,6 +3244,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-transition: none;
 	-moz-transition: none;
 	transition: none;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -3810,12 +3812,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-csslayout-well {
-	background: #515d66;
-	color: #ced2d5;
+	background: #d0d8dc;
+	color: #373e41;
 	-webkit-box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05), inset false;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05), inset false;
 	border-radius: 0px;
-	border: 0 solid #3b444b;
+	border: 0 solid #959a9c;
 }
 
 .bewerberportal .v-csslayout-well  > div > [class*="-caption"] {
@@ -3985,7 +3987,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-formlayout.light  > table > tbody > tr > [class*="captioncell"] {
-	color: #a9b1b7;
+	color: #627279;
 	text-align: right;
 	padding-left: 13px;
 	line-height: 37px;
@@ -4044,6 +4046,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-transition: none;
 	-moz-transition: none;
 	transition: none;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c, none;
 	box-shadow: 0 0 0 1px #55626c, none;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -4192,7 +4195,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-row  > td, .bewerberportal .v-grid-row  > th {
-	background-color: #515d66;
+	background-color: #dce2e4;
 }
 
 .bewerberportal .v-grid-row {
@@ -4219,7 +4222,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-grid-spacer {
 	position: absolute;
 	display: block;
-	background-color: #515d66;
+	background-color: #dce2e4;
 }
 
 .bewerberportal .v-grid-spacer  > td {
@@ -4239,7 +4242,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-scroller-vertical, .bewerberportal .v-grid-scroller-horizontal {
-	border: 0 solid #3d464d;
+	border: 0 solid #a7abad;
 }
 
 .bewerberportal .v-grid-scroller-vertical {
@@ -4251,7 +4254,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-tablewrapper {
-	border: 0 solid #3d464d;
+	border: 0 solid #a7abad;
 }
 
 .bewerberportal .v-grid .header-drag-table {
@@ -4266,7 +4269,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid .header-drag-table .v-grid-header  > .v-grid-cell {
-	border: 0 solid #3d464d;
+	border: 0 solid #a7abad;
 	margin-top: -10px;
 	opacity: 0.9;
 	filter: alpha(opacity=90);
@@ -4286,8 +4289,8 @@ div.v-layout.v-horizontal.v-widget {
 	position: absolute;
 	top: 0;
 	right: 0;
-	background-color: #55626c;
-	border: 0 solid #3d464d;
+	background-color: #d6dde0;
+	border: 0 solid #a7abad;
 	padding: 0;
 	z-index: 5;
 }
@@ -4355,7 +4358,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-cell {
-	background-color: #515d66;
+	background-color: #dce2e4;
 	padding: 0 18px;
 	line-height: 37px;
 	text-overflow: ellipsis;
@@ -4373,7 +4376,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-grid-cell.frozen {
 	-webkit-box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
 	box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
-	border-right: 0 solid #3d464d;
+	border-right: 0 solid #a7abad;
 }
 
 .bewerberportal .v-grid-cell.frozen  + th, .bewerberportal .v-grid-cell.frozen  + td {
@@ -4381,8 +4384,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-row > td, .bewerberportal .v-grid-editor-cells > div {
-	border-left: 0 solid #3d464d;
-	border-bottom: 0 solid #3d464d;
+	border-left: 0 solid #a7abad;
+	border-bottom: 0 solid #a7abad;
 }
 
 .bewerberportal .v-grid-row > td:first-child, .bewerberportal .v-grid-editor-cells > div:first-child {
@@ -4392,12 +4395,12 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-grid-editor-cells.frozen > div {
 	-webkit-box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
 	box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
-	border-right: 0 solid #3d464d;
+	border-right: 0 solid #a7abad;
 	border-left: none;
 }
 
 .bewerberportal .v-grid-row-stripe > td {
-	background-color: #4d5962;
+	background-color: #d2d9dd;
 }
 
 .bewerberportal .v-grid-row-selected > td {
@@ -4410,11 +4413,11 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-grid-header th {
 	position: relative;
-	background-color: #55626c;
+	background-color: #d6dde0;
 	font-size: 14px;
 	font-weight: inherit;
-	border-left: 0 solid #3d464d;
-	border-bottom: 0 solid #3d464d;
+	border-left: 0 solid #a7abad;
+	border-bottom: 0 solid #a7abad;
 	
 	text-align: left;
 }
@@ -4458,11 +4461,11 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-footer td {
-	background-color: #55626c;
+	background-color: #d6dde0;
 	font-size: 14px;
 	font-weight: inherit;
-	border-left: 0 solid #3d464d;
-	border-top: 0 solid #3d464d;
+	border-left: 0 solid #a7abad;
+	border-top: 0 solid #a7abad;
 	border-bottom: none;
 	
 }
@@ -4484,20 +4487,20 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-header-deco {
-	border-top: 0 solid #3d464d;
-	border-right: 0 solid #3d464d;
-	background-color: #55626c;
+	border-top: 0 solid #a7abad;
+	border-right: 0 solid #a7abad;
+	background-color: #d6dde0;
 }
 
 .bewerberportal .v-grid-footer-deco {
-	border-bottom: 0 solid #3d464d;
-	border-right: 0 solid #3d464d;
-	background-color: #55626c;
+	border-bottom: 0 solid #a7abad;
+	border-right: 0 solid #a7abad;
+	background-color: #d6dde0;
 }
 
 .bewerberportal .v-grid-horizontal-scrollbar-deco {
-	background-color: #55626c;
-	border: 0 solid #3d464d;
+	background-color: #d6dde0;
+	border: 0 solid #a7abad;
 	border-top: none;
 }
 
@@ -4535,7 +4538,7 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 	left: 0;
 	right: 0;
-	border: 0 solid #3d464d;
+	border: 0 solid #a7abad;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	margin-top: 0;
@@ -4562,7 +4565,7 @@ div.v-layout.v-horizontal.v-widget {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	vertical-align: middle;
-	background: #515d66;
+	background: #dce2e4;
 }
 
 .bewerberportal .v-grid-editor-cells  > div:first-child {
@@ -4631,21 +4634,21 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-grid-editor-footer {
 	display: table;
 	height: 37px;
-	border-top: 0 solid #3d464d;
+	border-top: 0 solid #a7abad;
 	margin-top: 0;
-	background: #515d66;
+	background: #dce2e4;
 	padding: 0 5px;
 }
 
 .bewerberportal .v-grid-editor-footer  + .v-grid-editor-cells > div {
 	border-bottom: none;
-	border-top: 0 solid #3d464d;
+	border-top: 0 solid #a7abad;
 }
 
 .bewerberportal .v-grid-editor-footer:first-child {
 	border-top: none;
 	margin-top: 0;
-	border-bottom: 0 solid #3d464d;
+	border-bottom: 0 solid #a7abad;
 	margin-bottom: 0;
 }
 
@@ -4680,15 +4683,15 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-grid-spacer > td {
 	display: block;
 	padding: 0;
-	background-color: #515d66;
-	border-top: 0 solid #49545c;
-	border-bottom: 0 solid #3d464d;
+	background-color: #dce2e4;
+	border-top: 0 solid #c8cdcf;
+	border-bottom: 0 solid #a7abad;
 }
 
 .bewerberportal .v-grid-spacer.stripe > td {
-	background-color: #4d5962;
-	border-top: 0 solid #465059;
-	border-bottom: 0 solid #3d464d;
+	background-color: #d2d9dd;
+	border-top: 0 solid #bfc5c9;
+	border-bottom: 0 solid #a7abad;
 }
 
 .bewerberportal .v-grid-spacer-deco-container {
@@ -4721,7 +4724,7 @@ div.v-layout.v-horizontal.v-widget {
 	-moz-user-select: text;
 	-ms-user-select: text;
 	user-select: text;
-	background-color: #55626c;
+	background-color: #d6dde0;
 }
 
 .bewerberportal .v-grid.v-disabled {
@@ -4730,8 +4733,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-header .v-grid-cell {
-	background: #55626c;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+	background: #d6dde0;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .bewerberportal .v-grid-header .v-grid-cell.dragged {
@@ -4747,16 +4750,16 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-footer .v-grid-cell {
-	background: #55626c;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+	background: #d6dde0;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .bewerberportal .v-grid-header-deco {
-	background: #55626c;
+	background: #d6dde0;
 }
 
 .bewerberportal .v-grid-footer-deco, .bewerberportal .v-grid-horizontal-scrollbar-deco {
-	background: #55626c;
+	background: #d6dde0;
 }
 
 .bewerberportal .v-grid-row-selected  > .v-grid-cell {
@@ -4901,7 +4904,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-grid-sidebar.v-contextmenu.closed {
-	background: #55626c;
+	background: #d6dde0;
 }
 
 .bewerberportal .v-grid-scroller::-webkit-scrollbar {
@@ -4911,7 +4914,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-grid-scroller::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	border: 4px solid transparent;
-	background: rgba(255, 255, 255, 0.3);
+	background: rgba(0, 0, 0, 0.3);
 	-webkit-background-clip: content-box;
 	background-clip: content-box;
 }
@@ -4969,6 +4972,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-transition: none;
 	-moz-transition: none;
 	transition: none;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -5432,6 +5436,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-transition: none;
 	-moz-transition: none;
 	transition: none;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -5720,6 +5725,7 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-transition: none;
 	-moz-transition: none;
 	transition: none;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -5845,8 +5851,8 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-datefield-popup {
 	padding: 4px 4px;
 	border-radius: 0px;
-	background-color: #4e5a63;
-	color: #cdd1d4;
+	background-color: #dce2e4;
+	color: #394144;
 	-webkit-box-shadow: 0 0 0 2px #000;
 	box-shadow: 0 0 0 2px #000;
 	-webkit-backface-visibility: hidden;
@@ -5901,7 +5907,7 @@ div.v-layout.v-horizontal.v-widget {
 	line-height: 26px;
 	text-align: center;
 	font-size: 14px;
-	background: #55626c;
+	background: #d6dde0;
 	-webkit-transition: color 200ms;
 	-moz-transition: color 200ms;
 	transition: color 200ms;
@@ -5917,14 +5923,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-day-offmonth {
-	color: #929aa1;
+	color: #878e91;
 	background: transparent;
 }
 
 .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-day-today {
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 600;
-	border-color: #85929b;
+	border-color: #8d9ea5;
 }
 
 .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-day.v-datefield-calendarpanel-day-selected, .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-day.v-datefield-calendarpanel-day-selected:hover {
@@ -5945,13 +5951,13 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-day.v-datefield-calendarpanel-day-outside-range, .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-day.v-datefield-calendarpanel-day-outside-range:hover {
-	color: #929aa1;
+	color: #878e91;
 	cursor: not-allowed;
 }
 
 .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-weekdays {
 	height: 26px;
-	color: rgba(164, 171, 176, 0.85);
+	color: rgba(111, 118, 121, 0.85);
 }
 
 .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-weekdays strong {
@@ -5984,7 +5990,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-datefield-popup td[class*="year"] button:before, .bewerberportal .v-datefield-popup td[class*="month"] button:before {
-	color: #929aa1;
+	color: #878e91;
 	font-size: 21px;
 	line-height: 24px;
 	-webkit-transition: color 200ms;
@@ -6003,7 +6009,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-datefield-popup td[class*="year"] button.outside-range:hover:before, .bewerberportal .v-datefield-popup td[class*="month"] button.outside-range:hover:before {
-	color: #929aa1;
+	color: #878e91;
 }
 
 .bewerberportal .v-datefield-popup .v-button-prevyear:before {
@@ -6037,7 +6043,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-weeknumber, .bewerberportal .v-datefield-popup .v-datefield-calendarpanel-weekdays.v-datefield-calendarpanel-weeknumbers td:first-child {
 	width: 30px;
-	color: rgba(164, 171, 176, 0.85);
+	color: rgba(111, 118, 121, 0.85);
 	font-size: 14px;
 	display: inline-block;
 	text-align: left;
@@ -6091,7 +6097,7 @@ div.v-layout.v-horizontal.v-widget {
 	line-height: 26px;
 	text-align: center;
 	font-size: 14px;
-	background: #55626c;
+	background: #d6dde0;
 	-webkit-transition: color 200ms;
 	-moz-transition: color 200ms;
 	transition: color 200ms;
@@ -6107,14 +6113,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-datefield-calendarpanel-day-offmonth {
-	color: #929aa1;
+	color: #878e91;
 	background: transparent;
 }
 
 .bewerberportal .v-datefield-calendarpanel-day-today {
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 600;
-	border-color: #85929b;
+	border-color: #8d9ea5;
 }
 
 .bewerberportal .v-datefield-calendarpanel-day.v-datefield-calendarpanel-day-selected, .bewerberportal .v-datefield-calendarpanel-day.v-datefield-calendarpanel-day-selected:hover {
@@ -6135,13 +6141,13 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-datefield-calendarpanel-day.v-datefield-calendarpanel-day-outside-range, .bewerberportal .v-datefield-calendarpanel-day.v-datefield-calendarpanel-day-outside-range:hover {
-	color: #929aa1;
+	color: #878e91;
 	cursor: not-allowed;
 }
 
 .bewerberportal .v-datefield-calendarpanel-weekdays {
 	height: 26px;
-	color: rgba(164, 171, 176, 0.85);
+	color: rgba(111, 118, 121, 0.85);
 }
 
 .bewerberportal .v-datefield-calendarpanel-weekdays strong {
@@ -6174,7 +6180,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal td[class*="year"] button:before, .bewerberportal td[class*="month"] button:before {
-	color: #929aa1;
+	color: #878e91;
 	font-size: 21px;
 	line-height: 24px;
 	-webkit-transition: color 200ms;
@@ -6193,7 +6199,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal td[class*="year"] button.outside-range:hover:before, .bewerberportal td[class*="month"] button.outside-range:hover:before {
-	color: #929aa1;
+	color: #878e91;
 }
 
 .bewerberportal .v-button-prevyear:before {
@@ -6227,7 +6233,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-datefield-calendarpanel-weeknumber, .bewerberportal .v-datefield-calendarpanel-weekdays.v-datefield-calendarpanel-weeknumbers td:first-child {
 	width: 30px;
-	color: rgba(164, 171, 176, 0.85);
+	color: rgba(111, 118, 121, 0.85);
 	font-size: 14px;
 	display: inline-block;
 	text-align: left;
@@ -6779,7 +6785,7 @@ div.v-layout.v-horizontal.v-widget {
 	line-height: 26px;
 	text-align: center;
 	font-size: 14px;
-	background: #55626c;
+	background: #d6dde0;
 	-webkit-transition: color 200ms;
 	-moz-transition: color 200ms;
 	transition: color 200ms;
@@ -6795,14 +6801,14 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-inline-datefield-calendarpanel-day-offmonth {
-	color: #929aa1;
+	color: #878e91;
 	background: transparent;
 }
 
 .bewerberportal .v-inline-datefield-calendarpanel-day-today {
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 600;
-	border-color: #85929b;
+	border-color: #8d9ea5;
 }
 
 .bewerberportal .v-inline-datefield-calendarpanel-day.v-inline-datefield-calendarpanel-day-selected, .bewerberportal .v-inline-datefield-calendarpanel-day.v-inline-datefield-calendarpanel-day-selected:hover {
@@ -6823,13 +6829,13 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-inline-datefield-calendarpanel-day.v-inline-datefield-calendarpanel-day-outside-range, .bewerberportal .v-inline-datefield-calendarpanel-day.v-inline-datefield-calendarpanel-day-outside-range:hover {
-	color: #929aa1;
+	color: #878e91;
 	cursor: not-allowed;
 }
 
 .bewerberportal .v-inline-datefield-calendarpanel-weekdays {
 	height: 26px;
-	color: rgba(164, 171, 176, 0.85);
+	color: rgba(111, 118, 121, 0.85);
 }
 
 .bewerberportal .v-inline-datefield-calendarpanel-weekdays strong {
@@ -6862,7 +6868,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal td[class*="year"] button:before, .bewerberportal td[class*="month"] button:before {
-	color: #929aa1;
+	color: #878e91;
 	font-size: 21px;
 	line-height: 24px;
 	-webkit-transition: color 200ms;
@@ -6881,7 +6887,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal td[class*="year"] button.outside-range:hover:before, .bewerberportal td[class*="month"] button.outside-range:hover:before {
-	color: #929aa1;
+	color: #878e91;
 }
 
 .bewerberportal .v-button-prevyear:before {
@@ -6915,7 +6921,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-inline-datefield-calendarpanel-weeknumber, .bewerberportal .v-inline-datefield-calendarpanel-weekdays.v-inline-datefield-calendarpanel-weeknumbers td:first-child {
 	width: 30px;
-	color: rgba(164, 171, 176, 0.85);
+	color: rgba(111, 118, 121, 0.85);
 	font-size: 14px;
 	display: inline-block;
 	text-align: left;
@@ -6952,7 +6958,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-inline-datefield-calendarpanel {
 	position: relative;
-	background: #4e5a63;
+	background: #dce2e4;
 	padding: 6px;
 }
 
@@ -6987,13 +6993,13 @@ div.v-layout.v-horizontal.v-widget {
 	cursor: pointer;
 	height: 37px;
 	padding: 0 15px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	cursor: default;
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -7038,7 +7044,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-menubar:focus:after {
-	border: inherit;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 }
@@ -7069,8 +7075,8 @@ div.v-layout.v-horizontal.v-widget {
 	
 	cursor: pointer;
 	border-radius: 0;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	background: transparent;
@@ -7108,12 +7114,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-menubar > .v-menubar-menuitem:hover:before {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 	border: none;
 }
 
 .bewerberportal .v-menubar > .v-menubar-menuitem:active:before {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-menubar > .v-menubar-menuitem .v-icon {
@@ -7133,10 +7139,10 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-menubar > .v-menubar-menuitem-checked {
 	-webkit-box-shadow: none;
 	box-shadow: none;
-	background-color: #515d66;
-	background-image: -webkit-linear-gradient(bottom, #515d66 0%, #515d66 100%);
-	background-image: linear-gradient(to top,#515d66 0%, #515d66 100%);
-	color: #eeeff0;
+	background-color: #cad3d6;
+	background-image: -webkit-linear-gradient(bottom, #cad3d6 0%, #cad3d6 100%);
+	background-image: linear-gradient(to top,#cad3d6 0%, #cad3d6 100%);
+	color: #131516;
 }
 
 .bewerberportal .v-disabled > .v-menubar-menuitem, .bewerberportal .v-menubar > .v-menubar-menuitem-disabled {
@@ -7276,7 +7282,7 @@ div.v-layout.v-horizontal.v-widget {
 	margin: 6px 0;
 	height: 0;
 	overflow: hidden;
-	border-bottom: 0 solid #424c54;
+	border-bottom: 0 solid #bbc0c1;
 	border-bottom-width: 1px;
 }
 
@@ -7370,7 +7376,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-menubar-borderless .v-menubar-menuitem-checked, .bewerberportal .v-menubar-borderless .v-menubar-menuitem-checked:first-child {
-	border: 0 solid #3b444b;
+	border: 0 solid #959a9c;
 	color: #55626c;
 }
 
@@ -7423,7 +7429,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-radiobutton > input:focus ~ label:before {
-	border: 0 solid #3b444b;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -7449,13 +7455,13 @@ div.v-layout.v-horizontal.v-widget {
 :root .bewerberportal .v-radiobutton > input ~ label:before {
 	height: 18.5px;
 	padding: 0 8px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -7472,7 +7478,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-radiobutton > input:active ~ label:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 :root .bewerberportal .v-radiobutton > input:checked ~ label:after {
@@ -7581,7 +7587,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-select-optiongroup-small .v-checkbox > input:focus ~ label:before {
-	border: 0 solid #3b444b;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -7607,13 +7613,13 @@ div.v-layout.v-horizontal.v-widget {
 :root .bewerberportal .v-select-optiongroup-small .v-checkbox > input ~ label:before {
 	height: 15.5px;
 	padding: 0 6px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -7630,7 +7636,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-select-optiongroup-small .v-checkbox > input:active ~ label:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 :root .bewerberportal .v-select-optiongroup-small .v-checkbox > input:checked ~ label:after {
@@ -7705,7 +7711,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-select-optiongroup-small .v-radiobutton > input:focus ~ label:before {
-	border: 0 solid #3b444b;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -7731,13 +7737,13 @@ div.v-layout.v-horizontal.v-widget {
 :root .bewerberportal .v-select-optiongroup-small .v-radiobutton > input ~ label:before {
 	height: 15.5px;
 	padding: 0 6px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -7754,7 +7760,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-select-optiongroup-small .v-radiobutton > input:active ~ label:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 :root .bewerberportal .v-select-optiongroup-small .v-radiobutton > input:checked ~ label:after {
@@ -7863,7 +7869,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-select-optiongroup-large .v-checkbox > input:focus ~ label:before {
-	border: 0 solid #3b444b;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -7889,13 +7895,13 @@ div.v-layout.v-horizontal.v-widget {
 :root .bewerberportal .v-select-optiongroup-large .v-checkbox > input ~ label:before {
 	height: 22px;
 	padding: 0 9px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -7912,7 +7918,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-select-optiongroup-large .v-checkbox > input:active ~ label:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 :root .bewerberportal .v-select-optiongroup-large .v-checkbox > input:checked ~ label:after {
@@ -7987,7 +7993,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-select-optiongroup-large .v-radiobutton > input:focus ~ label:before {
-	border: 0 solid #3b444b;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
@@ -8013,13 +8019,13 @@ div.v-layout.v-horizontal.v-widget {
 :root .bewerberportal .v-select-optiongroup-large .v-radiobutton > input ~ label:before {
 	height: 22px;
 	padding: 0 9px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	padding: 0;
@@ -8036,7 +8042,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 :root .bewerberportal .v-select-optiongroup-large .v-radiobutton > input:active ~ label:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 :root .bewerberportal .v-select-optiongroup-large .v-radiobutton > input:checked ~ label:after {
@@ -8258,8 +8264,8 @@ div.v-layout.v-horizontal.v-widget {
 	right: 0;
 	left: 0;
 	height: 0;
-	border-top: 1px solid #48535b;
-	border-color: rgba(59, 68, 75, 0.5);
+	border-top: 1px solid #b5bbbe;
+	border-color: rgba(149, 154, 156, 0.5);
 }
 
 .bewerberportal .v-window-header {
@@ -8418,7 +8424,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-window-contents  > .v-scrollable .v-panel-captionwrap:after {
-	border-color: #48535b;
+	border-color: #b5bbbe;
 }
 
 .bewerberportal .v-window-contents  > .v-scrollable .v-panel-content:before {
@@ -8470,9 +8476,9 @@ div.v-layout.v-horizontal.v-widget {
 	padding: 7px 12px;
 	position: relative;
 	z-index: 2;
-	border-top: 0 solid #48535b;
-	border-bottom: 0 solid #48535b;
-	background-color: #55626c;
+	border-top: 0 solid #b5bbbe;
+	border-bottom: 0 solid #b5bbbe;
+	background-color: #d6dde0;
 }
 
 .bewerberportal .v-window-top-toolbar.v-menubar {
@@ -8487,10 +8493,10 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-window-bottom-toolbar.v-layout {
 	padding: 7px 12px;
-	background-color: #55626c;
-	background-image: -webkit-linear-gradient(top, #55626c 0, #55626c 4px);
-	background-image: linear-gradient(to bottom,#55626c 0, #55626c 4px);
-	border-top: 0 solid #48535b;
+	background-color: #d6dde0;
+	background-image: -webkit-linear-gradient(top, #d6dde0 0, #d6dde0 4px);
+	background-image: linear-gradient(to bottom,#d6dde0 0, #d6dde0 4px);
+	border-top: 0 solid #b5bbbe;
 	border-radius: 0 0 0px 0px;
 }
 
@@ -8687,7 +8693,7 @@ div.v-layout.v-horizontal.v-widget {
 	line-height: 2px;
 	color: #55626c;
 	text-indent: -4px;
-	text-shadow: 0 0 1px #55626c, 0 0 1px #55626c;
+	text-shadow: 0 0 1px #d6dde0, 0 0 1px #d6dde0;
 	opacity: 1;
 	visibility: visible;
 }
@@ -8717,23 +8723,23 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-table {
 	position: relative;
-	background: #55626c;
-	color: #cfd3d6;
+	background: #d6dde0;
+	color: #384043;
 	overflow: hidden;
 }
 
 .bewerberportal .v-table-header table, .bewerberportal .v-table-footer table, .bewerberportal .v-table-table {
-	-webkit-box-shadow: 0 0 0 0 #3d464d;
-	box-shadow: 0 0 0 0 #3d464d;
+	-webkit-box-shadow: 0 0 0 0 #a7abad;
+	box-shadow: 0 0 0 0 #a7abad;
 }
 
 .v-ie8 .bewerberportal .v-table-header table, .v-ie8 .bewerberportal .v-table-footer table, .v-ie8 .bewerberportal .v-table-table {
-	outline: 0 solid #3d464d;
+	outline: 0 solid #a7abad;
 }
 
 .bewerberportal .v-table-header-wrap, .bewerberportal .v-table-footer-wrap, .bewerberportal .v-table-header-drag {
-	border: 0 solid #3d464d;
-	background: #55626c;
+	border: 0 solid #a7abad;
+	background: #d6dde0;
 	white-space: nowrap;
 	font-size: 14px;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -8749,7 +8755,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-footer td {
-	border-left: 0 solid #3d464d;
+	border-left: 0 solid #a7abad;
 	display: inline-block;
 	margin-left: 1px;
 }
@@ -8782,7 +8788,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-table-caption-container, .bewerberportal .v-table-header-drag {
 	padding: 12px 12px 12px;
-	border-left: 0 solid #3d464d;
+	border-left: 0 solid #a7abad;
 }
 
 .bewerberportal .v-table-caption-container-align-right {
@@ -8801,7 +8807,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-cell-content {
-	border-left: 0 solid #3d464d;
+	border-left: 0 solid #a7abad;
 	overflow: hidden;
 	height: 37px;
 	vertical-align: middle;
@@ -8839,7 +8845,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-body {
-	border: 0 solid #3d464d;
+	border: 0 solid #a7abad;
 	-webkit-user-select: text;
 	-moz-user-select: text;
 	-ms-user-select: text;
@@ -8847,12 +8853,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-table {
-	background-color: #515d66;
+	background-color: #dce2e4;
 	white-space: nowrap;
 }
 
 .bewerberportal .v-table-table td {
-	border-top: 0 solid #3d464d;
+	border-top: 0 solid #a7abad;
 }
 
 .bewerberportal .v-table-table tr:first-child > td {
@@ -8860,12 +8866,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-row {
-	background-color: #515d66;
+	background-color: #dce2e4;
 	cursor: pointer;
 }
 
 .bewerberportal .v-table-row-odd {
-	background-color: #4d5962;
+	background-color: #d2d9dd;
 	cursor: pointer;
 }
 
@@ -8961,13 +8967,13 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-table-column-selector {
 	height: 37px;
 	padding: 0 15px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 	position: absolute;
@@ -8999,17 +9005,17 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-column-selector:hover:after {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 }
 
 .bewerberportal .v-table-column-selector:focus:after {
-	border: inherit;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 }
 
 .bewerberportal .v-table-column-selector:active:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-table-column-selector:after {
@@ -9023,7 +9029,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-column-selector:active:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-table-column-selector:before {
@@ -9074,7 +9080,7 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 	opacity: 0.5;
 	filter: alpha(opacity=50) ;
-	background: #515d66;
+	background: #dce2e4;
 }
 
 .bewerberportal .v-table-body {
@@ -9099,6 +9105,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-table-drag .v-table-body {
 	-webkit-box-shadow: 0 0 0 2px rgba(85, 98, 108, 0.5);
 	box-shadow: 0 0 0 2px rgba(85, 98, 108, 0.5);
+	border-color: #55626c;
 }
 
 .v-ie8 .bewerberportal .v-table-drag .v-table-body {
@@ -9110,8 +9117,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-row-drag-middle .v-table-cell-content {
-	background-color: #515e67;
-	color: #ced2d5;
+	background-color: #c1c8cc;
+	color: #34393b;
 }
 
 .bewerberportal .v-table-row-drag-bottom td.v-table-cell-content {
@@ -9163,11 +9170,11 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-table-borderless .v-table-header-wrap {
-	border-bottom: 0 solid #3f4950;
+	border-bottom: 0 solid #adb2b4;
 }
 
 .bewerberportal .v-table-borderless .v-table-footer-wrap {
-	border-top: 0 solid #3f4950;
+	border-top: 0 solid #adb2b4;
 }
 
 .bewerberportal .v-table-compact .v-table-header-wrap, .bewerberportal .v-table-compact .v-table-footer-wrap, .bewerberportal .v-table-compact .v-table-header-drag, .bewerberportal .v-table-small .v-table-header-wrap, .bewerberportal .v-table-small .v-table-footer-wrap, .bewerberportal .v-table-small .v-table-header-drag {
@@ -9324,19 +9331,19 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-splitpanel-horizontal  > div > .v-splitpanel-hsplitter div:before {
 	height: 37px;
 	padding: 0 15px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	height: auto;
 	padding: 0;
 	border-radius: 0;
-	background: #55626c;
+	background: #d6dde0;
 }
 
 .bewerberportal .v-splitpanel-horizontal  > div > .v-splitpanel-hsplitter div:before:after {
@@ -9348,17 +9355,17 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-splitpanel-horizontal  > div > .v-splitpanel-hsplitter div:before:hover:after {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 }
 
 .bewerberportal .v-splitpanel-horizontal  > div > .v-splitpanel-hsplitter div:before:focus:after {
-	border: inherit;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 }
 
 .bewerberportal .v-splitpanel-horizontal  > div > .v-splitpanel-hsplitter div:before:active:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-splitpanel-horizontal  > div > .v-splitpanel-second-container {
@@ -9377,13 +9384,13 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-splitpanel-vertical  > div > .v-splitpanel-vsplitter div:before {
 	height: 37px;
 	padding: 0 15px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	height: auto;
@@ -9400,17 +9407,17 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-splitpanel-vertical  > div > .v-splitpanel-vsplitter div:before:hover:after {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 }
 
 .bewerberportal .v-splitpanel-vertical  > div > .v-splitpanel-vsplitter div:before:focus:after {
-	border: inherit;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 }
 
 .bewerberportal .v-splitpanel-vertical  > div > .v-splitpanel-vsplitter div:before:active:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-splitpanel-horizontal.large  > div > .v-splitpanel-hsplitter {
@@ -9425,19 +9432,19 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-splitpanel-horizontal.large  > div > .v-splitpanel-hsplitter div:before {
 	height: 37px;
 	padding: 0 15px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	height: auto;
 	padding: 0;
 	border-radius: 0;
-	background: #55626c;
+	background: #d6dde0;
 }
 
 .bewerberportal .v-splitpanel-horizontal.large  > div > .v-splitpanel-hsplitter div:before:after {
@@ -9449,24 +9456,24 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-splitpanel-horizontal.large  > div > .v-splitpanel-hsplitter div:before:hover:after {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 }
 
 .bewerberportal .v-splitpanel-horizontal.large  > div > .v-splitpanel-hsplitter div:before:focus:after {
-	border: inherit;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 }
 
 .bewerberportal .v-splitpanel-horizontal.large  > div > .v-splitpanel-hsplitter div:before:active:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-splitpanel-horizontal.large  > div > .v-splitpanel-hsplitter div:after {
 	content: "";
-	border: 0 solid #455058;
-	border-top-color: #363e45;
-	border-left-color: #363e45;
+	border: 0 solid #afb5b7;
+	border-top-color: #888d8f;
+	border-left-color: #888d8f;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -9492,13 +9499,13 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-splitpanel-vertical.large  > div > .v-splitpanel-vsplitter div:before {
 	height: 37px;
 	padding: 0 15px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	height: auto;
@@ -9515,24 +9522,24 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-splitpanel-vertical.large  > div > .v-splitpanel-vsplitter div:before:hover:after {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 }
 
 .bewerberportal .v-splitpanel-vertical.large  > div > .v-splitpanel-vsplitter div:before:focus:after {
-	border: inherit;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 }
 
 .bewerberportal .v-splitpanel-vertical.large  > div > .v-splitpanel-vsplitter div:before:active:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-splitpanel-vertical.large  > div > .v-splitpanel-vsplitter div:after {
 	content: "";
-	border: 0 solid #455058;
-	border-top-color: #363e45;
-	border-left-color: #363e45;
+	border: 0 solid #afb5b7;
+	border-top-color: #888d8f;
+	border-left-color: #888d8f;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -9545,7 +9552,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-progressbar-wrapper {
 	border-radius: 0px;
 	height: 9px;
-	background: #4a535a;
+	background: #b2bdc2;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -9651,7 +9658,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-slider-base {
 	border-radius: 0px;
 	height: 9px;
-	background: #4a535a;
+	background: #b2bdc2;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -9711,13 +9718,13 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-slider-handle:before {
 	height: 37px;
 	padding: 0 15px;
-	color: #eeeff0;
+	color: #141718;
 	font-weight: 400;
 	
 	
 	border-radius: 0px;
-	border: 0 solid #3b444b;
-	background: #55626c;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
 	
 	
 }
@@ -9731,22 +9738,22 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-slider-handle:before:hover:after {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 }
 
 .bewerberportal .v-slider-handle:before:focus:after {
-	border: inherit;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 }
 
 .bewerberportal .v-slider-handle:before:active:after {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-slider-handle:after {
-	border: 0 solid #3b444b;
-	border: 0 solid #3b444b;
+	border: 0 solid #959a9c;
+	border-color: #55626c;
 	-webkit-box-shadow: 0 0 0 1px #55626c;
 	box-shadow: 0 0 0 1px #55626c;
 	opacity: 0;
@@ -9775,11 +9782,11 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-slider-feedback {
-	background-color: #dce0e3;
-	background-color: rgba(220, 224, 227, 0.9);
+	background-color: #262e32;
+	background-color: rgba(38, 46, 50, 0.9);
 	-webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-	color: black;
+	color: white;
 	padding: 5px 9px;
 	border-radius: -1px;
 	max-width: 35em;
@@ -9793,7 +9800,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-slider-vertical .v-slider-base {
-	background: #4a535a;
+	background: #b2bdc2;
 	width: 6px;
 	height: 100% !important;
 	min-width: 0;
@@ -9975,8 +9982,8 @@ div.v-layout.v-horizontal.v-widget {
 	bottom: 0;
 	padding-left: 19px;
 	background-color: transparent;
-	background-image: -webkit-linear-gradient(right, #55626c 70%, rgba(85, 98, 108, 0) 100%);
-	background-image: linear-gradient(to left,#55626c 70%, rgba(85, 98, 108, 0) 100%);
+	background-image: -webkit-linear-gradient(right, #d6dde0 70%, rgba(214, 221, 224, 0) 100%);
+	background-image: linear-gradient(to left,#d6dde0 70%, rgba(214, 221, 224, 0) 100%);
 	pointer-events: none;
 }
 
@@ -9989,16 +9996,16 @@ div.v-layout.v-horizontal.v-widget {
 	right: 0;
 	display: block;
 	background-color: transparent;
-	background-image: -webkit-linear-gradient(right, #48535b 70%, rgba(72, 83, 91, 0) 100%);
-	background-image: linear-gradient(to left,#48535b 70%, rgba(72, 83, 91, 0) 100%);
+	background-image: -webkit-linear-gradient(right, #b5bbbe 70%, rgba(181, 187, 190, 0) 100%);
+	background-image: linear-gradient(to left,#b5bbbe 70%, rgba(181, 187, 190, 0) 100%);
 }
 
 .v-ie8 .bewerberportal .v-tabsheet-scroller, .v-ie9 .bewerberportal .v-tabsheet-scroller {
-	background-color: #55626c;
+	background-color: #d6dde0;
 }
 
 .v-ie8 .bewerberportal .v-tabsheet-scroller:after, .v-ie9 .bewerberportal .v-tabsheet-scroller:after {
-	background-color: #48535b;
+	background-color: #b5bbbe;
 }
 
 .bewerberportal .v-tabsheet-scroller button {
@@ -10185,7 +10192,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-tabsheet-framed.padded-tabbar  > .v-tabsheet-tabcontainer {
 	border: 0 solid #b5bbbe;
 	border-bottom: none;
-	background: #55626c;
+	background: #d6dde0;
 	padding-top: 6px;
 }
 
@@ -10321,8 +10328,8 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-colorpicker-popup .v-horizontallayout {
 	height: auto !important;
 	padding: 9px 0;
-	background-color: #55626c;
-	border-top: 0 solid #515d67;
+	background-color: #d6dde0;
+	border-top: 0 solid #cad3d7;
 }
 
 .bewerberportal .v-colorpicker-popup .v-horizontallayout .v-expand {
@@ -10397,16 +10404,16 @@ div.v-layout.v-horizontal.v-widget {
 	box-sizing: border-box;
 	padding: 0 12px;
 	line-height: 37px;
-	border-bottom: 2px solid #434d55;
-	background-color: #55626c;
-	background-image: -webkit-linear-gradient(top, #55626c 0%, #55626c 100%);
-	background-image: linear-gradient(to bottom,#55626c 0%, #55626c 100%);
-	color: #cfd3d6;
+	border-bottom: 2px solid #a9aeb0;
+	background-color: #d6dde0;
+	background-image: -webkit-linear-gradient(top, #d6dde0 0%, #d6dde0 100%);
+	background-image: linear-gradient(to bottom,#d6dde0 0%, #d6dde0 100%);
+	color: #384043;
 	font-weight: 400;
 	font-size: 14px;
 	
 	
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 	border-radius: 0px 0px 0 0;
 }
 
@@ -10454,12 +10461,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-panel-well {
-	background: #515d66;
-	color: #ced2d5;
+	background: #d0d8dc;
+	color: #373e41;
 	-webkit-box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05), inset false;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05), inset false;
 	border-radius: 0px;
-	border: 0 solid #3b444b;
+	border: 0 solid #959a9c;
 }
 
 .bewerberportal .v-panel-well  > div > [class*="-caption"] {
@@ -10515,9 +10522,9 @@ div.v-layout.v-horizontal.v-widget {
 	border: 2px solid #a9aeb0;
 	
 	
-	background-color: #55626c;
-	background-image: -webkit-linear-gradient(top, #55626c 0%, #55626c 100%);
-	background-image: linear-gradient(to bottom,#55626c 0%, #55626c 100%);
+	background-color: #d6dde0;
+	background-image: -webkit-linear-gradient(top, #d6dde0 0%, #d6dde0 100%);
+	background-image: linear-gradient(to bottom,#d6dde0 0%, #d6dde0 100%);
 	overflow: hidden;
 }
 
@@ -10548,16 +10555,16 @@ div.v-layout.v-horizontal.v-widget {
 	box-sizing: border-box;
 	padding: 0 12px;
 	line-height: 37px;
-	border-bottom: 2px solid #434d55;
-	background-color: #55626c;
-	background-image: -webkit-linear-gradient(top, #55626c 0%, #55626c 100%);
-	background-image: linear-gradient(to bottom,#55626c 0%, #55626c 100%);
-	color: #cfd3d6;
+	border-bottom: 2px solid #a9aeb0;
+	background-color: #d6dde0;
+	background-image: -webkit-linear-gradient(top, #d6dde0 0%, #d6dde0 100%);
+	background-image: linear-gradient(to bottom,#d6dde0 0%, #d6dde0 100%);
+	color: #384043;
 	font-weight: 400;
 	font-size: 14px;
 	
 	
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 	display: block;
 	background: transparent;
 	border-bottom-color: #a0a3a4;
@@ -10577,12 +10584,12 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-accordion-item-caption  > .v-caption:hover:before {
-	background-color: rgba(120, 137, 149, 0.1);
+	background-color: rgba(141, 161, 169, 0.1);
 	border: none;
 }
 
 .bewerberportal .v-accordion-item-caption  > .v-caption:active:before {
-	background-color: rgba(37, 50, 59, 0.2);
+	background-color: rgba(81, 121, 138, 0.2);
 }
 
 .bewerberportal .v-accordion-item-content {
@@ -10626,9 +10633,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-select-twincol select {
-	border: 0 solid #3b444b;
-	background: #55626c;
-	color: #cfd3d6;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
+	color: #384043;
 }
 
 .bewerberportal .v-select-twincol select:focus {
@@ -10699,9 +10706,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-select select {
-	border: 0 solid #3b444b;
-	background: #55626c;
-	color: #cfd3d6;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
+	color: #384043;
 }
 
 .bewerberportal .v-select select:focus {
@@ -10823,7 +10830,7 @@ div.v-layout.v-horizontal.v-widget {
 	text-align: right;
 	margin: 0 5px;
 	white-space: nowrap;
-	border-top: 1px solid #4e5a63;
+	border-top: 1px solid #cdd6d9;
 	cursor: pointer;
 }
 
@@ -10832,7 +10839,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-month-day-today {
-	background: #55626c;
+	background: #cfd6da;
 }
 
 .bewerberportal .v-calendar-month-day-today .v-calendar-day-number {
@@ -10845,7 +10852,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-month-day-selected {
-	background-color: #55626c;
+	background-color: #c9d0d4;
 }
 
 .bewerberportal .v-calendar-month-day-dragemphasis {
@@ -10858,7 +10865,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-calendar-weekly-longevents {
 	margin-left: 50px;
-	border-bottom: 3px solid #3f484f;
+	border-bottom: 3px solid #b9c5ca;
 }
 
 .bewerberportal .v-calendar-weekly-longevents .v-calendar-event-all-day {
@@ -11046,8 +11053,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-event-all-day {
-	background-color: #447083;
-	background-color: rgba(68, 112, 131, 0.8);
+	background-color: #abd3e0;
+	background-color: rgba(171, 211, 224, 0.8);
 	color: #00ace0;
 }
 
@@ -11056,8 +11063,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-week-wrapper .v-calendar-event .v-calendar-event-content {
-	background-color: #447083;
-	background-color: rgba(68, 112, 131, 0.8);
+	background-color: #abd3e0;
+	background-color: rgba(171, 211, 224, 0.8);
 }
 
 .bewerberportal .v-calendar-event-month[class*="color2"]:before {
@@ -11065,8 +11072,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-event-all-day[class*="color2"] {
-	background-color: #4d6e5b;
-	background-color: rgba(77, 110, 91, 0.8);
+	background-color: #b4d0b8;
+	background-color: rgba(180, 208, 184, 0.8);
 	color: #2d9f19;
 }
 
@@ -11075,8 +11082,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-week-wrapper .v-calendar-event[class*="color2"] .v-calendar-event-content {
-	background-color: #4d6e5b;
-	background-color: rgba(77, 110, 91, 0.8);
+	background-color: #b4d0b8;
+	background-color: rgba(180, 208, 184, 0.8);
 }
 
 .bewerberportal .v-calendar-event-month[class*="color3"]:before {
@@ -11084,8 +11091,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-event-all-day[class*="color3"] {
-	background-color: #6d6856;
-	background-color: rgba(109, 104, 86, 0.8);
+	background-color: #d5cab3;
+	background-color: rgba(213, 202, 179, 0.8);
 	color: #d18100;
 }
 
@@ -11094,8 +11101,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-week-wrapper .v-calendar-event[class*="color3"] .v-calendar-event-content {
-	background-color: #6d6856;
-	background-color: rgba(109, 104, 86, 0.8);
+	background-color: #d5cab3;
+	background-color: rgba(213, 202, 179, 0.8);
 }
 
 .bewerberportal .v-calendar-event-month[class*="color4"]:before {
@@ -11103,8 +11110,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-event-all-day[class*="color4"] {
-	background-color: #6d595a;
-	background-color: rgba(109, 89, 90, 0.8);
+	background-color: #d4bcb6;
+	background-color: rgba(212, 188, 182, 0.8);
 	color: #ce3812;
 }
 
@@ -11113,8 +11120,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-week-wrapper .v-calendar-event[class*="color4"] .v-calendar-event-content {
-	background-color: #6d595a;
-	background-color: rgba(109, 89, 90, 0.8);
+	background-color: #d4bcb6;
+	background-color: rgba(212, 188, 182, 0.8);
 }
 
 .bewerberportal .v-calendar-event-month[class*="color5"]:before {
@@ -11122,8 +11129,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-event-all-day[class*="color5"] {
-	background-color: #4d5f7f;
-	background-color: rgba(77, 95, 127, 0.8);
+	background-color: #b4c1dc;
+	background-color: rgba(180, 193, 220, 0.8);
 	color: #2d55cd;
 }
 
@@ -11132,8 +11139,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-calendar-week-wrapper .v-calendar-event[class*="color5"] .v-calendar-event-content {
-	background-color: #4d5f7f;
-	background-color: rgba(77, 95, 127, 0.8);
+	background-color: #b4c1dc;
+	background-color: rgba(180, 193, 220, 0.8);
 }
 
 .bewerberportal .v-calendar.v-disabled * {
@@ -11402,9 +11409,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-select select {
-	border: 0 solid #3b444b;
-	background: #55626c;
-	color: #cfd3d6;
+	border: 0 solid #959a9c;
+	background: #d6dde0;
+	color: #384043;
 }
 
 .bewerberportal .v-select select:focus {
@@ -11449,8 +11456,8 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-popupview-popup {
 	padding: 4px 4px;
 	border-radius: 0px;
-	background-color: #4e5a63;
-	color: #cdd1d4;
+	background-color: #dce2e4;
+	color: #394144;
 	-webkit-box-shadow: 0 0 0 2px #000;
 	box-shadow: 0 0 0 2px #000;
 	-webkit-backface-visibility: hidden;
@@ -11557,11 +11564,11 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-richtextarea .gwt-RichTextToolbar {
-	background: #55626c;
+	background: #d6dde0;
 	
 	
-	border-bottom: 0 solid #3b444b;
-	color: #cfd3d6;
+	border-bottom: 0 solid #959a9c;
+	color: #384043;
 }
 
 .bewerberportal .v-richtextarea .gwt-ToggleButton, .bewerberportal .v-richtextarea .gwt-PushButton {
@@ -11573,13 +11580,13 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-richtextarea .gwt-ToggleButton:hover, .bewerberportal .v-richtextarea .gwt-PushButton:hover {
-	color: white;
+	color: black;
 }
 
 .bewerberportal .v-richtextarea .gwt-ToggleButton-down, .bewerberportal .v-richtextarea .gwt-ToggleButton-down-hovering {
-	background-color: #3f484f;
-	background-image: -webkit-linear-gradient(bottom, #3f484f 0%, #3f484f 100%);
-	background-image: linear-gradient(to top,#3f484f 0%, #3f484f 100%);
+	background-color: #b9c5ca;
+	background-image: -webkit-linear-gradient(bottom, #b9c5ca 0%, #b9c5ca 100%);
+	background-image: linear-gradient(to top,#b9c5ca 0%, #b9c5ca 100%);
 }
 
 .bewerberportal .v-richtextarea .gwt-RichTextToolbar-top img {
@@ -11767,7 +11774,7 @@ div.v-layout.v-horizontal.v-widget {
 	-moz-backface-visibility: hidden;
 	-ms-backface-visibility: hidden;
 	backface-visibility: hidden;
-	background: #4e5a63;
+	background: #dce2e4;
 	-webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
 	box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
 	padding: 19px 22px;
@@ -12003,12 +12010,12 @@ div.v-layout.v-horizontal.v-widget {
 	height: 25px;
 	line-height: 24px;
 	cursor: pointer;
-	color: #fff;
+	color: #000;
 	opacity: 0.5;
 	filter: alpha(opacity=50) ;
 	text-align: center;
-	border: 0 solid #fff;
-	border-color: rgba(255, 255, 255, 0.3);
+	border: 0 solid #000;
+	border-color: rgba(0, 0, 0, 0.3);
 	border-radius: 50%;
 	-webkit-transition: opacity 200ms;
 	-moz-transition: opacity 200ms;
@@ -12021,8 +12028,8 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-Notification.closable:active:after {
-	background-color: #fff;
-	color: #000;
+	background-color: #000;
+	color: #fff;
 	opacity: 0.3;
 	filter: alpha(opacity=30.0) ;
 	-webkit-transition: none 200ms;
@@ -12211,7 +12218,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-menubar-user-menu .v-menubar-menuitem-checked, .bewerberportal .v-menubar-user-menu .v-menubar-menuitem-checked:first-child {
-	border: 0 solid #3b444b;
+	border: 0 solid #959a9c;
 	color: #55626c;
 }
 
@@ -12247,7 +12254,7 @@ div.v-layout.v-horizontal.v-widget {
 	
 	display: block;
 	margin: 0 auto 0.3em;
-	border: 0 solid #3b444b;
+	border: 0 solid #959a9c;
 }
 
 .bewerberportal .v-menubar-user-menu  > .v-menubar-menuitem:after {
@@ -12680,4 +12687,8 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-panel-headerborderless {
 	border: none;
+}
+
+.bewerberportal .menupnl {
+	background-color: #55626c;
 }
