@@ -54,6 +54,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
         }
         testgrid.setContainerDataSource(cont_test);
         testgrid.setSizeFull();
+        //testgrid.setColumnOrder(new Object[]{"firmenprofil_id","studiengang_id", ""});
         addComponent(testgrid);
         testgrid.addSelectionListener(new SelectionListener() {
 			
