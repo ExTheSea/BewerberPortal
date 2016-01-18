@@ -2,6 +2,7 @@ package com.example.bewerberportal;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.example.data.DatabaseConnector;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.FontAwesome;
@@ -30,7 +31,6 @@ public class BewerberportalUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		
 		addStyleName("whitebackground");
 		Responsive.makeResponsive(this);
 		
