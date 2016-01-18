@@ -62,6 +62,13 @@ public class BewerberportalUI extends UI {
 		
 		Button btn_register = new Button("Registrieren");
 		btn_register.setStyleName(ValoTheme.BUTTON_BORDERLESS);
+		btn_register.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				new RegistrierungsPopUp();
+			}
+		});
 		hl_header.addComponent(btn_register);
 		
 		HorizontalLayout hl_content = new HorizontalLayout();
