@@ -28,9 +28,10 @@ public class SucheStudentView extends VerticalLayout implements View {
 			}
 		});
 		addComponent(btn_openPopUp);
-		BeanContainer<Integer, Studienplatz> data = new BeanContainer<Integer, Studienplatz>(Studienplatz.class);
+		final BeanContainer<Integer, Studienplatz> data = new BeanContainer<Integer, Studienplatz>(Studienplatz.class);
 		data.setBeanIdProperty("id");
-		Grid grid = new Grid(data);
+		data.addAll(Studienplatz.getStudienplatz());
+		final Grid grid = new Grid(data);
 		addComponent(grid);
 	}
 	
