@@ -1,20 +1,18 @@
 package com.example.bewerberportal;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.example.data.DatabaseConnector;
+import com.example.data.TableQuery;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
-import com.vaadin.data.util.sqlcontainer.query.TableQuery;
 import com.vaadin.event.SelectionEvent;
 import com.vaadin.event.SelectionEvent.SelectionListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
+import com.vaadin.ui.Grid;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Grid;
 
 public class FirmenSucheView extends VerticalLayout implements View {
 
@@ -28,24 +26,17 @@ public class FirmenSucheView extends VerticalLayout implements View {
 		setMargin(true);
 		setSpacing(true);
 		
-		addComponent(new Label("Dies ist ein Beispiel View"));
-		
-		Button btn_openPopUp = new Button("PopUp öffnen");
-		btn_openPopUp.addClickListener(new Button.ClickListener() {
-			
-			/**
-			 * 
-			 */
+		Grid testgrid = new Grid();
+        TableQuery tq_test = new TableQuery("firmensucheview", DatabaseConnector.getPool()){
+
 			private static final long serialVersionUID = 1L;
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				new BeispielPopUp();
-			}
-		});
-		addComponent(btn_openPopUp);
-		Grid testgrid = new Grid();
-        TableQuery tq_test = new TableQuery("studienplaetze", DatabaseConnector.getPool());
+			public void fetchMetaData() {
+                primaryKeyColumns= new ArrayList<String>();     
+                primaryKeyColumns.add("id");
+                super.fetchMetaData();
+            };
+        };
         SQLContainer cont_test = null;
         try {
             cont_test = new SQLContainer(tq_test);
@@ -54,7 +45,21 @@ public class FirmenSucheView extends VerticalLayout implements View {
         }
         testgrid.setContainerDataSource(cont_test);
         testgrid.setSizeFull();
-        //testgrid.setColumnOrder(new Object[]{"firmenprofil_id","studiengang_id", ""});
+        //testgrid.removeColumn(new Object[]{
+        //		"note_deutsch", "note_englisch", "note_mathe", "zeugnisschnitt", "firmenprofil_id", "firmenprofil_id", "studiengang_id"});
+        testgrid.removeColumn("note_deutsch");
+        testgrid.removeColumn("note_englisch");
+        testgrid.removeColumn("note_mathe");
+        testgrid.removeColumn("zeugnisschnitt");
+        testgrid.removeColumn("firmenprofil_id");
+        testgrid.removeColumn("studiengang_id");
+        testgrid.removeColumn("id");
+        testgrid.removeColumn("name");
+        testgrid.removeColumn("email");
+        testgrid.removeColumn("telefonnummer");
+        testgrid.removeColumn("website");
+        testgrid.removeColumn("strasse");
+        testgrid.setColumnOrder(new Object[]{"logo", "Bezeichnung", "freie_plaetze", "ort", "distanz"});
         addComponent(testgrid);
         testgrid.addSelectionListener(new SelectionListener() {
 			
@@ -65,8 +70,11 @@ public class FirmenSucheView extends VerticalLayout implements View {
 
 			@Override
 			public void select(SelectionEvent event) {
-				Notification.show("TEST");
-				
+				//Notification.show("Studienplatz ID: " + event.getAdded());
+				//System.out.println(testgrid.getContainerDataSource().getContainerProperty(2, "logo").getValue());
+				//System.out.println(testgrid.getSelectedRow().toString());
+				//System.out.println((String)testgrid.getContainerDataSource().getItem(event.getSelected().toArray()[0]).getItemProperty("logo").getValue());
+				new StudienplatzPopUp(testgrid.getContainerDataSource().getItem(event.getSelected().toArray()[0]));
 			}
 		});
         
