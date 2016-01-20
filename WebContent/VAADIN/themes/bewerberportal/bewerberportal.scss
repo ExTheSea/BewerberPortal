@@ -78,5 +78,13 @@ $v-panel-border: 2px solid v-shade;
 	.menupnl{
 		background-color: #55626c;
 	}
+	
+	.valo-menu-item{
+		color: #f3f3f3;
+		font-size: 18px;
+	}
+	.valo-menu-item.selected{
+		color: #f3f3f3 !important;
+	}
   // Insert your own theme rules here
 }
