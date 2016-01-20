@@ -16,8 +16,13 @@ import com.vaadin.ui.VerticalLayout;
 
 public class FirmenSucheView extends VerticalLayout implements View {
 
-	/**
-	 * 
+	/*
+CREATE VIEW firmensucheview 
+AS SELECT sp.id, sp.note_deutsch, sp.note_englisch, sp.note_mathe, sp.zeugnisschnitt, sp.strasse, sp.ort, sp.firmenprofil_id, sp.studiengang_id, sp.freie_plaetze, sp.distanz
+, fp.logo, fp.website, st.Bezeichnung, ap.name, ap.email, ap.telefonnummer
+FROM go2dhbw.studienplaetze sp, go2dhbw.studiengang st, go2dhbw.firmenprofil fp, go2dhbw.ansprechpartner ap
+WHERE sp.firmenprofil_id = fp.id AND sp.studiengang_id = st.id AND fp.ansprechpartner_id = ap.id;
+Commit;
 	 */
 	private static final long serialVersionUID = 1L;
 
