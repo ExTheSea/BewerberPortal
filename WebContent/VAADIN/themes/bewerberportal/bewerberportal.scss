@@ -86,5 +86,10 @@ $v-panel-border: 2px solid v-shade;
 	.valo-menu-item.selected{
 		color: #f3f3f3 !important;
 	}
+	
+	.v-readonly{
+		background: none !important;
+		border: none !important;
+	}
   // Insert your own theme rules here
 }
