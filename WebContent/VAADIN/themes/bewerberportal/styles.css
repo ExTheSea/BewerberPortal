@@ -12701,3 +12701,8 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .valo-menu-item.selected {
 	color: #f3f3f3 !important;
 }
+
+.bewerberportal .v-readonly {
+	background: none !important;
+	border: none !important;
+}
