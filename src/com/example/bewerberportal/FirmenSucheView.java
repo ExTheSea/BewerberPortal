@@ -21,14 +21,7 @@ import com.vaadin.ui.renderers.ClickableRenderer.RendererClickListener;
 
 public class FirmenSucheView extends VerticalLayout implements View {
 
-	/*
-CREATE VIEW firmensucheview 
-AS SELECT sp.id, sp.note_deutsch, sp.note_englisch, sp.note_mathe, sp.zeugnisschnitt, sp.strasse, sp.ort, sp.firmenprofil_id, sp.studiengang_id, sp.freie_plaetze, sp.distanz
-, fp.logo, fp.website, st.Bezeichnung, ap.name, ap.email, ap.telefonnummer
-FROM go2dhbw.studienplaetze sp, go2dhbw.studiengang st, go2dhbw.firmenprofil fp, go2dhbw.ansprechpartner ap
-WHERE sp.firmenprofil_id = fp.id AND sp.studiengang_id = st.id AND fp.ansprechpartner_id = ap.id;
-Commit;
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 
@@ -65,9 +58,11 @@ Commit;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        /*
+        
         GeneratedPropertyContainer cont_gen = new GeneratedPropertyContainer(cont_test);
         cont_gen.addGeneratedProperty("Distanz", new PropertyValueGenerator<Integer>() {
+
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Integer getValue(Item item, Object itemId, Object propertyId) {
@@ -80,7 +75,7 @@ Commit;
 				// TODO Auto-generated method stub
 				return Integer.class;
 			}
-		});
+		});/*
         cont_gen.addGeneratedProperty("TestBtn", new PropertyValueGenerator<String>() {
 
 			@Override
@@ -94,7 +89,7 @@ Commit;
 			}
 		});*/
         
-        testgrid.setContainerDataSource(cont_test);
+        testgrid.setContainerDataSource(cont_gen);
         testgrid.setSizeFull();
         testgrid.removeColumn("note_deutsch");
         testgrid.removeColumn("note_englisch");
