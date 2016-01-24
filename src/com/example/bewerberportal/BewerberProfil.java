@@ -34,6 +34,7 @@ public class BewerberProfil extends Panel implements View {
 	SQLContainer cont = null;
 	FieldGroup binder;
 	String  benutzer_id;
+	String bewerberprofil_id;
 	
 	public BewerberProfil(String benutzer_Id) {
 		this.benutzer_id = benutzer_Id;
@@ -56,7 +57,8 @@ public class BewerberProfil extends Panel implements View {
 		if(cont.size()>0){
 			item = cont.getItem(cont.firstItemId());
 		}
-
+		bewerberprofil_id = item.getItemProperty("id").getValue().toString();
+		
 		binder = new FieldGroup(item);
 		
 		vl_bew.addComponent(buildTop());
@@ -398,11 +400,11 @@ public class BewerberProfil extends Panel implements View {
 		richtfield.setReadOnly(true);
 		richtfield.setTokenCaptionPropertyId("Bezeichnung");
 		
-		com.example.data.TableQuery tq_bewricht = new com.example.data.TableQuery("benutzer_studiengang", DatabaseConnector.getPool()){
+		com.example.data.TableQuery tq_bewricht = new com.example.data.TableQuery("studiengang_bewerberprofil", DatabaseConnector.getPool()){
 			@Override
 			public void fetchMetaData() {
 				primaryKeyColumns = new ArrayList<>();
-				primaryKeyColumns.add("benutzer_id");
+				primaryKeyColumns.add("bewerberprofil_id");
 				super.fetchMetaData();
 			}
 		};
@@ -412,7 +414,7 @@ public class BewerberProfil extends Panel implements View {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		cont_bewricht.addContainerFilter(new Like("benutzer_id", benutzer_id));
+		cont_bewricht.addContainerFilter(new Like("bewerberprofil_id", bewerberprofil_id));
 		ArrayList<String> initvalue = new ArrayList<String>();
 		for (Iterator it_gang = cont_bewricht.getItemIds().iterator(); it_gang.hasNext();) {
 			Object itemId = (Object) it_gang.next();
