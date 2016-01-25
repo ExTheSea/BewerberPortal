@@ -1,6 +1,7 @@
 package com.example.bewerberportal;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.vaadin.navigator.Navigator;
@@ -51,6 +52,13 @@ public class MenuPanel extends Panel {
 		BewerberportalUI.getCurrent().setNavigator(navigator);
 	}
 	
+	public void removeAllViews(){
+		for (Iterator it_views = viewButtons.keySet().iterator(); it_views.hasNext();) {
+			String viewname = (String) it_views.next();
+			navigator.removeView(viewname);
+			vl_menu.removeComponent(viewButtons.get(viewname));
+		}
+	}
 	
 	public void addView(View view, String name, String caption, Resource icon){
 		navigator.addView(name, view);

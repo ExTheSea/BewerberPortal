@@ -25,9 +25,8 @@ public class PopupLöschen extends Window {
 		vl_popup.setSizeFull();
 		setContent(vl_popup);
 		
-		Panel panel = new Panel();
-		panel.setContent(new Label("Soll die Firma " + firmenname + " wirklich gelöscht werden?"));
-		vl_popup.addComponent(panel);
+		
+		vl_popup.addComponent(new Label("Soll die Firma " + firmenname + " wirklich gelöscht werden?"));
 		
 		HorizontalLayout hl_buttons = new HorizontalLayout();
 		hl_buttons.setWidth("100%");

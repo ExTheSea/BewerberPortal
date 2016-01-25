@@ -12706,3 +12706,7 @@ div.v-layout.v-horizontal.v-widget {
 	background: none !important;
 	border: none !important;
 }
+
+.bewerberportal .v-window {
+	background: #e4e8ea none repeat scroll 0% 0% !important;
+}
