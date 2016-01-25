@@ -105,7 +105,7 @@ public class BewerberportalUI extends UI {
 		
 		pnl_menu.addView(new TestView(), "Test", "Test", FontAwesome.ASTERISK);
 		pnl_menu.addView(new FirmenSucheView(), "Suche", "Suche", FontAwesome.ASTERISK);
-
+		pnl_menu.addView(new AdminBewerberView(), "firmadm", "Firmen", FontAwesome.BUILDING);
 		pnl_menu.setActiveView("Test");
 	}
 	

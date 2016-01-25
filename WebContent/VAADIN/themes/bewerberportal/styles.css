@@ -12711,7 +12711,6 @@ div.v-layout.v-horizontal.v-widget {
 	background: #e4e8ea none repeat scroll 0% 0% !important;
 }
 
-.bewerberportal .gridcellfilter {
-	border-right: 1px;
-	border-left: 1px;
+.bewerberportal .v-cell-value {
+	text-align: right;
 }
