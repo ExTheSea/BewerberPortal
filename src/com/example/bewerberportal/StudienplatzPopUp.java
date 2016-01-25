@@ -29,8 +29,6 @@ public class StudienplatzPopUp extends Window {
 		vl_popup.addComponent(hl_popup);
 		hl_popup.setSizeFull();
 		hl_popup.setSpacing(true);
-	    System.out.println(item.getItemProperty("logo").getValue());
-	    System.out.println(item.getItemProperty("logo").getValue().getClass());
 	    StreamSource streamSource = new StreamSource()
 	      {
 
