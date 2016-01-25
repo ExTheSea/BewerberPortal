@@ -50,7 +50,7 @@ $v-window-shadow: $v-overlay-shadow;
 $v-selection-overlay-background-color: #fff;
 $v-selection-overlay-padding-horizontal: 0;
 $v-selection-overlay-padding-vertical: 6px;
-$v-panel-border: 2px solid v-shade;
+$v-panel-border: 0px solid v-shade;
 
 @import "../valo/valo.scss";
 
@@ -94,6 +94,11 @@ $v-panel-border: 2px solid v-shade;
 	
 	.v-window{
 		background: rgb(228, 232, 234) none repeat scroll 0% 0% !important;
+	}
+	
+	.gridcellfilter{
+		border-right: 1px;
+		border-left: 1px;
 	}
   // Insert your own theme rules here
 }

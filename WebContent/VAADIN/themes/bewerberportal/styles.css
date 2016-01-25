@@ -2001,7 +2001,7 @@ div.v-layout.v-horizontal.v-widget {
 	background: #e5e9eb;
 	color: #3b4346;
 	border-radius: 0px;
-	border: 2px solid #a9aeb0;
+	border: 0px solid #a9aeb0;
 	
 	
 }
@@ -3846,7 +3846,7 @@ div.v-layout.v-horizontal.v-widget {
 	background: #e5e9eb;
 	color: #3b4346;
 	border-radius: 0px;
-	border: 2px solid #a9aeb0;
+	border: 0px solid #a9aeb0;
 	
 	
 }
@@ -10392,7 +10392,7 @@ div.v-layout.v-horizontal.v-widget {
 	background: #e5e9eb;
 	color: #3b4346;
 	border-radius: 0px;
-	border: 2px solid #a9aeb0;
+	border: 0px solid #a9aeb0;
 	
 	
 	overflow: visible !important;
@@ -10404,7 +10404,7 @@ div.v-layout.v-horizontal.v-widget {
 	box-sizing: border-box;
 	padding: 0 12px;
 	line-height: 37px;
-	border-bottom: 2px solid #a9aeb0;
+	border-bottom: 0px solid #a9aeb0;
 	background-color: #d6dde0;
 	background-image: -webkit-linear-gradient(top, #d6dde0 0%, #d6dde0 100%);
 	background-image: linear-gradient(to bottom,#d6dde0 0%, #d6dde0 100%);
@@ -10483,11 +10483,11 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-panel-scroll-divider  > [class*="-captionwrap"]:after {
 	content: "";
 	position: absolute;
-	bottom: -2px;
+	bottom: -1px;
 	right: 0;
 	left: 0;
 	height: 0;
-	border-top: 2px solid #b5bbbe;
+	border-top: 1px solid #b5bbbe;
 	border-color: rgba(149, 154, 156, 0.5);
 }
 
@@ -10497,7 +10497,7 @@ div.v-layout.v-horizontal.v-widget {
 	z-index: 2;
 	top: 0;
 	height: 0;
-	border-top: 2px solid #d6dde0;
+	border-top: 1px solid #d6dde0;
 	left: 0;
 	right: 0;
 }
@@ -10519,7 +10519,7 @@ div.v-layout.v-horizontal.v-widget {
 	background: #e5e9eb;
 	color: #3b4346;
 	border-radius: 0px;
-	border: 2px solid #a9aeb0;
+	border: 0px solid #a9aeb0;
 	
 	
 	background-color: #d6dde0;
@@ -10542,7 +10542,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .bewerberportal .v-accordion-item[class*="item-open"] + [class*="item"] {
-	border-top: 2px solid #b4b8b9;
+	border-top: 0px solid #b4b8b9;
 }
 
 .bewerberportal .v-accordion-item-caption {
@@ -10555,7 +10555,7 @@ div.v-layout.v-horizontal.v-widget {
 	box-sizing: border-box;
 	padding: 0 12px;
 	line-height: 37px;
-	border-bottom: 2px solid #a9aeb0;
+	border-bottom: 0px solid #a9aeb0;
 	background-color: #d6dde0;
 	background-image: -webkit-linear-gradient(top, #d6dde0 0%, #d6dde0 100%);
 	background-image: linear-gradient(to bottom,#d6dde0 0%, #d6dde0 100%);
@@ -12709,4 +12709,9 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-window {
 	background: #e4e8ea none repeat scroll 0% 0% !important;
+}
+
+.bewerberportal .gridcellfilter {
+	border-right: 1px;
+	border-left: 1px;
 }

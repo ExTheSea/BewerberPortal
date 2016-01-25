@@ -3,9 +3,12 @@ package com.example.bewerberportal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.vaadin.gridutil.cell.GridCellFilter;
+
 import com.example.data.DatabaseConnector;
 import com.example.data.TableQuery;
 import com.vaadin.data.Item;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.GeneratedPropertyContainer;
 import com.vaadin.data.util.PropertyValueGenerator;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
@@ -14,10 +17,8 @@ import com.vaadin.event.SelectionEvent.SelectionListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.renderers.ButtonRenderer;
-import com.vaadin.ui.renderers.ClickableRenderer.RendererClickEvent;
-import com.vaadin.ui.renderers.ClickableRenderer.RendererClickListener;
 
 public class FirmenSucheView extends VerticalLayout implements View {
 
@@ -93,6 +94,19 @@ public class FirmenSucheView extends VerticalLayout implements View {
         testgrid.removeColumn("website");
         testgrid.removeColumn("strasse");
         testgrid.removeColumn("logo");
+        
+        GridCellFilter filter = new GridCellFilter(testgrid);
+        FieldGroup group_anz = filter.setNumberFilter("anzahl");
+        ((TextField)group_anz.getField("smallest")).setInputPrompt("Min");
+        ((TextField)group_anz.getField("biggest")).setInputPrompt("Max");
+        filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");;
+        filter.setTextFilter("ansprechtpartnername", true, true).setInputPrompt("Filter Ansprechpartner");;
+        filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Bezeichnung");
+        filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
+        FieldGroup group_dist = filter.setNumberFilter("Distanz");
+        ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
+        ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
+
         /*testgrid.getColumn("TestBtn").setRenderer(new ButtonRenderer(new RendererClickListener() {
 
 			@Override
