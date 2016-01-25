@@ -1,8 +1,12 @@
 
 package com.example.bewerberportal;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import com.vaadin.data.Item;
-import com.vaadin.server.ThemeResource;
+import com.vaadin.server.StreamResource;
+import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
@@ -25,11 +29,23 @@ public class StudienplatzPopUp extends Window {
 		vl_popup.addComponent(hl_popup);
 		hl_popup.setSizeFull();
 		hl_popup.setSpacing(true);
-		Image firmen_logo = new Image("", new ThemeResource("Koala.jpg"));
+	    System.out.println(item.getItemProperty("logo").getValue());
+	    System.out.println(item.getItemProperty("logo").getValue().getClass());
+	    StreamSource streamSource = new StreamSource()
+	      {
+
+			private static final long serialVersionUID = 1L;
+
+			public InputStream getStream()
+		        {
+			        byte[] bas = (byte[]) item.getItemProperty("logo").getValue();
+			        return (bas == null) ? null : new ByteArrayInputStream(bas);
+		        }
+	      };
+
+		Image firmen_logo = new Image("", new StreamResource(streamSource, "Logo"));
 		firmen_logo.setSizeFull();
 		hl_popup.addComponent(firmen_logo);
-		
-		//Image firmen_logo2 = new Image("", item.getItemProperty("logo").getValue());
 		
 		VerticalLayout vl_firma = new VerticalLayout();
 		hl_popup.addComponent(vl_firma);
@@ -57,8 +73,7 @@ public class StudienplatzPopUp extends Window {
 		label_freie_plaetze.setCaption("Freie Plätze:");
 		vl_popup.addComponent(label_freie_plaetze);
 		
-		//Label label_ansprechpartner = new Label(item.getItemProperty("name").getValue().toString());
-		Label label_ansprechpartner = new Label("Test 123");
+		Label label_ansprechpartner = new Label(item.getItemProperty("ansprechpartnername").getValue().toString());
 		label_ansprechpartner.setCaption("Ansprechpartner:");
 		vl_popup.addComponent(label_ansprechpartner);
 		

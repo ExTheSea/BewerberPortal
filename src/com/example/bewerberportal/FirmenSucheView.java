@@ -75,19 +75,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				// TODO Auto-generated method stub
 				return Integer.class;
 			}
-		});/*
-        cont_gen.addGeneratedProperty("TestBtn", new PropertyValueGenerator<String>() {
-
-			@Override
-			public String getValue(Item item, Object itemId, Object propertyId) {
-				return "Test";
-			}
-
-			@Override
-			public Class<String> getType() {
-				return String.class;
-			}
-		});*/
+		});
         
         testgrid.setContainerDataSource(cont_gen);
         testgrid.setSizeFull();
