@@ -5,7 +5,5 @@ public interface AccessControl {
 
     public boolean isUserSignedIn();
 
-    public boolean isUserInRole(String role);
-
     public String getPrincipalName();
 }
