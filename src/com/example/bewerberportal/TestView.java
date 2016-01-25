@@ -20,7 +20,8 @@ public class TestView extends VerticalLayout implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				new BeispielPopUp();
+				String x = "Siemensz";
+				new PopupLöschen(x);
 			}
 		});
 		addComponent(btn_openPopUp);
