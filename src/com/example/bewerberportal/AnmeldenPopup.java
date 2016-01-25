@@ -1,5 +1,7 @@
 package com.example.bewerberportal;
 
+import com.vaadin.data.validator.EmailValidator;
+import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -40,7 +42,10 @@ public class AnmeldenPopup extends Window {
 		
 		//Hinzufügen des Email Texfeld
 		TextField tf_mail = new TextField("E-Mail:");
+		tf_mail.setValidationVisible(false);
 		tf_mail.setInputPrompt("MaxMustermann@gmail.com");
+		tf_mail.addValidator(new StringLengthValidator("Kann nicht leer sein", 1, null, false));
+		tf_mail.addValidator(new EmailValidator("Keine gültige E-Mail"));
 		tf_mail.setWidth("90%");
 		vl_popup.addComponent(tf_mail);
 		
@@ -57,6 +62,10 @@ public class AnmeldenPopup extends Window {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				//Logik zum Anmelden
+				tf_mail.setValidationVisible(true);
+				if(tf_mail.isValid()) {
+					close();
+				}
 			}
 		});
 		btn_login.setStyleName(ValoTheme.BUTTON_DANGER);
