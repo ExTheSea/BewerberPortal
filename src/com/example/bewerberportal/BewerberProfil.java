@@ -8,6 +8,7 @@ import java.util.Set;
 import org.vaadin.tokenfield.TokenField;
 
 import com.example.data.DatabaseConnector;
+import com.example.login.CurrentUser;
 import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
@@ -56,6 +57,31 @@ public class BewerberProfil extends Panel implements View {
 		Item item = null;
 		if(cont.size()>0){
 			item = cont.getItem(cont.firstItemId());
+		}else{
+			cont.removeAllContainerFilters();
+			item = cont.getItem(cont.addItem());
+			System.out.println(item);
+			System.out.println(CurrentUser.get());
+			item.getItemProperty("benutzer_id").setValue(Integer.valueOf(CurrentUser.get()));
+			item.getItemProperty("name").setValue("");
+			item.getItemProperty("geburtsjahr").setValue("");
+			item.getItemProperty("telefonnummer").setValue("");
+			item.getItemProperty("hobbies").setValue("");
+			item.getItemProperty("zusatzqualifikationen").setValue("");
+			item.getItemProperty("note_deutsch").setValue(0d);
+			item.getItemProperty("note_englisch").setValue(0d);
+			item.getItemProperty("note_mathe").setValue(0d);
+			item.getItemProperty("zeugnisschnitt").setValue(0d);
+			item.getItemProperty("plz").setValue("");
+			try {
+				cont.commit();
+			} catch (UnsupportedOperationException | SQLException e) {
+				e.printStackTrace();
+			}
+			
+
+			cont.addContainerFilter(new Like("benutzer_id", benutzer_Id));
+			item = cont.getItem(cont.firstItemId());
 		}
 		bewerberprofil_id = item.getItemProperty("id").getValue().toString();
 		
@@ -93,12 +119,9 @@ public class BewerberProfil extends Panel implements View {
 		Field<?> telnrfield;
 		formtop.addComponent(namefield = binder.buildAndBind("Name", "name"));
 		formtop.addComponent(jahrfield = binder.buildAndBind("Geburtsjahr", "geburtsjahr"));
-		formtop.addComponent(mailfield = binder.buildAndBind("E-Mail", "email"));
 		formtop.addComponent(telnrfield = binder.buildAndBind("Telefonnummer", "telefonnummer"));
-		mailfield.addValidator(new EmailValidator("Keine gültige E-Mail"));
 		namefield.setReadOnly(true);
 		jahrfield.setReadOnly(true);
-		mailfield.setReadOnly(true);
 		telnrfield.setReadOnly(true);
 		
 		
@@ -122,7 +145,6 @@ public class BewerberProfil extends Panel implements View {
 			public void buttonClick(ClickEvent event) {
 				namefield.setReadOnly(false);
 				jahrfield.setReadOnly(false);
-				mailfield.setReadOnly(false);
 				telnrfield.setReadOnly(false);
 				btn_edit.setEnabled(false);
 				hl_botbtns.setVisible(true);
@@ -135,7 +157,6 @@ public class BewerberProfil extends Panel implements View {
 			public void buttonClick(ClickEvent event) {
 				namefield.setReadOnly(true);
 				jahrfield.setReadOnly(true);
-				mailfield.setReadOnly(true);
 				telnrfield.setReadOnly(true);
 				btn_edit.setEnabled(true);
 				hl_botbtns.setVisible(false);
@@ -153,7 +174,6 @@ public class BewerberProfil extends Panel implements View {
 						cont.commit();
 						namefield.setReadOnly(true);
 						jahrfield.setReadOnly(true);
-						mailfield.setReadOnly(true);
 						telnrfield.setReadOnly(true);
 						btn_edit.setEnabled(true);
 						hl_botbtns.setVisible(false);
@@ -385,7 +405,6 @@ public class BewerberProfil extends Panel implements View {
 		TokenField richtfield = new TokenField("Wunschrichtung"){
 			@Override
 			public void addToken(Object tokenId) {
-				System.out.println(tokenId +": "+ getContainerDataSource().getItemIds());
 				if(getContainerDataSource().containsId(tokenId))
 					super.setReadOnly(false);
 					super.addToken(tokenId);
@@ -398,7 +417,7 @@ public class BewerberProfil extends Panel implements View {
 		};
 		richtfield.setContainerDataSource(richtcont);
 		richtfield.setReadOnly(true);
-		richtfield.setTokenCaptionPropertyId("Bezeichnung");
+		richtfield.setTokenCaptionPropertyId("bezeichnung");
 		
 		com.example.data.TableQuery tq_bewricht = new com.example.data.TableQuery("studiengang_bewerberprofil", DatabaseConnector.getPool()){
 			@Override
@@ -421,7 +440,6 @@ public class BewerberProfil extends Panel implements View {
 			Item item = cont_bewricht.getItem(itemId);
 			for (Iterator it_tokens = richtfield.getTokenIds().iterator(); it_tokens.hasNext();) {
 				Object token = (Object) it_tokens.next();
-				System.out.println(token+"; "+item.getItemProperty("studiengang_id").getValue());
 				if(token.toString().equals(item.getItemProperty("studiengang_id").getValue().toString()))
 					richtfield.addToken(token);
 			}
@@ -473,8 +491,6 @@ public class BewerberProfil extends Panel implements View {
 //					if(binder.isValid()){
 //						binder.commit();
 //						cont.commit();
-				System.out.println(richtfield.getValue().getClass());
-				System.out.println(richtfield.getValue());
 						richtfield.setReadOnly(true);
 						btn_edit.setEnabled(true);
 						hl_tätigbtns.setVisible(false);

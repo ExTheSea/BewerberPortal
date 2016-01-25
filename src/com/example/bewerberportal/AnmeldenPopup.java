@@ -1,11 +1,13 @@
 package com.example.bewerberportal;
 
+import com.example.login.BasicAccessControl;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
@@ -64,7 +66,10 @@ public class AnmeldenPopup extends Window {
 				//Logik zum Anmelden
 				tf_mail.setValidationVisible(true);
 				if(tf_mail.isValid()) {
-					close();
+					if(BewerberportalUI.getCurrent().control.signIn(tf_mail.getValue(), tf_password.getValue()))
+						close();
+					else
+						Notification.show("Error", "User oder Passwort ist nicht korrekt", Notification.Type.ERROR_MESSAGE);
 				}
 			}
 		});
