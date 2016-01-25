@@ -60,8 +60,6 @@ public class BewerberProfil extends Panel implements View {
 		}else{
 			cont.removeAllContainerFilters();
 			item = cont.getItem(cont.addItem());
-			System.out.println(item);
-			System.out.println(CurrentUser.get());
 			item.getItemProperty("benutzer_id").setValue(Integer.valueOf(CurrentUser.get()));
 			item.getItemProperty("name").setValue("");
 			item.getItemProperty("geburtsjahr").setValue("");
