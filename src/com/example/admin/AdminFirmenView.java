@@ -1,4 +1,4 @@
-package com.example.bewerberportal;
+package com.example.admin;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,30 +9,29 @@ import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButt
 
 import com.example.data.DatabaseConnector;
 import com.example.data.TableQuery;
+import com.vaadin.data.Item;
+import com.vaadin.data.util.GeneratedPropertyContainer;
+import com.vaadin.data.util.PropertyValueGenerator;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
-import com.vaadin.ui.Window.CloseEvent;
-import com.vaadin.ui.Window.CloseListener;
 import com.vaadin.ui.renderers.ClickableRenderer.RendererClickEvent;
 
-public class AdminBewerberView extends VerticalLayout implements View {
+public class AdminFirmenView extends VerticalLayout implements View {
 
 	
 	private static final long serialVersionUID = 1L;
 
 
-    private SQLContainer cont = null;
-	public AdminBewerberView() {
+	public AdminFirmenView() {
 		setMargin(true);
 		setSpacing(true);
 		setSizeFull();
 		
 		Grid grid = new Grid();
-        TableQuery tq = new TableQuery("bewerberprofil", DatabaseConnector.getPool()){
+        TableQuery tq = new TableQuery("firmenprofil", DatabaseConnector.getPool()){
 
 			private static final long serialVersionUID = 1L;
 
@@ -42,6 +41,7 @@ public class AdminBewerberView extends VerticalLayout implements View {
                 super.fetchMetaData();
             };
         };
+        SQLContainer cont = null;
         try {
             cont = new SQLContainer(tq);
         } catch (SQLException e) {
@@ -52,39 +52,18 @@ public class AdminBewerberView extends VerticalLayout implements View {
         grid.setSizeFull();
         GridCellFilter filter = new GridCellFilter(grid);
         filter.setTextFilter("name", true, true);
+        filter.setTextFilter("website", true, true);
         
-        filter.setNumberFilter("id");
-        filter.setNumberFilter("benutzer_id");
-        filter.setNumberFilter("geburtsjahr");
-        filter.setTextFilter("telefonnummer", true, true);
-        filter.setTextFilter("hobbies", true, true);
-        filter.setTextFilter("zusatzqualifikationen", true, true);
-        filter.setTextFilter("plz", true, true);
-        filter.setNumberFilter("note_deutsch");
-        filter.setNumberFilter("note_englisch");
-        filter.setNumberFilter("note_mathe");
-        filter.setNumberFilter("zeugnisschnitt");
         
         grid.setSizeFull();
-//        grid.removeColumn("logo");
+        grid.removeColumn("logo");
         grid.getColumn("id").setHeaderCaption("ID");
         grid.getColumn("id").setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				Window wind = new Window();
-				wind.center();
-				wind.setModal(true);
-				wind.setSizeFull();
-				wind.setContent(new BewerberProfil(cont.getItem(event.getItemId()).getItemProperty("benutzer_id").getValue().toString()));
-				BewerberportalUI.getCurrent().addWindow(wind);
-				wind.addCloseListener(new CloseListener() {
-					
-					@Override
-					public void windowClose(CloseEvent e) {
-						cont.refresh();
-					}
-				});
+				// TODO Auto-generated method stub
+				
 			}
 			
 			@Override

@@ -2,6 +2,15 @@ package com.example.bewerberportal;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.example.admin.AdminAnsprechpartnerView;
+import com.example.admin.AdminBenutzerFirmenprofilView;
+import com.example.admin.AdminBenutzerView;
+import com.example.admin.AdminBewerberView;
+import com.example.admin.AdminFirmenView;
+import com.example.admin.AdminLieblingsfaecherView;
+import com.example.admin.AdminStandortView;
+import com.example.admin.AdminStudiengangView;
+import com.example.admin.AdminStudienplaetzeView;
 import com.example.login.BasicAccessControl;
 import com.example.login.CurrentUser;
 import com.vaadin.annotations.Theme;
@@ -105,7 +114,6 @@ public class BewerberportalUI extends UI {
 		
 		pnl_menu.addView(new TestView(), "Test", "Test", FontAwesome.ASTERISK);
 		pnl_menu.addView(new FirmenSucheView(), "Suche", "Suche", FontAwesome.ASTERISK);
-		pnl_menu.addView(new AdminBewerberView(), "firmadm", "Firmen", FontAwesome.BUILDING);
 		pnl_menu.setActiveView("Test");
 	}
 	
@@ -118,9 +126,16 @@ public class BewerberportalUI extends UI {
 		pnl_menu.removeAllViews();
 		switch (type) {
 		case 0:
-			pnl_menu.addView(new TestView(), "Test", "Test", FontAwesome.ASTERISK);
-			pnl_menu.addView(new TestView2(), "Test2", "Test2", FontAwesome.ASTERISK);
-			pnl_menu.setActiveView("Test");
+			pnl_menu.addView(new AdminBenutzerView(), "Benutzer", "Benutzer", FontAwesome.USERS);
+			pnl_menu.addView(new AdminBewerberView(), "Bewerber", "Bewerber", FontAwesome.USER);
+			pnl_menu.addView(new AdminFirmenView(), "Firma", "Firma", FontAwesome.BUILDING);
+			pnl_menu.addView(new AdminBenutzerFirmenprofilView(), "benfirm", "Benutzer-Firma", FontAwesome.LINK);
+			pnl_menu.addView(new AdminStandortView(), "Standort", "Standort", FontAwesome.BUILDING_O);
+			pnl_menu.addView(new AdminAnsprechpartnerView(), "Ansprechpartner", "Ansprechpartner", FontAwesome.PHONE);
+			pnl_menu.addView(new AdminStudienplaetzeView(), "Studienplaetze", "Studienplaetze", FontAwesome.LIST);
+			pnl_menu.addView(new AdminStudiengangView(), "Studiengang", "Studiengang", FontAwesome.INSTITUTION);
+			pnl_menu.addView(new AdminLieblingsfaecherView(), "Lieblingsfaecher", "Lieblingsfaecher", FontAwesome.HEART);
+			pnl_menu.setActiveView("Benutzer");
 			break;
 		case 1:
 			pnl_menu.addView(new BewerberProfil(CurrentUser.get()), "Profil", "Bewerber", FontAwesome.USER);

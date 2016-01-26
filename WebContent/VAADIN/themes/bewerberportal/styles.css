@@ -989,7 +989,7 @@
  */
 
 .v-vaadin-version:after {
-	content: "7.6.0";
+	content: "7.6.1";
 }
 
 .v-widget {
@@ -4445,6 +4445,7 @@ div.v-layout.v-horizontal.v-widget {
 .bewerberportal .v-grid-column-resize-handle {
 	position: absolute;
 	width: 36px;
+	right: -18px;
 	top: 0px;
 	bottom: 0px;
 	cursor: col-resize;
@@ -4454,10 +4455,6 @@ div.v-layout.v-horizontal.v-widget {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-}
-
-.bewerberportal .sort-asc  > .v-grid-column-resize-handle, .bewerberportal .sort-desc  > .v-grid-column-resize-handle {
-	right: -18px;
 }
 
 .bewerberportal .v-grid-footer td {
