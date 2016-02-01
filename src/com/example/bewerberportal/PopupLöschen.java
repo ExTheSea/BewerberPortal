@@ -14,11 +14,14 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Window.CloseEvent;
 
 public class PopupLöschen extends Window {
 	
-	public PopupLöschen(String firmenname) {
-		
+	DeleteListener listener;
+	
+	public PopupLöschen(String firmenname, DeleteListener deleteListener) {
+		this.listener = deleteListener;
 		VerticalLayout vl_popup = new VerticalLayout();
 		vl_popup.setMargin(true);
 		vl_popup.setSpacing(true);
@@ -26,7 +29,7 @@ public class PopupLöschen extends Window {
 		setContent(vl_popup);
 		
 		
-		vl_popup.addComponent(new Label("Soll die Firma " + firmenname + " wirklich gelöscht werden?"));
+		vl_popup.addComponent(new Label("Soll " + firmenname + " wirklich gelöscht werden?"));
 		
 		HorizontalLayout hl_buttons = new HorizontalLayout();
 		hl_buttons.setWidth("100%");
@@ -38,7 +41,8 @@ public class PopupLöschen extends Window {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//Coding zum Löschen aus der DB
+				deleteListener.delete();
+				close();
 		}});
 		hl_buttons.addComponent(btn_delete);
 		
@@ -70,7 +74,20 @@ public class PopupLöschen extends Window {
 		setResizable(false);
 		setClosable(false);
 		
+		addCloseListener(new CloseListener() {
+			
+			@Override
+			public void windowClose(CloseEvent e) {
+				deleteListener.close();
+			}
+		});
+		
 		//PopUp öffnen
 		BewerberportalUI.getCurrent().addWindow(this);
+	}
+	
+	public interface DeleteListener{
+		public void delete();
+		public void close();
 	}
 }

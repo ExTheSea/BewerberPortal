@@ -1,10 +1,12 @@
 package com.example.bewerberportal;
 
-import com.example.login.BasicAccessControl;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
@@ -13,7 +15,6 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class AnmeldenPopup extends Window {
@@ -79,6 +80,14 @@ public class AnmeldenPopup extends Window {
 		vl_popup.setComponentAlignment(btn_login, Alignment.BOTTOM_CENTER);
 		vl_popup.setExpandRatio(btn_login, 1f);
 
+		
+		tf_password.addValueChangeListener(new ValueChangeListener() {
+			
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				btn_login.click();
+			}
+		});
 		
 		setModal(true);
 		center();

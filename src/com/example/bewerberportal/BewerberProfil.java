@@ -60,7 +60,7 @@ public class BewerberProfil extends Panel implements View {
 		}else{
 			cont.removeAllContainerFilters();
 			item = cont.getItem(cont.addItem());
-			item.getItemProperty("benutzer_id").setValue(Integer.valueOf(CurrentUser.get()));
+			item.getItemProperty("benutzer_id").setValue(Integer.valueOf(benutzer_id));
 			item.getItemProperty("name").setValue("");
 			item.getItemProperty("geburtsjahr").setValue("");
 			item.getItemProperty("telefonnummer").setValue("");

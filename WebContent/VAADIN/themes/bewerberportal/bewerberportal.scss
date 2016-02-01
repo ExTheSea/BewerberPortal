@@ -95,10 +95,9 @@ $v-panel-border: 0px solid v-shade;
 	.v-window{
 		background: rgb(228, 232, 234) none repeat scroll 0% 0% !important;
 	}
-	
-	.gridcellfilter{
-		border-right: 1px;
-		border-left: 1px;
+		
+	.v-cell-value{
+		text-align: right;
 	}
   // Insert your own theme rules here
 }
