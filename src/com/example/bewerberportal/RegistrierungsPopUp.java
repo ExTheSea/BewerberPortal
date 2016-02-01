@@ -7,6 +7,7 @@ import java.sql.Statement;
 import com.example.data.DatabaseConnector;
 import com.vaadin.data.Item;
 import com.vaadin.data.Validator;
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.filter.Like;

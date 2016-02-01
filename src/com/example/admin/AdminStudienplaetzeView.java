@@ -75,7 +75,7 @@ public class AdminStudienplaetzeView extends VerticalLayout implements View {
         GridCellFilter filter = new GridCellFilter(grid);
         
         filter.setNumberFilter("id");
-        filter.setNumberFilter("firmenprofil_id");
+        //filter.setNumberFilter("firmenprofil_id");
         filter.setNumberFilter("studiengang_id");
         filter.setNumberFilter("standort_id");
         filter.setNumberFilter("anzahl");
