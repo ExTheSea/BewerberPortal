@@ -17,7 +17,8 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 	import com.vaadin.ui.Button;
 	import com.vaadin.ui.HorizontalLayout;
 	import com.vaadin.ui.Label;
-	import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Button.ClickEvent;
 	import com.vaadin.ui.ComboBox;
 	import com.vaadin.ui.TextField;
 	import com.vaadin.ui.VerticalLayout;
@@ -31,8 +32,10 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 		
 		private SQLContainer cont_studiengang = null;
 		private SQLContainer cont_standorte = null;
+		private PopUpCloseListener listener;
 		
-		public StellenangebotPopUp(Item item) {
+		public StellenangebotPopUp(Item item, PopUpCloseListener listener) {
+			this.listener = listener;
 			VerticalLayout vl_popup = new VerticalLayout();
 			vl_popup.setMargin(true);
 			vl_popup.setSpacing(true);
@@ -135,8 +138,7 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 					if(durchschnitt.getValue()=="");
 					else{
 						try{
-							//kommazahlen abfangen bzw erlauben
-							if((Double.parseDouble(durchschnitt.getValue())<1) || (Double.parseDouble(durchschnitt.getValue())>6)){
+							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
 						}catch(ClassCastException e){
@@ -162,6 +164,29 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			if(item.getItemProperty("note_deutsch").getValue()!=null)deutsch.setValue(item.getItemProperty("note_deutsch").getValue().toString());
 			hl_deutsch.addComponent(deutsch);
 			
+			deutsch.addValidator(new Validator() {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void validate(Object value) throws InvalidValueException {
+					if(durchschnitt.getValue()=="");
+					else{
+						try{
+							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
+								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+							}
+						}catch(ClassCastException e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}
+					}
+				}
+			});
+			
 			HorizontalLayout hl_englisch = new HorizontalLayout();
 			hl_englisch.setSizeFull();
 			vl_popup.addComponent(hl_englisch);
@@ -172,6 +197,29 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			if(item.getItemProperty("note_englisch").getValue()!=null)englisch.setValue(item.getItemProperty("note_englisch").getValue().toString());
 			hl_englisch.addComponent(englisch);
 			
+			englisch.addValidator(new Validator() {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void validate(Object value) throws InvalidValueException {
+					if(durchschnitt.getValue()=="");
+					else{
+						try{
+							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
+								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+							}
+						}catch(ClassCastException e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}
+					}
+				}
+			});
+			
 			HorizontalLayout hl_mathe = new HorizontalLayout();
 			hl_mathe.setSizeFull();
 			vl_popup.addComponent(hl_mathe);
@@ -181,6 +229,29 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			TextField mathe = new TextField();
 			if(item.getItemProperty("note_mathe").getValue()!=null)mathe.setValue(item.getItemProperty("note_mathe").getValue().toString());
 			hl_mathe.addComponent(mathe);
+			
+			mathe.addValidator(new Validator() {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void validate(Object value) throws InvalidValueException {
+					if(durchschnitt.getValue()=="");
+					else{
+						try{
+							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
+								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+							}
+						}catch(ClassCastException e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}
+					}
+				}
+			});
 			
 			Button btn_register = new Button("Speichern");
 			btn_register.setStyleName(ValoTheme.BUTTON_DANGER);
@@ -200,15 +271,16 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 				        	statement_save = con_save.createStatement();
 				        	StringBuilder sql = new StringBuilder();
 				        	sql.append("UPDATE studienplaetze SET ");
-				        	if((deutsch!=null) || (deutsch.getValue().toString()!="")) sql.append("note_deutsch="+deutsch.getValue().toString()+",");
-				        	if((englisch!=null) || (englisch.getValue().toString()!="")) sql.append("note_englisch="+englisch.getValue().toString()+",");
-				        	if((mathe!=null) || (mathe.getValue().toString()!="")) sql.append("note_mathe="+mathe.getValue().toString()+",");
-				        	if((durchschnitt!=null) || (durchschnitt.getValue().toString()!="")) sql.append("zeugnisschnitt="+durchschnitt.getValue().toString()+",");
-				        	if((freie_plaetze!=null) || (freie_plaetze.getValue().toString()!="")) sql.append("anzahl="+freie_plaetze.getValue().toString()+",");
+				        	if((deutsch!=null) && (deutsch.getValue().toString()!="")) sql.append("note_deutsch="+deutsch.getValue().toString()+",");
+				        	if((englisch!=null) && (englisch.getValue().toString()!="")) sql.append("note_englisch="+englisch.getValue().toString()+",");
+				        	if((mathe!=null) && (mathe.getValue().toString()!="")) sql.append("note_mathe="+mathe.getValue().toString()+",");
+				        	if((durchschnitt!=null) && (durchschnitt.getValue().toString()!="")) sql.append("zeugnisschnitt="+durchschnitt.getValue().toString()+",");
+				        	if((freie_plaetze!=null) && (freie_plaetze.getValue().toString()!="")) sql.append("anzahl="+freie_plaetze.getValue().toString()+",");
 				        	sql.append("studiengang_id="+dropdown_studiengang.getValue().toString()+",standort_id="+dropdown_standort.getValue().toString()+" WHERE ID="+item.getItemProperty("id").getValue().toString());
 					        int rs = statement_save.executeUpdate(sql.toString());
 					        con_save.commit();
 					        close();
+					        listener.close();
 			        	}
 
 					} catch (SQLException e1) {
@@ -243,7 +315,7 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			BewerberportalUI.getCurrent().addWindow(this);
 		}
 		
-		public StellenangebotPopUp(){
+		public StellenangebotPopUp(PopUpCloseListener listener){
 			VerticalLayout vl_popup = new VerticalLayout();
 			vl_popup.setMargin(true);
 			vl_popup.setSpacing(true);
@@ -359,7 +431,7 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			hl_durschnitt.addComponent(durchschnitt);
 			
 			durchschnitt.addValidator(new Validator() {
-				
+
 				private static final long serialVersionUID = 1L;
 
 				@Override
@@ -367,8 +439,7 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 					if(durchschnitt.getValue()=="");
 					else{
 						try{
-							//kommazahlen abfangen bzw erlauben
-							if((Double.parseDouble(durchschnitt.getValue())<1) || (Double.parseDouble(durchschnitt.getValue())>6)){
+							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
 						}catch(ClassCastException e){
@@ -378,9 +449,7 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 							e.printStackTrace();
 							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 						}
-
 					}
-
 				}
 			});
 			
@@ -393,6 +462,29 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			TextField deutsch = new TextField();
 			hl_deutsch.addComponent(deutsch);
 			
+			deutsch.addValidator(new Validator() {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void validate(Object value) throws InvalidValueException {
+					if(durchschnitt.getValue()=="");
+					else{
+						try{
+							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
+								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+							}
+						}catch(ClassCastException e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}
+					}
+				}
+			});
+			
 			HorizontalLayout hl_englisch = new HorizontalLayout();
 			hl_englisch.setSizeFull();
 			vl_popup.addComponent(hl_englisch);
@@ -402,6 +494,29 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			TextField englisch = new TextField();
 			hl_englisch.addComponent(englisch);
 			
+			englisch.addValidator(new Validator() {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void validate(Object value) throws InvalidValueException {
+					if(durchschnitt.getValue()=="");
+					else{
+						try{
+							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
+								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+							}
+						}catch(ClassCastException e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}
+					}
+				}
+			});
+			
 			HorizontalLayout hl_mathe = new HorizontalLayout();
 			hl_mathe.setSizeFull();
 			vl_popup.addComponent(hl_mathe);
@@ -410,6 +525,29 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			
 			TextField mathe = new TextField();
 			hl_mathe.addComponent(mathe);
+			
+			mathe.addValidator(new Validator() {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void validate(Object value) throws InvalidValueException {
+					if(durchschnitt.getValue()=="");
+					else{
+						try{
+							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
+								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+							}
+						}catch(ClassCastException e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new InvalidValueException("Note zwischen 1.0 und 6.0");
+						}
+					}
+				}
+			});
 			
 			Button btn_register = new Button("Speichern");
 			btn_register.setStyleName(ValoTheme.BUTTON_DANGER);
@@ -422,29 +560,38 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 				@Override
 				public void buttonClick(ClickEvent event) {
 			        Connection con_save = null;
-			        Statement statement_delete = null;
+			        Statement statement_save = null;
 			        try {
 			        	if (dropdown_standort.isValid()&&dropdown_studiengang.isValid()&&deutsch.isValid()&&mathe.isValid()&&englisch.isValid()&&durchschnitt.isValid()){
 				        	con_save = DatabaseConnector.getPool().reserveConnection();
-				        	statement_delete = con_save.createStatement();
-				        	StringBuilder sql = new StringBuilder();
-				        	sql.append("INSERT INTO studienplaetze (");
-				        	if((deutsch!=null) || (deutsch.getValue().toString()!="")) sql.append("note_deutsch,");
-				        	if((englisch!=null) || (englisch.getValue().toString()!="")) sql.append("note_englisch,");
-				        	if((mathe!=null) || (mathe.getValue().toString()!="")) sql.append("note_mathe,");
-				        	if((durchschnitt!=null) || (durchschnitt.getValue().toString()!="")) sql.append("zeugnisschnitt,");
-				        	if((freie_plaetze!=null) || (freie_plaetze.getValue().toString()!="")) sql.append("anzahl,");
-				        	sql.append("studiengang_id,standort_id) VALUES(");
-				        	if((deutsch!=null) || (deutsch.getValue().toString()!="")) sql.append(deutsch.getValue().toString()+",");
-				        	if((englisch!=null) || (englisch.getValue().toString()!="")) sql.append(englisch.getValue().toString()+",");
-				        	if((mathe!=null) || (mathe.getValue().toString()!="")) sql.append(mathe.getValue().toString()+",");
-				        	if((durchschnitt!=null) || (durchschnitt.getValue().toString()!="")) sql.append(durchschnitt.getValue().toString()+",");
-				        	if((freie_plaetze!=null) || (freie_plaetze.getValue().toString()!="")) sql.append(freie_plaetze.getValue().toString()+",");
-				        	sql.append(dropdown_studiengang.getValue().toString()+","+dropdown_standort.getValue().toString()+")");
-					        int rs = statement_delete.executeUpdate(sql.toString());
-					        con_save.commit();
-					        close();
-			        	}
+				        	statement_save = con_save.createStatement();
+				        	ResultSet vorhanden = null;
+				        	vorhanden = statement_save.executeQuery("SELECT ID FROM go2dhbw.studienplaetze WHERE studiengang_id='"+dropdown_studiengang.getValue().toString()+"' AND standort_id='"+dropdown_standort.getValue().toString()+"'");
+				        	if(!vorhanden.first()){
+					        	StringBuilder sql = new StringBuilder();
+					        	sql.append("INSERT INTO studienplaetze (");
+					        	if((deutsch!=null) && (deutsch.getValue().toString()!="")) sql.append("note_deutsch,");
+					        	if((englisch!=null) && (englisch.getValue().toString()!="")) sql.append("note_englisch,");
+					        	if((mathe!=null) && (mathe.getValue().toString()!="")) sql.append("note_mathe,");
+					        	if((durchschnitt!=null) && (durchschnitt.getValue().toString()!="")) sql.append("zeugnisschnitt,");
+					        	if((freie_plaetze!=null) && (freie_plaetze.getValue().toString()!="")) sql.append("anzahl,");
+					        	sql.append("studiengang_id,standort_id) VALUES(");
+					        	if((deutsch!=null) && (deutsch.getValue().toString()!="")) sql.append(deutsch.getValue().toString()+",");
+					        	if((englisch!=null) && (englisch.getValue().toString()!="")) sql.append(englisch.getValue().toString()+",");
+					        	if((mathe!=null) && (mathe.getValue().toString()!="")) sql.append(mathe.getValue().toString()+",");
+					        	if((durchschnitt!=null) && (durchschnitt.getValue().toString()!="")) sql.append(durchschnitt.getValue().toString()+",");
+					        	if((freie_plaetze!=null) && (freie_plaetze.getValue().toString()!="")) sql.append(freie_plaetze.getValue().toString()+",");
+					        	sql.append(dropdown_studiengang.getValue().toString()+","+dropdown_standort.getValue().toString()+")");
+					        	System.out.println(sql.toString());
+					        	int rs = statement_save.executeUpdate(sql.toString());
+						        con_save.commit();
+						        close();
+						        listener.close();
+				        	}
+				        	else{
+								Notification.show("Fehler", "Studiengangs- und Standortkombination bereits vorhanden", Notification.Type.ERROR_MESSAGE);
+				        	}
+				        }
 			        	else{
 			        		dropdown_standort.setValidationVisible(true);
 			        		dropdown_studiengang.setValidationVisible(true);
@@ -453,7 +600,7 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 						e1.printStackTrace();
 					}finally {
 						try {
-							statement_delete.close();
+							statement_save.close();
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
@@ -479,5 +626,9 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 			
 			//PopUp öffnen
 			BewerberportalUI.getCurrent().addWindow(this);
+		}
+		
+		static interface PopUpCloseListener{
+			public void close();
 		}
 	}

@@ -36,11 +36,13 @@ public class StudentPopUp extends Window {
 		vl_basic.setSizeFull();
 		vl_basic.setSpacing(true);
 		
-		Label name = new Label(item.getItemProperty("name").getValue().toString());
+		Label name = new Label();
+		if(((item.getItemProperty("name").getValue()!=null) && ((item.getItemProperty("name").getValue().toString()!="")))) name.setValue(item.getItemProperty("name").getValue().toString());
 		name.setCaption("Name:");
 		vl_basic.addComponent(name);
 		
-		Label geburtsjahr = new Label(item.getItemProperty("geburtsjahr").getValue().toString());
+		Label geburtsjahr = new Label();
+		if(((item.getItemProperty("geburtsjahr").getValue()!=null) && ((item.getItemProperty("geburtsjahr").getValue().toString()!="")))) geburtsjahr.setValue(item.getItemProperty("geburtsjahr").getValue().toString());
 		geburtsjahr.setCaption("Geburtsjahr:");
 		vl_basic.addComponent(geburtsjahr);
 		
@@ -48,23 +50,28 @@ public class StudentPopUp extends Window {
 		hl_popup.addComponent(vl_contact);
 		vl_contact.setSpacing(true);
 		
-		Label label_email = new Label(item.getItemProperty("email").getValue().toString());
+		Label label_email = new Label();
+		if(((item.getItemProperty("email").getValue()!=null) && ((item.getItemProperty("email").getValue().toString()!="")))) label_email.setValue(item.getItemProperty("email").getValue().toString());
 		label_email.setCaption("E-Mail:");
 		vl_contact.addComponent(label_email);
 		
-		Label label_telefonnummer = new Label(item.getItemProperty("telefonnummer").getValue().toString());
+		Label label_telefonnummer = new Label();
+		if(((item.getItemProperty("telefonnummer").getValue()!=null) && ((item.getItemProperty("telefonnummer").getValue().toString()!="")))) label_telefonnummer.setValue(item.getItemProperty("telefonnummer").getValue().toString());
 		label_telefonnummer.setCaption("Telefonnummer:");
 		vl_contact.addComponent(label_telefonnummer);
 		
-		Label label_ort = new Label(item.getItemProperty("plz").getValue().toString() + " Ort" /*item.getItemProperty("ort").getValue().toString()*/);
+		Label label_ort = new Label();
+		if(((item.getItemProperty("plz").getValue()!=null) && ((item.getItemProperty("plz").getValue().toString()!="")))) label_ort.setValue((item.getItemProperty("plz").getValue().toString()+ " ort"));
 		label_ort.setCaption("Wohnort:");
 		vl_popup.addComponent(label_ort);
 		
-		Label label_hobbies = new Label(item.getItemProperty("hobbies").getValue().toString());
+		Label label_hobbies = new Label();
+		if(((item.getItemProperty("hobbies").getValue()!=null) && ((item.getItemProperty("hobbies").getValue().toString()!="")))) label_hobbies.setValue(item.getItemProperty("hobbies").getValue().toString());
 		label_hobbies.setCaption("Hobbys:");
 		vl_popup.addComponent(label_hobbies);
 		
-		Label label_zusatzqualifikationen = new Label(item.getItemProperty("zusatzqualifikationen").getValue().toString());
+		Label label_zusatzqualifikationen = new Label();
+		if(((item.getItemProperty("zusatzqualifikationen").getValue()!=null) && ((item.getItemProperty("zusatzqualifikationen").getValue().toString()!="")))) label_zusatzqualifikationen.setValue(item.getItemProperty("zusatzqualifikationen").getValue().toString());
 		label_zusatzqualifikationen.setCaption("Zusatzqualifikationen:");
 		vl_popup.addComponent(label_zusatzqualifikationen);
 		
@@ -90,7 +97,8 @@ public class StudentPopUp extends Window {
 		
 		hl_deutsch.addComponent(new Label("&nbsp", ContentMode.HTML));
 		
-		Label label_deutsch = new Label(item.getItemProperty("note_deutsch").getValue().toString());
+		Label label_deutsch = new Label();
+		if(((item.getItemProperty("note_deutsch").getValue()!=null) && ((item.getItemProperty("note_deutsch").getValue().toString()!="")))) label_deutsch.setValue(item.getItemProperty("note_deutsch").getValue().toString());
 		hl_deutsch.addComponent(label_deutsch);
 		
 		HorizontalLayout hl_englisch = new HorizontalLayout();
@@ -103,7 +111,8 @@ public class StudentPopUp extends Window {
 		
 		hl_englisch.addComponent(new Label("&nbsp", ContentMode.HTML));
 		
-		Label label_englisch = new Label(item.getItemProperty("note_englisch").getValue().toString());
+		Label label_englisch = new Label();
+		if(((item.getItemProperty("note_englisch").getValue()!=null) && ((item.getItemProperty("note_englisch").getValue().toString()!="")))) label_englisch.setValue(item.getItemProperty("note_englisch").getValue().toString());
 		hl_englisch.addComponent(label_englisch);
 		
 		HorizontalLayout hl_mathe = new HorizontalLayout();
@@ -116,7 +125,8 @@ public class StudentPopUp extends Window {
 		
 		hl_mathe.addComponent(new Label("&nbsp", ContentMode.HTML));
 		
-		Label label_mathe = new Label(item.getItemProperty("note_mathe").getValue().toString());
+		Label label_mathe = new Label();
+		if(((item.getItemProperty("note_mathe").getValue()!=null) && ((item.getItemProperty("note_mathe").getValue().toString()!="")))) label_mathe.setValue(item.getItemProperty("note_mathe").getValue().toString());
 		hl_mathe.addComponent(label_mathe);
 		
 		vl_noten.addComponent(new Label("_____________________"));
@@ -131,7 +141,8 @@ public class StudentPopUp extends Window {
 		
 		hl_noten_gesamt.addComponent(new Label("&nbsp", ContentMode.HTML));
 		
-		Label label_noten_gesamt = new Label(item.getItemProperty("zeugnisschnitt").getValue().toString());
+		Label label_noten_gesamt = new Label();
+		if(((item.getItemProperty("zeugnisschnitt").getValue()!=null) && ((item.getItemProperty("zeugnisschnitt").getValue().toString()!="")))) label_noten_gesamt.setValue(item.getItemProperty("zeugnisschnitt").getValue().toString());
 		hl_noten_gesamt.addComponent(label_noten_gesamt);
 		
 		VerticalLayout vl_auswahl = new VerticalLayout();
@@ -139,11 +150,13 @@ public class StudentPopUp extends Window {
 		vl_auswahl.setSizeFull();
 		vl_auswahl.setSpacing(true);
 		
-		Label label_lieblingsfaecher = new Label(item.getItemProperty("lieblingsfach").getValue().toString());
+		Label label_lieblingsfaecher = new Label();
+		if(((item.getItemProperty("lieblingsfach").getValue()!=null) && ((item.getItemProperty("lieblingsfach").getValue().toString()!="")))) label_lieblingsfaecher.setValue(item.getItemProperty("lieblingsfach").getValue().toString());
 		label_lieblingsfaecher.setCaption("Lieblingsfach:");
 		vl_auswahl.addComponent(label_lieblingsfaecher);
 		
-		Label label_studiengang = new Label(item.getItemProperty("studiengang").getValue().toString());
+		Label label_studiengang = new Label();
+		if(((item.getItemProperty("studiengang").getValue()!=null) && ((item.getItemProperty("studiengang").getValue().toString()!="")))) label_studiengang.setValue(item.getItemProperty("studiengang").getValue().toString());
 		label_studiengang.setCaption("Wunschstudienrichtung:");
 		vl_auswahl.addComponent(label_studiengang);
 

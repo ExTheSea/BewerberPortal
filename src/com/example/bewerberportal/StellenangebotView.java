@@ -10,6 +10,7 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
+import com.example.bewerberportal.StellenangebotPopUp.PopUpCloseListener;
 import com.example.data.DatabaseConnector;
 import com.example.data.TableQuery;
 import com.example.login.CurrentUser;
@@ -21,11 +22,10 @@ import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.renderers.ClickableRenderer.RendererClickEvent;
 
 public class StellenangebotView extends VerticalLayout implements View {
@@ -46,7 +46,14 @@ public class StellenangebotView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				new StellenangebotPopUp();
+					new StellenangebotPopUp(new PopUpCloseListener() {
+					
+					@Override
+					public void close() {
+						cont.refresh();
+						
+					}
+				});
 			}
 		});
 		addComponent(anlegen);
@@ -134,7 +141,14 @@ public class StellenangebotView extends VerticalLayout implements View {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				new StellenangebotPopUp(cont_gen.getItem(event.getItemId()));
+				new StellenangebotPopUp(cont_gen.getItem(event.getItemId()), new PopUpCloseListener() {
+					
+					@Override
+					public void close() {
+						cont.refresh();
+						
+					}
+				});
 			}
 			
 			@Override

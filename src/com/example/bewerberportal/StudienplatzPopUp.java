@@ -71,7 +71,7 @@ public class StudienplatzPopUp extends Window {
 		label_freie_plaetze.setCaption("Freie Plätze:");
 		vl_popup.addComponent(label_freie_plaetze);
 		
-		Label label_ansprechpartner = new Label(item.getItemProperty("ansprechpartnername").getValue().toString());
+		Label label_ansprechpartner = new Label(item.getItemProperty("name").getValue().toString());
 		label_ansprechpartner.setCaption("Ansprechpartner:");
 		vl_popup.addComponent(label_ansprechpartner);
 		
