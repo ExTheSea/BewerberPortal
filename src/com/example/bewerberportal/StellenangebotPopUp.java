@@ -119,6 +119,29 @@ import com.vaadin.ui.Button.ClickEvent;
 			if(item.getItemProperty("anzahl").getValue()!=null)freie_plaetze.setValue(item.getItemProperty("anzahl").getValue().toString());
 			hl_freie_plaetze.addComponent(freie_plaetze);
 			
+			freie_plaetze.addValidator(new Validator() {
+				
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void validate(Object value) throws InvalidValueException {
+					if(value.toString()=="");
+					else{
+						try{
+							if((Integer.parseInt(value.toString())<1) || (Integer.parseInt(value.toString())>6)){
+								throw new InvalidValueException("Ganze Zahl zwischen 1 und 5");
+							}
+						}catch(ClassCastException e){
+							e.printStackTrace();
+							throw new InvalidValueException("Ganze Zahl zwischen 1 und 5");
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new InvalidValueException("Ganze Zahl zwischen 1 und 5");
+						}
+					}
+				}
+			});
+			
 			HorizontalLayout hl_durschnitt = new HorizontalLayout();
 			hl_durschnitt.setSizeFull();
 			vl_popup.addComponent(hl_durschnitt);
@@ -135,7 +158,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				@Override
 				public void validate(Object value) throws InvalidValueException {
-					if(durchschnitt.getValue()=="");
+					if(value.toString()=="");
 					else{
 						try{
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
@@ -170,7 +193,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				@Override
 				public void validate(Object value) throws InvalidValueException {
-					if(durchschnitt.getValue()=="");
+					if(value.toString()=="");
 					else{
 						try{
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
@@ -203,7 +226,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				@Override
 				public void validate(Object value) throws InvalidValueException {
-					if(durchschnitt.getValue()=="");
+					if(value.toString()=="");
 					else{
 						try{
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
@@ -236,7 +259,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				@Override
 				public void validate(Object value) throws InvalidValueException {
-					if(durchschnitt.getValue()=="");
+					if(value.toString()=="");
 					else{
 						try{
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
@@ -421,6 +444,28 @@ import com.vaadin.ui.Button.ClickEvent;
 			TextField freie_plaetze = new TextField();
 			hl_freie_plaetze.addComponent(freie_plaetze);
 			
+			freie_plaetze.addValidator(new Validator() {
+				
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void validate(Object value) throws InvalidValueException {
+					if(value.toString()=="");
+					else{
+						try{
+							if((Integer.parseInt(value.toString())<1) || (Integer.parseInt(value.toString())>6)){
+								throw new InvalidValueException("Ganze Zahl zwischen 1 und 5");
+							}
+						}catch(ClassCastException e){
+							e.printStackTrace();
+							throw new InvalidValueException("Ganze Zahl zwischen 1 und 5");
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new InvalidValueException("Ganze Zahl zwischen 1 und 5");
+						}
+					}
+				}
+			});
 			HorizontalLayout hl_durschnitt = new HorizontalLayout();
 			hl_durschnitt.setSizeFull();
 			vl_popup.addComponent(hl_durschnitt);
@@ -436,7 +481,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				@Override
 				public void validate(Object value) throws InvalidValueException {
-					if(durchschnitt.getValue()=="");
+					if(value=="");
 					else{
 						try{
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
@@ -468,7 +513,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				@Override
 				public void validate(Object value) throws InvalidValueException {
-					if(durchschnitt.getValue()=="");
+					if(value.toString()=="");
 					else{
 						try{
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
@@ -500,7 +545,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				@Override
 				public void validate(Object value) throws InvalidValueException {
-					if(durchschnitt.getValue()=="");
+					if(value.toString()=="");
 					else{
 						try{
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
@@ -532,7 +577,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				@Override
 				public void validate(Object value) throws InvalidValueException {
-					if(durchschnitt.getValue()=="");
+					if(value.toString()=="");
 					else{
 						try{
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
