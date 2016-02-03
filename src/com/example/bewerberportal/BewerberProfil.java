@@ -446,6 +446,62 @@ public class BewerberProfil extends Panel implements View {
 		
 		
 		
+		
+		
+		
+		
+		TableQuery tq_liebfach = new TableQuery("lieblingsfaecher", DatabaseConnector.getPool());
+		SQLContainer liebfachcont = null;
+		try {
+			liebfachcont = new SQLContainer(tq_liebfach);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		TokenField liebfachfield = new TokenField("Lieblingsfächer"){
+			@Override
+			public void addToken(Object tokenId) {
+				if(getContainerDataSource().containsId(tokenId))
+					super.setReadOnly(false);
+					super.addToken(tokenId);
+			}
+			@Override
+			protected void rememberToken(String tokenId) {
+				if(getContainerDataSource().containsId(tokenId))
+					super.rememberToken(tokenId);
+			}
+		};
+		liebfachfield.setContainerDataSource(liebfachcont);
+		liebfachfield.setReadOnly(true);
+		liebfachfield.setTokenCaptionPropertyId("bezeichnung");
+		
+		com.example.data.TableQuery tq_bewrliebfach = new com.example.data.TableQuery("lieblingsfaecher_bewerberprofil", DatabaseConnector.getPool()){
+			@Override
+			public void fetchMetaData() {
+				primaryKeyColumns = new ArrayList<>();
+				primaryKeyColumns.add("bewerberprofil_id");
+				super.fetchMetaData();
+			}
+		};
+		SQLContainer cont_bewliebfach = null;
+		try {
+			cont_bewliebfach = new SQLContainer(tq_bewrliebfach);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		cont_bewliebfach.addContainerFilter(new Like("bewerberprofil_id", bewerberprofil_id));
+		ArrayList<String> initvaluefach = new ArrayList<String>();
+		for (Iterator it_gang = cont_bewliebfach.getItemIds().iterator(); it_gang.hasNext();) {
+			Object itemId = (Object) it_gang.next();
+			Item item = cont_bewliebfach.getItem(itemId);
+			for (Iterator it_tokens = liebfachfield.getTokenIds().iterator(); it_tokens.hasNext();) {
+				Object token = (Object) it_tokens.next();
+				if(token.toString().equals(item.getItemProperty("lieblingsfaecher_id").getValue().toString()))
+					liebfachfield.addToken(token);
+			}
+		}
+		formRichtung.addComponent(liebfachfield);
+		
+		
 		HorizontalLayout hl_tätigbtns = new HorizontalLayout();
 		hl_tätigbtns.setWidth("100%");
 		hl_tätigbtns.setSpacing(true);
@@ -464,7 +520,7 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				richtfield.setReadOnly(false);
+				liebfachfield.setReadOnly(false);
 				btn_edit.setEnabled(false);
 				hl_tätigbtns.setVisible(true);
 			}
@@ -474,7 +530,7 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				richtfield.setReadOnly(true);
+				liebfachfield.setReadOnly(true);
 				btn_edit.setEnabled(true);
 				hl_tätigbtns.setVisible(false);
 				binder.discard();
@@ -489,7 +545,7 @@ public class BewerberProfil extends Panel implements View {
 //					if(binder.isValid()){
 //						binder.commit();
 //						cont.commit();
-						richtfield.setReadOnly(true);
+						liebfachfield.setReadOnly(true);
 						btn_edit.setEnabled(true);
 						hl_tätigbtns.setVisible(false);
 //					}
