@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
 
 import com.example.data.DatabaseConnector;
 import com.sun.xml.internal.ws.encoding.soap.SOAP12Constants;
@@ -107,25 +108,32 @@ public class FirmenProfil extends Panel implements View {
 
 		cont.addContainerFilter(new Like("firmenprofil_id", firmenprofil_id));
 		Item item_standort = null;
-		if (cont.size() > 0) {
-			item_standort = cont.getItem(cont.firstItemId());
+		for (Iterator it_standorte = cont.getItemIds().iterator(); it_standorte.hasNext();) {
+			Object itemID = (Object) it_standorte.next();
+			item_standort = cont.getItem(itemID);
 			binder = new FieldGroup(item_standort);
 			ansprechpartner_id = item_standort.getItemProperty("ansprechpartner_id").getValue().toString();
-			vl_fir.addComponent(buildStandort(ansprechpartner_id), index++);
-			
-			for (int x = 1; x < cont.size(); x++) {
-				
-				cont.getItem(x);
-				item_standort = cont.getItem(cont.nextItemId(item_standort.getItemProperty("id")));
-				System.out.println(cont.nextItemId(item_standort.getItemProperty("id")));
-				System.out.println(cont.nextItemId(item_standort.getItemPropertyIds()));
-				System.out.println(cont.nextItemId(item_standort));
-				binder = new FieldGroup(item_standort);
-				ansprechpartner_id = item_standort.getItemProperty("ansprechpartner_id").getValue().toString();
-				vl_fir.addComponent(buildStandort(ansprechpartner_id), index++);
-				
-			}
+			vl_fir.addComponent(buildStandort(ansprechpartner_id));
 		}
+//		if (cont.size() > 0) {
+//			item_standort = cont.getItem(cont.firstItemId());
+//			binder = new FieldGroup(item_standort);
+//			ansprechpartner_id = item_standort.getItemProperty("ansprechpartner_id").getValue().toString();
+//			vl_fir.addComponent(buildStandort(ansprechpartner_id), index++);
+//			
+//			for (int x = 1; x < cont.size(); x++) {
+//				
+//				cont.getItem(x);
+//				item_standort = cont.getItem(cont.nextItemId(item_standort.getItemProperty("id")));
+//				System.out.println(cont.nextItemId(item_standort.getItemProperty("id")));
+//				System.out.println(cont.nextItemId(item_standort.getItemPropertyIds()));
+//				System.out.println(cont.nextItemId(item_standort));
+//				binder = new FieldGroup(item_standort);
+//				ansprechpartner_id = item_standort.getItemProperty("ansprechpartner_id").getValue().toString();
+//				vl_fir.addComponent(buildStandort(ansprechpartner_id), index++);
+//				
+//			}
+//		}
 		
 		System.out.println(cont.size());
 		vl_fir.addComponent(buildAddStandort());
@@ -287,11 +295,10 @@ public class FirmenProfil extends Panel implements View {
 		cont_anpartner.addContainerFilter(new Like("id", ansprechpartner_id));
 		Item item_ansprechpartner = null;
 		if (cont_anpartner.size() > 0) {
-			item_ansprechpartner = cont_anpartner.getItem(cont.firstItemId());
+			item_ansprechpartner = cont_anpartner.getItem(cont_anpartner.firstItemId());
 		}
 		
 		binder = new FieldGroup(item_ansprechpartner);
-		
 		formort.addComponent(anpartnerfield = binder.buildAndBind("Ansprechpartner", "name"));
 		formort.addComponent(mailfield = binder.buildAndBind("E-Mail", "email"));
 		formort.addComponent(telefield = binder.buildAndBind("Telefonnummer", "telefonnummer"));
