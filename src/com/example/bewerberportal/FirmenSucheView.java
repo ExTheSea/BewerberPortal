@@ -99,7 +99,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
         FieldGroup group_anz = filter.setNumberFilter("anzahl");
         ((TextField)group_anz.getField("smallest")).setInputPrompt("Min");
         ((TextField)group_anz.getField("biggest")).setInputPrompt("Max");
-        filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");;
+        filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");
         filter.setTextFilter("ansprechtpartnername", true, true).setInputPrompt("Filter Ansprechpartner");;
         filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Bezeichnung");
         filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
@@ -127,7 +127,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 
 			@Override
 			public void select(SelectionEvent event) {
-				new StudienplatzPopUp(testgrid.getContainerDataSource().getItem(event.getSelected().toArray()[0]));
+				if(!event.getSelected().isEmpty())new StudienplatzPopUp(testgrid.getContainerDataSource().getItem(event.getSelected().toArray()[0]));
 			}
 		});
         
