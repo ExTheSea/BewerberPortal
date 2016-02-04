@@ -150,11 +150,9 @@ public class StudentenSucheView extends VerticalLayout implements View {
 
 			@Override
 			public void textChange(TextChangeEvent event) {
-				System.out.println(cont_gen.getContainerFilters().size());
 				for (Iterator it_filters = stud_filters.iterator(); it_filters.hasNext();) {
 					Filter filter = (Filter) it_filters.next();
 					cont_gen.removeContainerFilter(filter);
-					System.out.println(cont_gen.getContainerFilters().size());
 				}
 				stud_filters.clear();
 				String search_text = event.getText();
@@ -162,7 +160,6 @@ public class StudentenSucheView extends VerticalLayout implements View {
 				for (int i = 0; i < arr_search.length; i++) {
 					String string = arr_search[i];
 					Like filter = new Like("studiengang", "%"+string+"%", false);
-					System.out.println(string);
 					cont_gen.addContainerFilter(filter);
 					stud_filters.add(filter);
 				}

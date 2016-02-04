@@ -65,7 +65,6 @@ public class FirmenProfil extends Panel implements View {
 			statement = con.createStatement();
 			ResultSet rs = statement
 					.executeQuery("SELECT * FROM go2dhbw.benutzer_firmenprofil WHERE benutzer_id = " + benutzer_id);
-			System.out.println("SELECT * FROM go2dhbw.benutzer_firmenprofil WHERE benutzer_id = " + benutzer_id);
 			rs.first();
 			firmenprofil_id = rs.getString("firmenprofil_id");
 		} catch (SQLException e) {
@@ -378,15 +377,12 @@ public class FirmenProfil extends Panel implements View {
 			public void buttonClick(ClickEvent event) {
 				try {
 					if (binder_standort.isValid() && binder_anpartner.isValid()) {
-						System.out.println("Commit");
-						System.out.println(binder_anpartner.getField("name").getValue());
 						binder_standort.commit();
 						binder_anpartner.commit();
 						cont_standort.commit();
 						cont_anpartner.removeAllContainerFilters();
 						for (Iterator it_anspr = cont_anpartner.getItemIds().iterator(); it_anspr.hasNext();) {
 							Object itemID = (Object) it_anspr.next();
-							System.out.println(cont_anpartner.getItem(itemID).getItemProperty("name").getValue());
 						}
 						cont_anpartner.commit();
 						aliasfield.setReadOnly(true);
