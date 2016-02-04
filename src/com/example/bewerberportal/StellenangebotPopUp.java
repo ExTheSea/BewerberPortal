@@ -90,7 +90,6 @@ import com.vaadin.ui.Button.ClickEvent;
 				}
 			});
 			vl_popup.addComponent(dropdown_studiengang);
-
 			cont_standorte.addContainerFilter("firmenprofil_id", item.getItemProperty("firmenprofil_id").getValue().toString(), false, false);
 			ComboBox dropdown_standort = new ComboBox("Standort", cont_standorte);
 			dropdown_standort.setNullSelectionAllowed(false);
