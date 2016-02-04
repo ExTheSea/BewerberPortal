@@ -636,7 +636,6 @@ import com.vaadin.ui.Button.ClickEvent;
 					        	if((durchschnitt!=null) && (durchschnitt.getValue().toString()!="")) sql.append(durchschnitt.getValue().toString()+",");
 					        	if((freie_plaetze!=null) && (freie_plaetze.getValue().toString()!="")) sql.append(freie_plaetze.getValue().toString()+",");
 					        	sql.append(dropdown_studiengang.getValue().toString()+","+dropdown_standort.getValue().toString()+")");
-					        	System.out.println(sql.toString());
 					        	statement_save.executeUpdate(sql.toString());
 						        con_save.commit();
 						        close();

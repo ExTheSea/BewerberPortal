@@ -37,7 +37,9 @@ public class StudentenSucheView extends VerticalLayout implements View {
 	
 	private static final long serialVersionUID = 1L;
 
-
+	SQLContainer cont_test = null;
+	Or orfilter = null;
+	Like filterAlles = null;
 	public StudentenSucheView() {
 		setMargin(true);
 		setSpacing(true);
@@ -54,7 +56,6 @@ public class StudentenSucheView extends VerticalLayout implements View {
                 super.fetchMetaData();
             };
         };
-        SQLContainer cont_test = null;
         try {
             cont_test = new SQLContainer(tq_test);
         } catch (SQLException e) {
@@ -128,18 +129,22 @@ public class StudentenSucheView extends VerticalLayout implements View {
 				e.printStackTrace();
 			}
 		}
-
-        Like[] filters = new Like[studiengang_firma.size()];
-		for (int i = 0; i < studiengang_firma.size(); i++) {
-			String string = studiengang_firma.get(i).toString();
-			Like filterID = new Like("studiengang", "%"+string+"%", false);
-			filters[i] = filterID;
-		}
-		Or orfilter = new Or(filters);
-		cont_test.addContainerFilter(orfilter);
-
-
-			
+        if(!studiengang_firma.isEmpty()){
+        	if(filterAlles!=null)cont_test.removeContainerFilter(filterAlles);
+        	if(orfilter!=null)cont_test.removeContainerFilter(orfilter);
+        	Like[] filters = new Like[studiengang_firma.size()];
+    		for (int i = 0; i < studiengang_firma.size(); i++) {
+    			String string = studiengang_firma.get(i).toString();
+    			Like filterID = new Like("studiengang", "%"+string+"%", false);
+    			filters[i] = filterID;
+    		}
+    		orfilter = new Or(filters);
+    		cont_test.addContainerFilter(orfilter);
+        }
+        else{
+        	filterAlles = new Like("studiengang", "", true);
+        	cont_test.addContainerFilter(filterAlles);
+        }
         
         testgrid.setContainerDataSource(cont_gen);
         testgrid.setSizeFull();
@@ -205,7 +210,60 @@ public class StudentenSucheView extends VerticalLayout implements View {
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		
+		cont_test.refresh();
+        Connection con = null;
+        Statement statement = null;
+        String firmenprofil_id = null;
+        ArrayList<String> studiengang_firma = new  ArrayList<String>();
+        try {
+			con = DatabaseConnector.getPool().reserveConnection();
+	        statement = con.createStatement();
+	        ResultSet rsFirmenID = statement.executeQuery("SELECT firmenprofil_id from benutzer_firmenprofil where benutzer_id = '"+CurrentUser.get()+"'");
+	        rsFirmenID.first();
+	        firmenprofil_id = rsFirmenID.getString("firmenprofil_id");
+	        ResultSet rsStudiengangID = statement.executeQuery("SELECT studiengang.bezeichnung FROM studienplaetze, standort, studiengang WHERE standort.firmenprofil_id = '"+firmenprofil_id+"' AND standort.id = studienplaetze.standort_id AND studienplaetze.studiengang_id = studiengang.id");
+	        rsStudiengangID.first();
+	        if(rsStudiengangID.first()){
+		        while (! rsStudiengangID.isAfterLast()) {
+		        	studiengang_firma.add(rsStudiengangID.getString("bezeichnung"));
+		        	rsStudiengangID.next();
+				}	
+	        }        
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}finally {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				DatabaseConnector.getPool().releaseConnection(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+        if(!studiengang_firma.isEmpty()){
+        	if(filterAlles!=null)cont_test.removeContainerFilter(filterAlles);
+        	if(orfilter!=null)cont_test.removeContainerFilter(orfilter);
+        	Like[] filters = new Like[studiengang_firma.size()];
+    		for (int i = 0; i < studiengang_firma.size(); i++) {
+    			String string = studiengang_firma.get(i).toString();
+    			Like filterID = new Like("studiengang", "%"+string+"%", false);
+    			filters[i] = filterID;
+    		}
+    		orfilter = new Or(filters);
+    		cont_test.addContainerFilter(orfilter);
+        }
+        else{
+        	filterAlles = new Like("studiengang", "", true);
+        	cont_test.addContainerFilter(filterAlles);
+        }
 	}
 
 }

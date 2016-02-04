@@ -34,13 +34,28 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 public class FirmenSucheView extends VerticalLayout implements View {
-
+	
 	
 	private static final long serialVersionUID = 1L;
 
 
     SQLContainer cont_test = null;
-
+	Between deutschFilter;
+	Between englischFilter;
+	Between matheFilter;
+	Between zeugnisschnittFilter;
+	Or studiengangFilter;
+	CheckBox studiengangMatching;
+	CheckBox deutschMatching;
+	CheckBox englischMatching;
+	CheckBox matheMatching;
+	CheckBox zeugnisschnittMatching;
+    String bewerberprofil_id = null;
+    String bewerberprofil_deutsch = null;
+    String bewerberprofil_englisch = null;
+    String bewerberprofil_mathe = null;
+    String bewerberprofil_zeugnisschnitt = null;
+    ArrayList<String> studiengang_bewerber;
 	public FirmenSucheView() {
 		setMargin(true);
 		setSpacing(true);
@@ -86,12 +101,8 @@ public class FirmenSucheView extends VerticalLayout implements View {
             hlCheckbox.addComponent(new Label("Matching: "));
             Connection con = null;
             Statement statement = null;
-            String bewerberprofil_id = null;
-            String bewerberprofil_deutsch = null;
-            String bewerberprofil_englisch = null;
-            String bewerberprofil_mathe = null;
-            String bewerberprofil_zeugnisschnitt = null;
-            ArrayList<String> studiengang_bewerber = new  ArrayList<String>();
+
+            studiengang_bewerber = new  ArrayList<String>();
             try {
     			con = DatabaseConnector.getPool().reserveConnection();
     	        statement = con.createStatement();
@@ -131,16 +142,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
     				e.printStackTrace();
     			}
     		}
-        	Between deutschFilter;
-        	Between englischFilter;
-        	Between matheFilter;
-        	Between zeugnisschnittFilter;
-        	Or studiengangFilter;
-        	CheckBox studiengangMatching;
-        	CheckBox deutschMatching;
-        	CheckBox englischMatching;
-        	CheckBox matheMatching;
-        	CheckBox zeugnisschnittMatching;
+
 			if(!studiengang_bewerber.isEmpty()){
 	            Like[] filters = new Like[studiengang_bewerber.size()];
 	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
@@ -296,13 +298,74 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				if(!event.getSelected().isEmpty())new StudienplatzPopUp(testgrid.getContainerDataSource().getItem(event.getSelected().toArray()[0]));
 			}
 		});
-        
 	}
 	
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		
+		cont_test.refresh();
+		if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="")){
+			
+            Connection con = null;
+            Statement statement = null;
+
+            studiengang_bewerber = new  ArrayList<String>();
+            try {
+    			con = DatabaseConnector.getPool().reserveConnection();
+    	        statement = con.createStatement();
+    	        ResultSet rsProfil = statement.executeQuery("SELECT id, note_deutsch, note_englisch, note_mathe, zeugnisschnitt from bewerberprofil where benutzer_id = '"+CurrentUser.get()+"'");
+    	        if(rsProfil.first()){
+    		        bewerberprofil_id = rsProfil.getString("id");
+    		        bewerberprofil_deutsch = rsProfil.getString("note_deutsch");
+    		        bewerberprofil_englisch = rsProfil.getString("note_englisch");
+    		        bewerberprofil_mathe = rsProfil.getString("note_mathe");
+    		        bewerberprofil_zeugnisschnitt = rsProfil.getString("zeugnisschnitt");
+    		        ResultSet rsStudiengang = statement.executeQuery("SELECT bezeichnung from studiengang, studiengang_bewerberprofil where studiengang_bewerberprofil.bewerberprofil_id = '"+bewerberprofil_id+"' AND studiengang.id = studiengang_bewerberprofil.studiengang_id");
+    		        rsStudiengang.first();
+    		        if(rsStudiengang.first()){
+    			        while (! rsStudiengang.isAfterLast()) {
+    			        	studiengang_bewerber.add(rsStudiengang.getString("bezeichnung"));
+    			        	rsStudiengang.next();
+    					}	
+    		        } 
+    	        }
+    	        
+    		} catch (SQLException e1) {
+    			e1.printStackTrace();
+    		}finally {
+    			try {
+    				statement.close();
+    			} catch (SQLException e) {
+    				e.printStackTrace();
+    			}
+    			try {
+    				con.close();
+    			} catch (SQLException e) {
+    				e.printStackTrace();
+    			}
+    			try {
+    				DatabaseConnector.getPool().releaseConnection(con);
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    			}
+    		}
+			
+			if(!studiengang_bewerber.isEmpty()){
+				studiengangMatching.setValue(false);
+	            Like[] filters = new Like[studiengang_bewerber.size()];
+	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
+	    			String string = studiengang_bewerber.get(i).toString();
+	    			Like filterID = new Like("Bezeichnung", string, false);
+	    			filters[i] = filterID;
+	    		}
+	    		studiengangFilter = new Or(filters);
+				studiengangMatching.setValue(true);
+			}
+			if((bewerberprofil_deutsch!="")&&(bewerberprofil_deutsch!=null))deutschMatching.setValue(false);deutschMatching.setValue(true);
+			if((bewerberprofil_englisch!="")&&(bewerberprofil_englisch!=null))englischMatching.setValue(false);englischMatching.setValue(true);
+			if((bewerberprofil_mathe!="")&&(bewerberprofil_mathe!=null))matheMatching.setValue(false);matheMatching.setValue(true);
+			if((bewerberprofil_zeugnisschnitt!="")&&(bewerberprofil_zeugnisschnitt!=null))zeugnisschnittMatching.setValue(false);zeugnisschnittMatching.setValue(true);
+		}
 	}
 
 }
