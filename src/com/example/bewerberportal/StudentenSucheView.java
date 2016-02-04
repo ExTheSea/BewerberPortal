@@ -92,7 +92,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
         Connection con = null;
         Statement statement = null;
         String firmenprofil_id = null;
-        ArrayList<String> studiengang_id_firma = new  ArrayList<String>();
+        ArrayList<String> studiengang_firma = new  ArrayList<String>();
         try {
 			con = DatabaseConnector.getPool().reserveConnection();
 	        statement = con.createStatement();
@@ -103,7 +103,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 	        rsStudiengangID.first();
 	        if(rsStudiengangID.first()){
 		        while (! rsStudiengangID.isAfterLast()) {
-		        	studiengang_id_firma.add(rsStudiengangID.getString("bezeichnung"));
+		        	studiengang_firma.add(rsStudiengangID.getString("bezeichnung"));
 		        	rsStudiengangID.next();
 				}	
 	        }        
@@ -122,9 +122,9 @@ public class StudentenSucheView extends VerticalLayout implements View {
 			}
 		}
 
-        Like[] filters = new Like[studiengang_id_firma.size()];
-		for (int i = 0; i < studiengang_id_firma.size(); i++) {
-			String string = studiengang_id_firma.get(i).toString();
+        Like[] filters = new Like[studiengang_firma.size()];
+		for (int i = 0; i < studiengang_firma.size(); i++) {
+			String string = studiengang_firma.get(i).toString();
 			Like filterID = new Like("studiengang", "%"+string+"%", false);
 			System.out.println(string);
 			filters[i] = filterID;
