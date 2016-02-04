@@ -4,10 +4,12 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.data.validator.StringLengthValidator;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
@@ -28,20 +30,10 @@ public class AnmeldenPopup extends Window {
 		setContent(vl_popup);
 		
 		//Hinzufügen des Logos
-		Panel pnl_logo = new Panel();
-		HorizontalLayout hl_logo = new HorizontalLayout();
-		hl_logo.setWidth("100%");
-		pnl_logo.setContent(hl_logo);
-		pnl_logo.setStyleName(ValoTheme.PANEL_BORDERLESS);
-		pnl_logo.addStyleName("logo");
-		pnl_logo.setWidth("50%");
-		pnl_logo.setHeight(null);
-		Label lbl_logo = new Label("GO2DHBW");
-		lbl_logo.setSizeUndefined();
-		hl_logo.addComponent(lbl_logo);
-		hl_logo.setComponentAlignment(lbl_logo, Alignment.MIDDLE_CENTER);
-		vl_popup.addComponent(pnl_logo);
-		vl_popup.setComponentAlignment(pnl_logo, Alignment.MIDDLE_CENTER);
+		Image img_logo = new Image(null, new ThemeResource("Logo.png"));
+		img_logo.setWidth("50%");
+		vl_popup.addComponent(img_logo);
+		vl_popup.setComponentAlignment(img_logo, Alignment.MIDDLE_CENTER);
 		
 		//Hinzufügen des Email Texfeld
 		TextField tf_mail = new TextField("E-Mail:");
@@ -94,7 +86,7 @@ public class AnmeldenPopup extends Window {
 		
 		//Können auch Prozente sein
 		setWidth("400px");
-		setHeight("300px");
+		setHeight("330px");
 		
 		//Um standard window buttons zu deaktivieren. Einsetzen wenn nötig
 		setResizable(false);
