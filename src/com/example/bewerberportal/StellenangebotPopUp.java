@@ -318,6 +318,11 @@ import com.vaadin.ui.Button.ClickEvent;
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
+						try {
+							DatabaseConnector.getPool().releaseConnection(con_save);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			});
@@ -413,6 +418,11 @@ import com.vaadin.ui.Button.ClickEvent;
 				try {
 					con.close();
 				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				try {
+					DatabaseConnector.getPool().releaseConnection(con);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -651,6 +661,11 @@ import com.vaadin.ui.Button.ClickEvent;
 						try {
 							con_save.close();
 						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						try {
+							DatabaseConnector.getPool().releaseConnection(con_save);
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}

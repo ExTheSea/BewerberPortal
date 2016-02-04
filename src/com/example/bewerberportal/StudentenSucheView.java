@@ -122,6 +122,11 @@ public class StudentenSucheView extends VerticalLayout implements View {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			try {
+				DatabaseConnector.getPool().releaseConnection(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
         Like[] filters = new Like[studiengang_firma.size()];

@@ -40,16 +40,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 
 
     SQLContainer cont_test = null;
-	Between deutschFilter;
-	Between englischFilter;
-	Between matheFilter;
-	Between zeugnisschnittFilter;
-	Or studiengangFilter;
-	CheckBox studiengangMatching;
-	CheckBox deutschMatching;
-	CheckBox englischMatching;
-	CheckBox matheMatching;
-	CheckBox zeugnisschnittMatching;
+
 	public FirmenSucheView() {
 		setMargin(true);
 		setSpacing(true);
@@ -134,7 +125,22 @@ public class FirmenSucheView extends VerticalLayout implements View {
     			} catch (SQLException e) {
     				e.printStackTrace();
     			}
+    			try {
+    				DatabaseConnector.getPool().releaseConnection(con);
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    			}
     		}
+        	Between deutschFilter;
+        	Between englischFilter;
+        	Between matheFilter;
+        	Between zeugnisschnittFilter;
+        	Or studiengangFilter;
+        	CheckBox studiengangMatching;
+        	CheckBox deutschMatching;
+        	CheckBox englischMatching;
+        	CheckBox matheMatching;
+        	CheckBox zeugnisschnittMatching;
 			if(!studiengang_bewerber.isEmpty()){
 	            Like[] filters = new Like[studiengang_bewerber.size()];
 	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
