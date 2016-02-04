@@ -98,9 +98,10 @@ public class AdminBenutzerView extends VerticalLayout implements View {
 							statement = con.createStatement();
 							if(account_id.equals("1")){
 								statement.execute("DELETE from bewerberprofil where benutzer_id = "+item.getItemProperty("id").getValue().toString());
-							}else if(account_id.equals("2")){
-								statement.execute("DELETE from benutzer_firmenprofil where benutzer_id = "+item.getItemProperty("id").getValue().toString());
 							}
+//							else if(account_id.equals("2")){
+//								statement.execute("DELETE from benutzer_firmenprofil where benutzer_id = "+item.getItemProperty("id").getValue().toString());
+//							}
 							statement.execute("COMMIT");
 						} catch (SQLException e1) {
 							e1.printStackTrace();
