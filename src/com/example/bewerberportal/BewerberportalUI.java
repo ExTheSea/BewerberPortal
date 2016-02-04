@@ -157,8 +157,10 @@ public class BewerberportalUI extends UI {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
+				CurrentUser.set("");
 				VaadinSession.getCurrent().getSession().invalidate();
                 Page.getCurrent().reload();
+				CurrentUser.set("");
 			}
 		});
 		hl_header.replaceComponent(btn_register, btn_logout);
