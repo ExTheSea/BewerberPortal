@@ -60,7 +60,8 @@ public final class CurrentUser {
             getCurrentHttpSession().removeAttribute(
                     CURRENT_USER_SESSION_ATTRIBUTE_KEY);
         } else {
-            getCurrentHttpSession().setAttribute(
+        	if(getCurrentHttpSession()!=null)
+        		getCurrentHttpSession().setAttribute(
                     CURRENT_USER_SESSION_ATTRIBUTE_KEY, currentUser);
         }
     }
