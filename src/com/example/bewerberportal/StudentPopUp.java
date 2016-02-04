@@ -129,14 +129,12 @@ public class StudentPopUp extends Window {
 		if(((item.getItemProperty("note_mathe").getValue()!=null) && ((item.getItemProperty("note_mathe").getValue().toString()!="")))) label_mathe.setValue(item.getItemProperty("note_mathe").getValue().toString());
 		hl_mathe.addComponent(label_mathe);
 		
-		vl_noten.addComponent(new Label("_____________________"));
-		
 		HorizontalLayout hl_noten_gesamt = new HorizontalLayout();
 		vl_noten.addComponent(hl_noten_gesamt);
 		hl_noten_gesamt.setSizeFull();
 		hl_noten_gesamt.setSpacing(true);
 		
-		Label label_noten_gesamt_text = new Label("Gesamt");
+		Label label_noten_gesamt_text = new Label("Zeugnisschnitt");
 		hl_noten_gesamt.addComponent(label_noten_gesamt_text);
 		
 		hl_noten_gesamt.addComponent(new Label("&nbsp", ContentMode.HTML));

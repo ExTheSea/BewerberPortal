@@ -228,7 +228,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 			}
 			if(bewerberprofil_zeugnisschnitt!=""){
 				zeugnisschnittFilter= new Between("zeugnisschnitt", bewerberprofil_zeugnisschnitt, 6);
-				zeugnisschnittMatching = new CheckBox("Englisch");
+				zeugnisschnittMatching = new CheckBox("Zeugnisschnitt");
 				zeugnisschnittMatching.addValueChangeListener(new ValueChangeListener() {
 
 					private static final long serialVersionUID = 1L;
