@@ -102,20 +102,18 @@ public class StellenangebotView extends VerticalLayout implements View {
         CurrentUser.get();
         
         GeneratedPropertyContainer cont_gen = new GeneratedPropertyContainer(cont);
-        cont_gen.addGeneratedProperty("Bearbeiten", new PropertyValueGenerator<Integer>() {
+        cont_gen.addGeneratedProperty("Bearbeiten", new PropertyValueGenerator<String>() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Integer getValue(Item item, Object itemId, Object propertyId) {
-				// TODO Auto-generated method stub
-				return null;
+			public String getValue(Item item, Object itemId, Object propertyId) {
+				return "1";
 			}
 
 			@Override
-			public Class<Integer> getType() {
-				// TODO Auto-generated method stub
-				return Integer.class;
+			public Class<String> getType() {
+				return String.class;
 			}
 		});
         
@@ -127,14 +125,14 @@ public class StellenangebotView extends VerticalLayout implements View {
         grid.addColumn("Bearbeiten");
         grid.addColumn("alias");
         grid.addColumn("ort");
-        grid.addColumn("Bezeichnung");
+        grid.addColumn("Bezeichnung").setHeaderCaption("Studiengang");
         grid.addColumn("anzahl");
         
         GridCellFilter filter = new GridCellFilter(grid);
 
-        filter.setTextFilter("alias", true, true);
-        filter.setTextFilter("ort", true, true);
-        filter.setTextFilter("Bezeichnung", true, true);
+        filter.setTextFilter("alias", true, true).setInputPrompt("Filter Alias");;
+        filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
+        filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Studiengang");
         
         grid.setSizeFull();
         grid.getColumn("Bearbeiten").setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
@@ -158,7 +156,7 @@ public class StellenangebotView extends VerticalLayout implements View {
 		        try {
 		        	con_delete = DatabaseConnector.getPool().reserveConnection();
 		        	statement_delete = con_delete.createStatement();
-		        	int rs = statement_delete.executeUpdate("DELETE FROM studienplaetze WHERE id = '"+cont_gen.getItem(event.getItemId()).getItemProperty("id").getValue().toString()+"'");
+		        	statement_delete.executeUpdate("DELETE FROM studienplaetze WHERE id = '"+cont_gen.getItem(event.getItemId()).getItemProperty("id").getValue().toString()+"'");
 			        con_delete.commit();
 				} catch (SQLException e1) {
 					e1.printStackTrace();

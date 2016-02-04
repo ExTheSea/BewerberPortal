@@ -17,6 +17,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.GeneratedPropertyContainer;
 import com.vaadin.data.util.PropertyValueGenerator;
+import com.vaadin.data.util.filter.Between;
 import com.vaadin.data.util.filter.Like;
 import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
@@ -29,6 +30,7 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 public class StudentenSucheView extends VerticalLayout implements View {
 
@@ -126,7 +128,6 @@ public class StudentenSucheView extends VerticalLayout implements View {
 		for (int i = 0; i < studiengang_firma.size(); i++) {
 			String string = studiengang_firma.get(i).toString();
 			Like filterID = new Like("studiengang", "%"+string+"%", false);
-			System.out.println(string);
 			filters[i] = filterID;
 		}
 		Or orfilter = new Or(filters);
@@ -140,6 +141,8 @@ public class StudentenSucheView extends VerticalLayout implements View {
         testgrid.removeAllColumns();
         testgrid.addColumn("studiengang");
         TextField studiengangFilter = new TextField();
+        studiengangFilter.setStyleName(ValoTheme.TEXTFIELD_TINY);
+        studiengangFilter.setWidth("100%");
         ArrayList<Filter> stud_filters = new ArrayList<>();
         studiengangFilter.addTextChangeListener(new TextChangeListener() {
 
@@ -166,8 +169,11 @@ public class StudentenSucheView extends VerticalLayout implements View {
 				
 			}
 		});
+        
+
+        
+        studiengangFilter.setInputPrompt("Filter Studiengang, Studiengang");
         filter.getFilterRow().getCell("studiengang").setComponent(studiengangFilter);
-        //filter.setTextFilter("studiengang", true, true).setInputPrompt("Filter Studiengang");
         testgrid.addColumn("name");
         filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");
         testgrid.addColumn("plz").setHeaderCaption("PLZ");
