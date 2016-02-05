@@ -318,6 +318,11 @@ import com.vaadin.ui.Button.ClickEvent;
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
+						try {
+							DatabaseConnector.getPool().releaseConnection(con_save);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			});
@@ -413,6 +418,11 @@ import com.vaadin.ui.Button.ClickEvent;
 				try {
 					con.close();
 				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				try {
+					DatabaseConnector.getPool().releaseConnection(con);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -626,7 +636,6 @@ import com.vaadin.ui.Button.ClickEvent;
 					        	if((durchschnitt!=null) && (durchschnitt.getValue().toString()!="")) sql.append(durchschnitt.getValue().toString()+",");
 					        	if((freie_plaetze!=null) && (freie_plaetze.getValue().toString()!="")) sql.append(freie_plaetze.getValue().toString()+",");
 					        	sql.append(dropdown_studiengang.getValue().toString()+","+dropdown_standort.getValue().toString()+")");
-					        	System.out.println(sql.toString());
 					        	statement_save.executeUpdate(sql.toString());
 						        con_save.commit();
 						        close();
@@ -651,6 +660,11 @@ import com.vaadin.ui.Button.ClickEvent;
 						try {
 							con_save.close();
 						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						try {
+							DatabaseConnector.getPool().releaseConnection(con_save);
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
