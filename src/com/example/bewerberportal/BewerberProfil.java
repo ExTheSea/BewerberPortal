@@ -2,18 +2,22 @@ package com.example.bewerberportal;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.vaadin.tokenfield.TokenField;
 
 import com.example.data.DatabaseConnector;
 import com.example.login.CurrentUser;
+import com.vaadin.data.Container.Filter;
 import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanUtil;
 import com.vaadin.data.util.filter.Like;
+import com.vaadin.data.util.sqlcontainer.RowId;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.query.TableQuery;
 import com.vaadin.data.validator.EmailValidator;
@@ -405,14 +409,26 @@ public class BewerberProfil extends Panel implements View {
 		TokenField richtfield = new TokenField("Wunschrichtung"){
 			@Override
 			public void addToken(Object tokenId) {
+				System.out.println(tokenId);
 				if(getContainerDataSource().containsId(tokenId))
-					super.setReadOnly(false);
-					super.addToken(tokenId);
+					if(!isReadOnly())
+						super.addToken(tokenId);
+					else{
+						super.setReadOnly(false);
+						super.addToken(tokenId);
+						super.setReadOnly(true);
+					}
 			}
 			@Override
 			protected void rememberToken(String tokenId) {
 				if(getContainerDataSource().containsId(tokenId))
 					super.rememberToken(tokenId);
+			}
+			@Override
+			public void removeToken(Object tokenId) {
+				if(isReadOnly())
+					return;
+				super.removeToken(tokenId);
 			}
 		};
 		richtfield.setContainerDataSource(richtcont);
@@ -423,7 +439,7 @@ public class BewerberProfil extends Panel implements View {
 			@Override
 			public void fetchMetaData() {
 				primaryKeyColumns = new ArrayList<>();
-				primaryKeyColumns.add("bewerberprofil_id");
+				primaryKeyColumns.add("studiengang_id");
 				super.fetchMetaData();
 			}
 		};
@@ -544,20 +560,60 @@ public class BewerberProfil extends Panel implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				richtfield.setReadOnly(true);
-				richtfield.commit();
+				LinkedHashSet<RowId> richtvalues = (LinkedHashSet<RowId>) richtfield.getValue();
+				cont_bewricht.removeAllContainerFilters();
+				for (Iterator it_richtremove = cont_bewricht.getItemIds().iterator(); it_richtremove
+						.hasNext();) {
+					Object ItemID = (Object) it_richtremove.next();
+					if(ItemID!=null){
+					Item item = cont_bewricht.getItem(ItemID);
+					if(item != null && cont_bewricht.getItem(ItemID).getItemProperty("bewerberprofil_id").getValue().toString().equals(bewerberprofil_id))
+						cont_bewricht.removeItem(ItemID);
+				
+					}
+				}
+				Collection<Filter> arr_bewfilt = cont_bewricht.getContainerFilters();
+				try {
+					cont_bewricht.commit();
+				} catch (UnsupportedOperationException | SQLException e1) {
+					e1.printStackTrace();
+				}
+				for (Iterator it_tokens = richtvalues.iterator(); it_tokens.hasNext();) {
+					Object token = it_tokens.next();
+					Object itemID = cont_bewricht.addItem();
+					Item item = cont_bewricht.getItem(itemID);
+					item.getItemProperty("bewerberprofil_id").setValue(Integer.valueOf(bewerberprofil_id));
+					item.getItemProperty("studiengang_id").setValue(Integer.valueOf(token.toString()));
+				}
 				try {
 					cont_bewricht.commit();
 				} catch (UnsupportedOperationException | SQLException e) {
 					e.printStackTrace();
 				}
-				liebfachfield.setReadOnly(true);
-				liebfachfield.commit();
-
-				try {
-					cont_bewliebfach.commit();
-				} catch (UnsupportedOperationException | SQLException e) {
-					e.printStackTrace();
+				for (Iterator it_filter = arr_bewfilt.iterator(); it_filter
+						.hasNext();) {
+					Filter filter = (Filter) it_filter.next();
+					cont_bewricht.addContainerFilter(filter);
 				}
+				
+//				for (Iterator it_richttoke = richtfield.getTokenIds().iterator(); it_richttoke
+//						.hasNext();) {
+//					Object tokenId = (Object) it_richttoke.next();
+//					System.out.println(tokenId);
+//					System.out.println(richtfield.getTokenCaption(tokenId));
+//				}
+//				try {
+//					
+////					cont_bewricht.commit();
+//				} catch (UnsupportedOperationException | SQLException e) {
+//					e.printStackTrace();
+//				}
+				liebfachfield.setReadOnly(true);
+//				try {
+//					cont_bewliebfach.commit();
+//				} catch (UnsupportedOperationException | SQLException e) {
+//					e.printStackTrace();
+//				}
 				btn_edit.setEnabled(true);
 				hl_tätigbtns.setVisible(false);
 			}
