@@ -80,6 +80,11 @@ public class FirmenProfil extends Panel implements View {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			try {
+				DatabaseConnector.getPool().releaseConnection(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		TableQuery tq_firma = new TableQuery("firmenprofil", DatabaseConnector.getPool());
@@ -363,6 +368,11 @@ public class FirmenProfil extends Panel implements View {
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
+						try {
+							DatabaseConnector.getPool().releaseConnection(con_delete);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 
 				vl_fir.removeComponent(pnl_ort);
@@ -623,14 +633,9 @@ public class FirmenProfil extends Panel implements View {
 							
 							} catch (SQLException e) {
 								e.printStackTrace();
-							} finally {
-								try {
-									con_save.close();
-								} catch (SQLException e) {
-									e.printStackTrace();
-								}
 							}
-
+						
+						
 					} catch (SQLException e) {
 						e.printStackTrace();
 					} finally {
@@ -642,6 +647,11 @@ public class FirmenProfil extends Panel implements View {
 						try {
 							con_save.close();
 						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						try {
+							DatabaseConnector.getPool().releaseConnection(con_save);
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
