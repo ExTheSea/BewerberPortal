@@ -10,6 +10,7 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
+import com.example.admin.ManageDataPopUp.SaveListener;
 import com.example.bewerberportal.PopupLöschen;
 import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
@@ -46,7 +47,6 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        cont.setAutoCommit(true);
         
         
         Button btn_addNew = new Button("Neuer Ansprechpartner");
@@ -59,8 +59,18 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
 				item.getItemProperty("name").setValue("");
 				item.getItemProperty("email").setValue("");
 				item.getItemProperty("telefonnummer").setValue("");
-				grid.cancelEditor();
-				grid.editItem(cont.lastItemId());
+				new ManageDataPopUp(item, new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							grid.scrollTo(itemId);
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
         addComponent(btn_addNew);
@@ -75,13 +85,21 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
         filter.setTextFilter("telefonnummer", true, true);
         
         grid.setSizeFull();
-        grid.setEditorEnabled(true);
         grid.getColumn("id").setEditable(false).setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				grid.cancelEditor();
-				grid.editItem(event.getItemId());
+				new ManageDataPopUp(cont.getItem(event.getItemId()), new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 			
 			@Override

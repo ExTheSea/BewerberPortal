@@ -1,7 +1,6 @@
 package com.example.admin;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -9,20 +8,19 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
+import com.example.admin.ManageDataPopUp.SaveListener;
 import com.example.bewerberportal.PopupLöschen;
 import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
 import com.example.data.TableQuery;
 import com.vaadin.data.Item;
-import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.renderers.ClickableRenderer.RendererClickEvent;
 
 public class AdminBenutzerView extends VerticalLayout implements View {
@@ -45,20 +43,28 @@ public class AdminBenutzerView extends VerticalLayout implements View {
             e.printStackTrace();
         }
         
-        cont.setAutoCommit(true);
-        
         Button btn_addNew = new Button("Neuer Nutzer");
         btn_addNew.addClickListener(new Button.ClickListener() {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Object itemId = cont.addItem();
-				Item item = cont.getItem(itemId);
+				Object itemID = cont.addItem();
+				Item item = cont.getItem(itemID);
 				item.getItemProperty("email").setValue("");
-				item.getItemProperty("id").setValue("");
-				item.getItemProperty("passwort").setValue("");
-				item.getItemProperty("account_id").setValue("");
-				grid.editItem(itemId);
+				item.getItemProperty("passwort").setValue("test");
+				item.getItemProperty("account_id").setValue(1);
+				new ManageDataPopUp(item, new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							grid.scrollTo(itemID);
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
         addComponent(btn_addNew);
@@ -74,13 +80,22 @@ public class AdminBenutzerView extends VerticalLayout implements View {
         filter.setTextFilter("passwort", true, true);
         
         grid.setSizeFull();
-        grid.setEditorEnabled(true);
         grid.getColumn("id").setHeaderCaption("ID");
         grid.getColumn("id").setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				grid.editItem(event.getItemId());
+				new ManageDataPopUp(cont.getItem(event.getItemId()), new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 			
 			@Override

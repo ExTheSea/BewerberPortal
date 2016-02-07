@@ -10,6 +10,7 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
+import com.example.admin.ManageDataPopUp.SaveListener;
 import com.example.bewerberportal.PopupLöschen;
 import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
@@ -54,7 +55,6 @@ public class AdminBenutzerFirmenprofilView extends VerticalLayout implements Vie
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        cont.setAutoCommit(true);
 
         
         Button btn_addNew = new Button("Neue Verknüpfung");
@@ -66,8 +66,18 @@ public class AdminBenutzerFirmenprofilView extends VerticalLayout implements Vie
 				Item item = cont.getItem(itemId);
 				item.getItemProperty("benutzer_id").setValue(0);
 				item.getItemProperty("firmenprofil_id").setValue(0);
-				grid.cancelEditor();
-				grid.editItem(itemId);
+				new ManageDataPopUp(item, new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							grid.scrollTo(itemId);
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
         addComponent(btn_addNew);
@@ -80,13 +90,21 @@ public class AdminBenutzerFirmenprofilView extends VerticalLayout implements Vie
         filter.setNumberFilter("firmenprofil_id");
         
         grid.setSizeFull();
-        grid.setEditorEnabled(true);
         grid.getColumn("benutzer_id").setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				grid.cancelEditor();
-				grid.editItem(event.getItemId());
+				new ManageDataPopUp(cont.getItem(event.getItemId()), new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 			
 			@Override
@@ -96,32 +114,7 @@ public class AdminBenutzerFirmenprofilView extends VerticalLayout implements Vie
 					
 					@Override
 					public void delete() {
-//						Statement statement = null;
-//						Connection con = null;
-//						try {
-//							con = DatabaseConnector.getPool().reserveConnection();
-//							statement = con.createStatement();
-//							if(account_id.equals("1")){
-//								statement.execute("DELETE from bewerberprofil where benutzer_id = "+item.getItemProperty("id").getValue().toString());
-//							}else if(account_id.equals("2")){
-//								statement.execute("DELETE from benutzer_firmenprofil where benutzer_id = "+item.getItemProperty("id").getValue().toString());
-//							}
-//							statement.execute("COMMIT");
-//						} catch (SQLException e1) {
-//							e1.printStackTrace();
-//						}finally {
-//							try {
-//								statement.close();
-//							} catch (SQLException e) {
-//								e.printStackTrace();
-//							}
-//							try {
-//								con.close();
-//							} catch (SQLException e) {
-//								e.printStackTrace();
-//							}
-//						}
-						
+
 						
 						cont.removeItem(event.getItemId());
 						try {

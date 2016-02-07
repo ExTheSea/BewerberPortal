@@ -989,7 +989,7 @@
  */
 
 .v-vaadin-version:after {
-	content: "7.6.1";
+	content: "7.6.2";
 }
 
 .v-widget {
@@ -4598,11 +4598,11 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .v-ie8 .bewerberportal .v-grid-editor-cells  > div .v-datefield-button {
-	margin-left: -30px;
+	margin-left: -37px;
 }
 
 .v-ie8 .bewerberportal .v-grid-editor-cells  > div .v-filterselect-button {
-	margin-left: -27px;
+	margin-left: -25px;
 }
 
 .bewerberportal .v-grid-editor-cells  > div .v-select, .bewerberportal .v-grid-editor-cells  > div .v-select-select {
@@ -12710,4 +12710,13 @@ div.v-layout.v-horizontal.v-widget {
 
 .bewerberportal .v-cell-value {
 	text-align: right;
+}
+
+.bewerberportal .tokentextfield .v-filterselect .v-filterselect-button {
+	display: block;
+}
+
+.bewerberportal .v-widget.tokenfield .v-readonly .v-button-caption {
+	color: black;
+	pointer-events: none !important;
 }

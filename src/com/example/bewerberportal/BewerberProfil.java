@@ -32,10 +32,12 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
 public class BewerberProfil extends Panel implements View {
-	SQLContainer cont = null;
-	FieldGroup binder;
-	String  benutzer_id;
-	String bewerberprofil_id;
+	private SQLContainer cont = null;
+	private FieldGroup binder;
+	private String  benutzer_id;
+	private String bewerberprofil_id;
+	private SQLContainer cont_bewricht = null;
+	private SQLContainer cont_bewliebfach = null;
 	
 	public BewerberProfil(String benutzer_Id) {
 		this.benutzer_id = benutzer_Id;
@@ -425,7 +427,6 @@ public class BewerberProfil extends Panel implements View {
 				super.fetchMetaData();
 			}
 		};
-		SQLContainer cont_bewricht = null;
 		try {
 			cont_bewricht = new SQLContainer(tq_bewricht);
 		} catch (SQLException e1) {
@@ -482,7 +483,6 @@ public class BewerberProfil extends Panel implements View {
 				super.fetchMetaData();
 			}
 		};
-		SQLContainer cont_bewliebfach = null;
 		try {
 			cont_bewliebfach = new SQLContainer(tq_bewrliebfach);
 		} catch (SQLException e1) {
@@ -520,6 +520,7 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
+				richtfield.setReadOnly(false);
 				liebfachfield.setReadOnly(false);
 				btn_edit.setEnabled(false);
 				hl_tätigbtns.setVisible(true);
@@ -530,6 +531,7 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
+				richtfield.setReadOnly(true);
 				liebfachfield.setReadOnly(true);
 				btn_edit.setEnabled(true);
 				hl_tätigbtns.setVisible(false);
@@ -541,21 +543,23 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-//				try {
-//					if(binder.isValid()){
-//						binder.commit();
-//						cont.commit();
-						liebfachfield.setReadOnly(true);
-						btn_edit.setEnabled(true);
-						hl_tätigbtns.setVisible(false);
-//					}
-//				} catch (CommitException e) {
-//					e.printStackTrace();
-//				} catch (UnsupportedOperationException e) {
-//					e.printStackTrace();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
+				richtfield.setReadOnly(true);
+				richtfield.commit();
+				try {
+					cont_bewricht.commit();
+				} catch (UnsupportedOperationException | SQLException e) {
+					e.printStackTrace();
+				}
+				liebfachfield.setReadOnly(true);
+				liebfachfield.commit();
+
+				try {
+					cont_bewliebfach.commit();
+				} catch (UnsupportedOperationException | SQLException e) {
+					e.printStackTrace();
+				}
+				btn_edit.setEnabled(true);
+				hl_tätigbtns.setVisible(false);
 			}
 		});
 		return pnl_richtung;

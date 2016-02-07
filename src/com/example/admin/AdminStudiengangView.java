@@ -8,6 +8,7 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
+import com.example.admin.ManageDataPopUp.SaveListener;
 import com.example.bewerberportal.PopupLöschen;
 import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
@@ -42,7 +43,6 @@ public class AdminStudiengangView extends VerticalLayout implements View {
             e.printStackTrace();
         }
         
-        cont.setAutoCommit(true);
         
         Button btn_addNew = new Button("Neuer Studiengang");
         btn_addNew.addClickListener(new Button.ClickListener() {
@@ -52,8 +52,18 @@ public class AdminStudiengangView extends VerticalLayout implements View {
 				Object itemId = cont.addItem();
 				Item item = cont.getItem(itemId);
 				item.getItemProperty("bezeichnung").setValue("");
-				grid.cancelEditor();
-				grid.editItem(itemId);
+				new ManageDataPopUp(item, new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							grid.scrollTo(itemId);
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
         addComponent(btn_addNew);
@@ -71,8 +81,17 @@ public class AdminStudiengangView extends VerticalLayout implements View {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				grid.cancelEditor();
-				grid.editItem(event.getItemId());
+				new ManageDataPopUp(cont.getItem(event.getItemId()), new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 			
 			@Override
