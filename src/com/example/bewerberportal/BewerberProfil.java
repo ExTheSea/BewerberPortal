@@ -97,7 +97,7 @@ public class BewerberProfil extends Panel implements View {
 	}
 	
 	public Panel buildTop(){
-		Panel pnl_top = new Panel();
+		Panel pnl_top = new Panel("Daten zur Person");
 		pnl_top.setWidth("100%");
 		FormLayout formtop = new FormLayout();
 		formtop.setWidth("100%");
@@ -189,7 +189,7 @@ public class BewerberProfil extends Panel implements View {
 	}
 	
 	public Panel buildTätig(){
-		Panel pnl_tätig = new Panel();
+		Panel pnl_tätig = new Panel("Tätigkeiten & Qualifikationen");
 		pnl_tätig.setWidth("100%");
 		FormLayout formtätig = new FormLayout();
 		formtätig.setWidth("100%");
@@ -278,7 +278,7 @@ public class BewerberProfil extends Panel implements View {
 	
 	
 	public Panel buildNoten(){
-		Panel pnl_noten = new Panel();
+		Panel pnl_noten = new Panel("Noten");
 		pnl_noten.setWidth("100%");
 		FormLayout formnoten = new FormLayout();
 		formnoten.setWidth("100%");
@@ -376,7 +376,7 @@ public class BewerberProfil extends Panel implements View {
 	
 	
 	public Panel buildRichtung(){
-		Panel pnl_richtung = new Panel();
+		Panel pnl_richtung = new Panel("Wunschstudienrichtung");
 		pnl_richtung.setWidth("100%");
 		FormLayout formRichtung = new FormLayout();
 		formRichtung.setWidth("100%");
