@@ -40,22 +40,23 @@ public class FirmenSucheView extends VerticalLayout implements View {
 
 
     SQLContainer cont_test = null;
-	Between deutschFilter = null;
-	Between englischFilter = null;
-	Between matheFilter = null;
-	Between zeugnisschnittFilter = null;
 	Or studiengangFilter = null;
 	CheckBox studiengangMatching = null;
-	CheckBox deutschMatching = null;
-	CheckBox englischMatching = null;
-	CheckBox matheMatching = null;
-	CheckBox zeugnisschnittMatching = null;
+	CheckBox deutschMatching = new CheckBox("Deutsch");
+	CheckBox englischMatching = new CheckBox("Englisch");
+	CheckBox matheMatching = new CheckBox("Mathe");
+	CheckBox zeugnisschnittMatching = new CheckBox("Zeugnisschnitt");
     String bewerberprofil_id = null;
     String bewerberprofil_deutsch = null;
     String bewerberprofil_englisch = null;
     String bewerberprofil_mathe = null;
     String bewerberprofil_zeugnisschnitt = null;
     ArrayList<String> studiengang_bewerber;
+	Between deutschFilter = null;
+	Between englischFilter = null;
+	Between matheFilter = null;
+	Between zeugnisschnittFilter = null;
+	HorizontalLayout hlCheckbox = new HorizontalLayout();
 	public FirmenSucheView() {
 		setMargin(true);
 		setSpacing(true);
@@ -95,7 +96,6 @@ public class FirmenSucheView extends VerticalLayout implements View {
 			}
 		});
         if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="")){
-        	HorizontalLayout hlCheckbox = new HorizontalLayout();
             hlCheckbox.setSizeFull();
             hlCheckbox.setHeight(null);
             hlCheckbox.addComponent(new Label("Matching: "));
@@ -172,102 +172,115 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				hlCheckbox.addComponent(studiengangMatching);
 			}
 			try{
+				deutschMatching.addValueChangeListener(new ValueChangeListener() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						if(deutschMatching.getValue()){
+							cont_test.addContainerFilter(deutschFilter);						}
+						else{
+							cont_test.removeContainerFilter(deutschFilter);
+						}
+						
+					}
+				});
 				if((bewerberprofil_deutsch!="")&&((Double.parseDouble(bewerberprofil_deutsch)!=0))&&(bewerberprofil_deutsch!=null)){
 					deutschFilter= new Between("note_deutsch", bewerberprofil_deutsch, 6);
-					deutschMatching = new CheckBox("Deutsch");
-					deutschMatching.addValueChangeListener(new ValueChangeListener() {
 
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						public void valueChange(ValueChangeEvent event) {
-							if(deutschMatching.getValue()){
-								cont_test.addContainerFilter(deutschFilter);
-							}
-							else{
-								cont_test.removeContainerFilter(deutschFilter);
-							}
-							
-						}
-					});
 					deutschMatching.setValue(true);
+					
 					hlCheckbox.addComponent(deutschMatching);
+				}
+				else{
+					deutschFilter= new Between("note_deutsch", 0, 6);
+					deutschMatching.setValue(true);
 				}
 			}catch(Exception e){
 				e.printStackTrace();;
 			}
 			try{
+				englischMatching.addValueChangeListener(new ValueChangeListener() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						if(englischMatching.getValue()){
+							cont_test.addContainerFilter(englischFilter);
+						}
+						else{
+							cont_test.removeContainerFilter(englischFilter);
+						}
+						
+					}
+				});
 				if((bewerberprofil_englisch!="")&&((Double.parseDouble(bewerberprofil_englisch)!=0))&&(bewerberprofil_englisch!=null)){
 					englischFilter= new Between("note_englisch", bewerberprofil_englisch, 6);
-					englischMatching = new CheckBox("Englisch");
-					englischMatching.addValueChangeListener(new ValueChangeListener() {
-
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						public void valueChange(ValueChangeEvent event) {
-							if(englischMatching.getValue()){
-								cont_test.addContainerFilter(englischFilter);
-							}
-							else{
-								cont_test.removeContainerFilter(englischFilter);
-							}
-							
-						}
-					});
 					englischMatching.setValue(true);
 					hlCheckbox.addComponent(englischMatching);
 				}
+				else{
+					englischFilter= new Between("note_englisch", 0, 6);
+					englischMatching.setValue(true);
+				}
 			}catch(Exception e){
 				e.printStackTrace();;
 			}
 
 			try{
+				matheMatching.addValueChangeListener(new ValueChangeListener() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						if(matheMatching.getValue()){
+							cont_test.addContainerFilter(matheFilter);
+						}
+						else{
+							cont_test.removeContainerFilter(matheFilter);
+						}
+						
+					}
+				});
 				if((bewerberprofil_mathe!="")&&((Double.parseDouble(bewerberprofil_mathe)!=0))&&(bewerberprofil_mathe!=null)){
 					matheFilter= new Between("note_mathe", bewerberprofil_mathe, 6);
-					matheMatching = new CheckBox("Mathe");
-					matheMatching.addValueChangeListener(new ValueChangeListener() {
-
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						public void valueChange(ValueChangeEvent event) {
-							if(matheMatching.getValue()){
-								cont_test.addContainerFilter(matheFilter);
-							}
-							else{
-								cont_test.removeContainerFilter(matheFilter);
-							}
-							
-						}
-					});
 					matheMatching.setValue(true);
 					hlCheckbox.addComponent(matheMatching);
+				}
+				else{
+					matheFilter= new Between("note_mathe", 0, 6);
+					matheMatching.setValue(true);
 				}
 			}catch(Exception e){
 				e.printStackTrace();;
 			}
 			try{
+				zeugnisschnittMatching.addValueChangeListener(new ValueChangeListener() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void valueChange(ValueChangeEvent event) {
+						if(zeugnisschnittMatching.getValue()){
+							cont_test.addContainerFilter(zeugnisschnittFilter);
+						}
+						else{
+							cont_test.removeContainerFilter(zeugnisschnittFilter);
+						}
+						
+					}
+				});
 				if((bewerberprofil_zeugnisschnitt!="")&&((Double.parseDouble(bewerberprofil_zeugnisschnitt)!=0))&&(bewerberprofil_zeugnisschnitt!=null)){
 					zeugnisschnittFilter= new Between("zeugnisschnitt", bewerberprofil_zeugnisschnitt, 6);
-					zeugnisschnittMatching = new CheckBox("Zeugnisschnitt");
-					zeugnisschnittMatching.addValueChangeListener(new ValueChangeListener() {
-
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						public void valueChange(ValueChangeEvent event) {
-							if(zeugnisschnittMatching.getValue()){
-								cont_test.addContainerFilter(zeugnisschnittFilter);
-							}
-							else{
-								cont_test.removeContainerFilter(zeugnisschnittFilter);
-							}
-							
-						}
-					});
 					zeugnisschnittMatching.setValue(true);
 					hlCheckbox.addComponent(zeugnisschnittMatching);
+				}
+				else{
+					zeugnisschnittFilter= new Between("zeugnisschnitt", 0, 6);
+					zeugnisschnittMatching.setValue(true);
 				}
 			}catch(Exception e){
 				e.printStackTrace();;
@@ -364,6 +377,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
     			}
     		}
 			if(!studiengang_bewerber.isEmpty()){
+				if(hlCheckbox.getComponentIndex(studiengangMatching)==-1)hlCheckbox.addComponent(studiengangMatching);
 				studiengangMatching.setValue(false);
 	            Like[] filters = new Like[studiengang_bewerber.size()];
 	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
@@ -374,21 +388,28 @@ public class FirmenSucheView extends VerticalLayout implements View {
 	    		studiengangFilter = new Or(filters);
 				studiengangMatching.setValue(true);
 			}
-
 			if((bewerberprofil_deutsch!="")&&(bewerberprofil_deutsch!=null)&&((Double.parseDouble(bewerberprofil_deutsch)!=0.0))){
+				if(hlCheckbox.getComponentIndex(deutschMatching)==-1)hlCheckbox.addComponent(deutschMatching);
 				deutschMatching.setValue(false);
+				deutschFilter= new Between("note_deutsch", bewerberprofil_deutsch, 6);
 				deutschMatching.setValue(true);
 			}
 			if((bewerberprofil_englisch!="")&&(bewerberprofil_englisch!=null)&&((Double.parseDouble(bewerberprofil_englisch)!=0.0))){
+				if(hlCheckbox.getComponentIndex(englischMatching)==-1)hlCheckbox.addComponent(englischMatching);
 				englischMatching.setValue(false);
+				englischFilter= new Between("note_englisch", bewerberprofil_englisch, 6);
 				englischMatching.setValue(true);
 			}
 			if((bewerberprofil_mathe!="")&&(bewerberprofil_mathe!=null)&&((Double.parseDouble(bewerberprofil_mathe)!=0.0))){
+				if(hlCheckbox.getComponentIndex(matheMatching)==-1)hlCheckbox.addComponent(matheMatching);
 				matheMatching.setValue(false);
+				matheFilter= new Between("note_mathe", bewerberprofil_mathe, 6);
 				matheMatching.setValue(true);
 			}
 			if((bewerberprofil_zeugnisschnitt!="")&&(bewerberprofil_zeugnisschnitt!=null)&&((Double.parseDouble(bewerberprofil_zeugnisschnitt)!=0.0))){
+				if(hlCheckbox.getComponentIndex(zeugnisschnittMatching)==-1)hlCheckbox.addComponent(zeugnisschnittMatching);
 				zeugnisschnittMatching.setValue(false);
+				zeugnisschnittFilter = new Between("zeugnisschnitt", bewerberprofil_zeugnisschnitt, 6);
 				zeugnisschnittMatching.setValue(true);
 			}
 		}
