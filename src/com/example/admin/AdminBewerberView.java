@@ -20,8 +20,10 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -168,10 +170,16 @@ public class AdminBewerberView extends VerticalLayout implements View {
 					@Override
 					public void delete() {
 						cont.removeItem(event.getItemId());
+						
 						try {
 							cont.commit();
 						} catch (UnsupportedOperationException | SQLException e) {
-							e.printStackTrace();
+							Notification.show("Fehler beim Löschen", "Datensatz kann nicht gelöschen da Verknüpfungen existieren", Type.ERROR_MESSAGE);
+							try {
+								cont.rollback();
+							} catch (UnsupportedOperationException | SQLException e1) {
+							}
+							cont.refresh();
 						}
 					}
 					

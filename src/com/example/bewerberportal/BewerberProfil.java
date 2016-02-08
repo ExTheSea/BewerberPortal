@@ -327,13 +327,11 @@ public class BewerberProfil extends Panel implements View {
 
 			@Override
 			public Class<Double> getModelType() {
-				// TODO Auto-generated method stub
 				return null;
 			}
 
 			@Override
 			public Class<String> getPresentationType() {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		};
