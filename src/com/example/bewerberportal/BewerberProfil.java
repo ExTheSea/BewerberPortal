@@ -520,6 +520,7 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
+				richtfield.setReadOnly(false);
 				liebfachfield.setReadOnly(false);
 				btn_edit.setEnabled(false);
 				hl_tätigbtns.setVisible(true);
@@ -530,6 +531,7 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
+				richtfield.setReadOnly(true);
 				liebfachfield.setReadOnly(true);
 				btn_edit.setEnabled(true);
 				hl_tätigbtns.setVisible(false);
