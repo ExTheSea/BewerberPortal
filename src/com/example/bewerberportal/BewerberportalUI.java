@@ -51,6 +51,7 @@ public class BewerberportalUI extends UI {
 	private Button btn_register;
 	private Button btn_login;
 	private HorizontalLayout hl_header;
+	public CssLayout css_content;
 	
 	@Override
 	protected void init(VaadinRequest request) {
@@ -113,7 +114,7 @@ public class BewerberportalUI extends UI {
 		layout.addComponent(hl_content);
 		layout.setExpandRatio(hl_content, 1f);
 		
-		CssLayout css_content = new CssLayout();
+		css_content = new CssLayout();
 		css_content.setSizeFull();
 		
 		pnl_menu = new MenuPanel(css_content);

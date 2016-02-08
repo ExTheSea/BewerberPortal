@@ -1,6 +1,7 @@
 package com.example.admin;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -9,26 +10,26 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
-import com.example.bewerberportal.BewerberProfil;
 import com.example.bewerberportal.BewerberportalUI;
 import com.example.bewerberportal.FirmenProfil;
+import com.example.bewerberportal.PopupLöschen;
+import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
 import com.example.data.TableQuery;
-import com.vaadin.data.Item;
-import com.vaadin.data.util.GeneratedPropertyContainer;
-import com.vaadin.data.util.PropertyValueGenerator;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Window.CloseEvent;
-import com.vaadin.ui.Window.CloseListener;
 import com.vaadin.ui.renderers.ClickableRenderer.RendererClickEvent;
 
 public class AdminFirmenView extends VerticalLayout implements View {
@@ -110,20 +111,24 @@ public class AdminFirmenView extends VerticalLayout implements View {
 							}
 							DatabaseConnector.getPool().releaseConnection(con);
 						}
-						
-						Window wind = new Window();
-						wind.center();
-						wind.setModal(true);
-						wind.setSizeFull();
-						wind.setContent(new FirmenProfil(txt_user.getValue()));
-						BewerberportalUI.getCurrent().addWindow(wind);
-						wind.addCloseListener(new CloseListener() {
+						Button btn_back = new Button("Zurück");
+						btn_back.setIcon(FontAwesome.ARROW_LEFT);
+						removeAllComponents();
+						addComponent(btn_back);
+						btn_back.addClickListener(new Button.ClickListener() {
 							
 							@Override
-							public void windowClose(CloseEvent e) {
+							public void buttonClick(ClickEvent event) {
+								removeAllComponents();
 								cont.refresh();
+						        addComponent(btn_addNew);
+						        addComponent(grid);
+						        setExpandRatio(grid, 1f);
 							}
 						});
+						FirmenProfil prof = new FirmenProfil(txt_user.getValue());
+						addComponent(prof);
+						setExpandRatio(prof, 1f);
 					}
 				});
 				vl_user.addComponent(btn_next);
@@ -152,14 +157,75 @@ public class AdminFirmenView extends VerticalLayout implements View {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				// TODO Auto-generated method stub
-				
+				Button btn_back = new Button("Zurück");
+				btn_back.setIcon(FontAwesome.ARROW_LEFT);
+				removeAllComponents();
+				addComponent(btn_back);
+				btn_back.addClickListener(new Button.ClickListener() {
+					
+					@Override
+					public void buttonClick(ClickEvent event) {
+						removeAllComponents();
+						cont.refresh();
+				        addComponent(btn_addNew);
+				        addComponent(grid);
+				        setExpandRatio(grid, 1f);
+					}
+				});
+				Connection con = null;
+				Statement statement = null;
+				String benID = "";
+				try {
+					con = DatabaseConnector.getPool().reserveConnection();
+					statement = con.createStatement();
+					ResultSet rs = statement.executeQuery("SELECT benutzer_id FROM go2dhbw.benutzer_firmenprofil where firmenprofil_id = '"+cont.getItem(event.getItemId()).getItemProperty("id").getValue().toString()+"'");
+					if(rs.first())
+						benID = rs.getString("benutzer_id");
+					statement.executeBatch();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}finally {
+					try {
+						statement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					try {
+						con.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					DatabaseConnector.getPool().releaseConnection(con);
+				}
+				FirmenProfil prof = new FirmenProfil(benID);
+				addComponent(prof);
+				setExpandRatio(prof, 1f);
 			}
 			
 			@Override
 			public void onDelete(RendererClickEvent event) {
-				// TODO Auto-generated method stub
-				
+				new PopupLöschen(cont.getItem(event.getItemId()).getItemProperty("name").getValue().toString(), new DeleteListener() {
+					
+					@Override
+					public void delete() {
+					
+						cont.removeItem(event.getItemId());
+						
+						try {
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							Notification.show("Fehler beim Löschen", "Datensatz kann nicht gelöschen da Verknüpfungen existieren", Type.ERROR_MESSAGE);
+							try {
+								cont.rollback();
+							} catch (UnsupportedOperationException | SQLException e1) {
+							}
+							cont.refresh();
+						}
+					}
+					
+					@Override
+					public void close() {}
+				});
 			}
 		})).setWidth(140);
        
