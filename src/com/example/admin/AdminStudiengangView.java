@@ -19,7 +19,9 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.renderers.ClickableRenderer.RendererClickEvent;
 
@@ -124,10 +126,16 @@ public class AdminStudiengangView extends VerticalLayout implements View {
 							DatabaseConnector.getPool().releaseConnection(con);
 						}
 						cont.removeItem(event.getItemId());
+						
 						try {
 							cont.commit();
 						} catch (UnsupportedOperationException | SQLException e) {
-							e.printStackTrace();
+							Notification.show("Fehler beim Löschen", "Datensatz kann nicht gelöschen da Verknüpfungen existieren", Type.ERROR_MESSAGE);
+							try {
+								cont.rollback();
+							} catch (UnsupportedOperationException | SQLException e1) {
+							}
+							cont.refresh();
 						}
 					}
 					
