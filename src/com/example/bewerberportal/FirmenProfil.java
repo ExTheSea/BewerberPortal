@@ -16,6 +16,7 @@ import com.vaadin.data.Validator;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.util.converter.Converter.ConversionException;
 import com.vaadin.data.util.filter.Like;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.query.TableQuery;
@@ -328,6 +329,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		hl_botbtns.addComponent(btn_cancel);
 		hl_botbtns.setVisible(false);
 		formort.addComponent(hl_botbtns);
+		
 
 		// Edit Button
 		btn_edit.addClickListener(new Button.ClickListener() {
@@ -409,7 +411,8 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				try {
+				try {	
+					
 					if (binder_standort.isValid() && binder_anpartner.isValid()) {
 						binder_standort.commit();
 						binder_anpartner.commit();
@@ -564,6 +567,14 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 			@Override
 			public void validate(Object value) throws InvalidValueException {
+				
+				try {
+		            Integer convertedValue = (Integer) tf_plz.getConvertedValue();
+		        } catch (ConversionException e) {
+		        	throw new InvalidValueException("Nur Ziffern verwenden");
+		        	
+		        }
+				
 				if ((tf_plz.getValue() == null) || (tf_plz.getValue().toString() == ""))
 					throw new InvalidValueException("Feld kann nicht leer sein");
 			}
