@@ -40,16 +40,16 @@ public class FirmenSucheView extends VerticalLayout implements View {
 
 
     SQLContainer cont_test = null;
-	Between deutschFilter;
-	Between englischFilter;
-	Between matheFilter;
-	Between zeugnisschnittFilter;
-	Or studiengangFilter;
-	CheckBox studiengangMatching;
-	CheckBox deutschMatching;
-	CheckBox englischMatching;
-	CheckBox matheMatching;
-	CheckBox zeugnisschnittMatching;
+	Between deutschFilter = null;
+	Between englischFilter = null;
+	Between matheFilter = null;
+	Between zeugnisschnittFilter = null;
+	Or studiengangFilter = null;
+	CheckBox studiengangMatching = null;
+	CheckBox deutschMatching = null;
+	CheckBox englischMatching = null;
+	CheckBox matheMatching = null;
+	CheckBox zeugnisschnittMatching = null;
     String bewerberprofil_id = null;
     String bewerberprofil_deutsch = null;
     String bewerberprofil_englisch = null;
@@ -171,119 +171,133 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				studiengangMatching.setValue(true);
 				hlCheckbox.addComponent(studiengangMatching);
 			}
-			if(bewerberprofil_deutsch!=""){
-				deutschFilter= new Between("note_deutsch", bewerberprofil_deutsch, 6);
-				deutschMatching = new CheckBox("Deutsch");
-				deutschMatching.addValueChangeListener(new ValueChangeListener() {
+			try{
+				if((bewerberprofil_deutsch!="")&&((Double.parseDouble(bewerberprofil_deutsch)!=0))&&(bewerberprofil_deutsch!=null)){
+					deutschFilter= new Between("note_deutsch", bewerberprofil_deutsch, 6);
+					deutschMatching = new CheckBox("Deutsch");
+					deutschMatching.addValueChangeListener(new ValueChangeListener() {
 
-					private static final long serialVersionUID = 1L;
+						private static final long serialVersionUID = 1L;
 
-					@Override
-					public void valueChange(ValueChangeEvent event) {
-						if(deutschMatching.getValue()){
-							cont_test.addContainerFilter(deutschFilter);
+						@Override
+						public void valueChange(ValueChangeEvent event) {
+							if(deutschMatching.getValue()){
+								cont_test.addContainerFilter(deutschFilter);
+							}
+							else{
+								cont_test.removeContainerFilter(deutschFilter);
+							}
+							
 						}
-						else{
-							cont_test.removeContainerFilter(deutschFilter);
-						}
-						
-					}
-				});
-				deutschMatching.setValue(true);
-				hlCheckbox.addComponent(deutschMatching);
+					});
+					deutschMatching.setValue(true);
+					hlCheckbox.addComponent(deutschMatching);
+				}
+			}catch(Exception e){
+				e.printStackTrace();;
 			}
-			if(bewerberprofil_englisch!=""){
-				englischFilter= new Between("note_englisch", bewerberprofil_englisch, 6);
-				englischMatching = new CheckBox("Englisch");
-				englischMatching.addValueChangeListener(new ValueChangeListener() {
+			try{
+				if((bewerberprofil_englisch!="")&&((Double.parseDouble(bewerberprofil_englisch)!=0))&&(bewerberprofil_englisch!=null)){
+					englischFilter= new Between("note_englisch", bewerberprofil_englisch, 6);
+					englischMatching = new CheckBox("Englisch");
+					englischMatching.addValueChangeListener(new ValueChangeListener() {
 
-					private static final long serialVersionUID = 1L;
+						private static final long serialVersionUID = 1L;
 
-					@Override
-					public void valueChange(ValueChangeEvent event) {
-						if(englischMatching.getValue()){
-							cont_test.addContainerFilter(englischFilter);
+						@Override
+						public void valueChange(ValueChangeEvent event) {
+							if(englischMatching.getValue()){
+								cont_test.addContainerFilter(englischFilter);
+							}
+							else{
+								cont_test.removeContainerFilter(englischFilter);
+							}
+							
 						}
-						else{
-							cont_test.removeContainerFilter(englischFilter);
-						}
-						
-					}
-				});
-				englischMatching.setValue(true);
-				hlCheckbox.addComponent(englischMatching);
+					});
+					englischMatching.setValue(true);
+					hlCheckbox.addComponent(englischMatching);
+				}
+			}catch(Exception e){
+				e.printStackTrace();;
 			}
-			if(bewerberprofil_mathe!=""){
-				matheFilter= new Between("note_mathe", bewerberprofil_mathe, 6);
-				matheMatching = new CheckBox("Mathe");
-				matheMatching.addValueChangeListener(new ValueChangeListener() {
 
-					private static final long serialVersionUID = 1L;
+			try{
+				if((bewerberprofil_mathe!="")&&((Double.parseDouble(bewerberprofil_mathe)!=0))&&(bewerberprofil_mathe!=null)){
+					matheFilter= new Between("note_mathe", bewerberprofil_mathe, 6);
+					matheMatching = new CheckBox("Mathe");
+					matheMatching.addValueChangeListener(new ValueChangeListener() {
 
-					@Override
-					public void valueChange(ValueChangeEvent event) {
-						if(matheMatching.getValue()){
-							cont_test.addContainerFilter(matheFilter);
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public void valueChange(ValueChangeEvent event) {
+							if(matheMatching.getValue()){
+								cont_test.addContainerFilter(matheFilter);
+							}
+							else{
+								cont_test.removeContainerFilter(matheFilter);
+							}
+							
 						}
-						else{
-							cont_test.removeContainerFilter(matheFilter);
-						}
-						
-					}
-				});
-				matheMatching.setValue(true);
-				hlCheckbox.addComponent(matheMatching);
+					});
+					matheMatching.setValue(true);
+					hlCheckbox.addComponent(matheMatching);
+				}
+			}catch(Exception e){
+				e.printStackTrace();;
 			}
-			if(bewerberprofil_zeugnisschnitt!=""){
-				zeugnisschnittFilter= new Between("zeugnisschnitt", bewerberprofil_zeugnisschnitt, 6);
-				zeugnisschnittMatching = new CheckBox("Zeugnisschnitt");
-				zeugnisschnittMatching.addValueChangeListener(new ValueChangeListener() {
+			try{
+				if((bewerberprofil_zeugnisschnitt!="")&&((Double.parseDouble(bewerberprofil_zeugnisschnitt)!=0))&&(bewerberprofil_zeugnisschnitt!=null)){
+					zeugnisschnittFilter= new Between("zeugnisschnitt", bewerberprofil_zeugnisschnitt, 6);
+					zeugnisschnittMatching = new CheckBox("Zeugnisschnitt");
+					zeugnisschnittMatching.addValueChangeListener(new ValueChangeListener() {
 
-					private static final long serialVersionUID = 1L;
+						private static final long serialVersionUID = 1L;
 
-					@Override
-					public void valueChange(ValueChangeEvent event) {
-						if(zeugnisschnittMatching.getValue()){
-							cont_test.addContainerFilter(zeugnisschnittFilter);
+						@Override
+						public void valueChange(ValueChangeEvent event) {
+							if(zeugnisschnittMatching.getValue()){
+								cont_test.addContainerFilter(zeugnisschnittFilter);
+							}
+							else{
+								cont_test.removeContainerFilter(zeugnisschnittFilter);
+							}
+							
 						}
-						else{
-							cont_test.removeContainerFilter(zeugnisschnittFilter);
-						}
-						
-					}
-				});
-				zeugnisschnittMatching.setValue(true);
-				hlCheckbox.addComponent(zeugnisschnittMatching);
+					});
+					zeugnisschnittMatching.setValue(true);
+					hlCheckbox.addComponent(zeugnisschnittMatching);
+				}
+			}catch(Exception e){
+				e.printStackTrace();;
 			}
+
 			addComponent(hlCheckbox);
         }
 
         testgrid.setContainerDataSource(cont_gen);
         testgrid.setSizeFull();
-        testgrid.removeColumn("note_deutsch");
-        testgrid.removeColumn("note_englisch");
-        testgrid.removeColumn("note_mathe");
-        testgrid.removeColumn("zeugnisschnitt");
-        testgrid.removeColumn("firmenprofil_id");
-        testgrid.removeColumn("studiengang_id");
-        testgrid.removeColumn("standort_id");
-        testgrid.removeColumn("alias");
-        testgrid.removeColumn("id");
-        testgrid.removeColumn("email");
-        testgrid.removeColumn("telefonnummer");
-        testgrid.removeColumn("website");
-        testgrid.removeColumn("strasse");
-        testgrid.removeColumn("logo");
+        testgrid.removeAllColumns();
+        testgrid.addColumn("name");
+        testgrid.addColumn("Bezeichnung");
+        testgrid.addColumn("anzahl");
+        testgrid.addColumn("ort");
+        testgrid.addColumn("ansprechpartnername").setHeaderCaption("Ansprechpartner");
         
         GridCellFilter filter = new GridCellFilter(testgrid);
         filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");
         filter.setTextFilter("ansprechpartnername", true, true).setInputPrompt("Filter Ansprechpartner");;
         filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Bezeichnung");
         filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
-        FieldGroup group_dist = filter.setNumberFilter("Distanz");
-        ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
-        ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
-
+        
+        if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="")){
+        	//am besten nur Einfügen wenn PLZ vorhanden und Entfernung berechnet werden kann
+        	testgrid.addColumn("Distanz");
+        	FieldGroup group_dist = filter.setNumberFilter("Distanz");
+            ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
+            ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
+        }
 
         testgrid.setColumnOrder(new Object[]{"name", "Bezeichnung", "anzahl", "ort"});
         testgrid.setSizeFull();
@@ -349,7 +363,6 @@ public class FirmenSucheView extends VerticalLayout implements View {
     				e.printStackTrace();
     			}
     		}
-			
 			if(!studiengang_bewerber.isEmpty()){
 				studiengangMatching.setValue(false);
 	            Like[] filters = new Like[studiengang_bewerber.size()];
@@ -361,10 +374,23 @@ public class FirmenSucheView extends VerticalLayout implements View {
 	    		studiengangFilter = new Or(filters);
 				studiengangMatching.setValue(true);
 			}
-			if((bewerberprofil_deutsch!="")&&(bewerberprofil_deutsch!=null))deutschMatching.setValue(false);deutschMatching.setValue(true);
-			if((bewerberprofil_englisch!="")&&(bewerberprofil_englisch!=null))englischMatching.setValue(false);englischMatching.setValue(true);
-			if((bewerberprofil_mathe!="")&&(bewerberprofil_mathe!=null))matheMatching.setValue(false);matheMatching.setValue(true);
-			if((bewerberprofil_zeugnisschnitt!="")&&(bewerberprofil_zeugnisschnitt!=null))zeugnisschnittMatching.setValue(false);zeugnisschnittMatching.setValue(true);
+
+			if((bewerberprofil_deutsch!="")&&(bewerberprofil_deutsch!=null)&&((Double.parseDouble(bewerberprofil_deutsch)!=0.0))){
+				deutschMatching.setValue(false);
+				deutschMatching.setValue(true);
+			}
+			if((bewerberprofil_englisch!="")&&(bewerberprofil_englisch!=null)&&((Double.parseDouble(bewerberprofil_englisch)!=0.0))){
+				englischMatching.setValue(false);
+				englischMatching.setValue(true);
+			}
+			if((bewerberprofil_mathe!="")&&(bewerberprofil_mathe!=null)&&((Double.parseDouble(bewerberprofil_mathe)!=0.0))){
+				matheMatching.setValue(false);
+				matheMatching.setValue(true);
+			}
+			if((bewerberprofil_zeugnisschnitt!="")&&(bewerberprofil_zeugnisschnitt!=null)&&((Double.parseDouble(bewerberprofil_zeugnisschnitt)!=0.0))){
+				zeugnisschnittMatching.setValue(false);
+				zeugnisschnittMatching.setValue(true);
+			}
 		}
 	}
 

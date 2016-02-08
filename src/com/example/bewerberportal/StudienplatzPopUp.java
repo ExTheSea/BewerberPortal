@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import com.vaadin.data.Item;
 import com.vaadin.server.StreamResource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
@@ -43,7 +44,7 @@ public class StudienplatzPopUp extends Window {
 
 	    Image firmen_logo = null;
 		if(streamSource.getStream()!=null) firmen_logo = new Image("", new StreamResource(streamSource, "Logo"));
-		else firmen_logo = new Image();
+		else firmen_logo = new Image(null, new ThemeResource("kein_logo.png"));
 		firmen_logo.setSizeFull();
 		hl_popup.addComponent(firmen_logo);
 		

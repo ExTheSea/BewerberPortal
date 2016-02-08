@@ -160,6 +160,8 @@ import com.vaadin.ui.Button.ClickEvent;
 					if(value.toString()=="");
 					else{
 						try{
+							durchschnitt.setValue(durchschnitt.getValue().replace(",", "."));
+							value = durchschnitt.getValue();
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
@@ -195,6 +197,8 @@ import com.vaadin.ui.Button.ClickEvent;
 					if(value.toString()=="");
 					else{
 						try{
+							deutsch.setValue(deutsch.getValue().replace(",", "."));
+							value = deutsch.getValue();
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
@@ -228,6 +232,8 @@ import com.vaadin.ui.Button.ClickEvent;
 					if(value.toString()=="");
 					else{
 						try{
+							englisch.setValue(englisch.getValue().replace(",", "."));
+							value = englisch.getValue();
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
@@ -261,6 +267,8 @@ import com.vaadin.ui.Button.ClickEvent;
 					if(value.toString()=="");
 					else{
 						try{
+							mathe.setValue(mathe.getValue().replace(",", "."));
+							value = mathe.getValue();
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
@@ -291,18 +299,27 @@ import com.vaadin.ui.Button.ClickEvent;
 			        	if (dropdown_standort.isValid()&&dropdown_studiengang.isValid()&&deutsch.isValid()&&mathe.isValid()&&englisch.isValid()&&durchschnitt.isValid()){
 				        	con_save = DatabaseConnector.getPool().reserveConnection();
 				        	statement_save = con_save.createStatement();
-				        	StringBuilder sql = new StringBuilder();
-				        	sql.append("UPDATE studienplaetze SET ");
-				        	if((deutsch!=null) && (deutsch.getValue().toString()!="")) sql.append("note_deutsch="+deutsch.getValue().toString()+",");
-				        	if((englisch!=null) && (englisch.getValue().toString()!="")) sql.append("note_englisch="+englisch.getValue().toString()+",");
-				        	if((mathe!=null) && (mathe.getValue().toString()!="")) sql.append("note_mathe="+mathe.getValue().toString()+",");
-				        	if((durchschnitt!=null) && (durchschnitt.getValue().toString()!="")) sql.append("zeugnisschnitt="+durchschnitt.getValue().toString()+",");
-				        	if((freie_plaetze!=null) && (freie_plaetze.getValue().toString()!="")) sql.append("anzahl="+freie_plaetze.getValue().toString()+",");
-				        	sql.append("studiengang_id="+dropdown_studiengang.getValue().toString()+",standort_id="+dropdown_standort.getValue().toString()+" WHERE ID="+item.getItemProperty("id").getValue().toString());
-					        statement_save.executeUpdate(sql.toString());
-					        con_save.commit();
-					        close();
-					        listener.close();
+				        	ResultSet vorhanden = null;
+				        	vorhanden = statement_save.executeQuery("SELECT ID FROM go2dhbw.studienplaetze WHERE studiengang_id='"+dropdown_studiengang.getValue().toString()+"' AND standort_id='"+dropdown_standort.getValue().toString()+"'");
+				        	if(!vorhanden.first()){
+				        		con_save = DatabaseConnector.getPool().reserveConnection();
+					        	statement_save = con_save.createStatement();
+					        	StringBuilder sql = new StringBuilder();
+					        	sql.append("UPDATE studienplaetze SET ");
+					        	if((deutsch!=null) && (deutsch.getValue().toString()!="")) sql.append("note_deutsch="+deutsch.getValue().toString()+",");
+					        	if((englisch!=null) && (englisch.getValue().toString()!="")) sql.append("note_englisch="+englisch.getValue().toString()+",");
+					        	if((mathe!=null) && (mathe.getValue().toString()!="")) sql.append("note_mathe="+mathe.getValue().toString()+",");
+					        	if((durchschnitt!=null) && (durchschnitt.getValue().toString()!="")) sql.append("zeugnisschnitt="+durchschnitt.getValue().toString()+",");
+					        	if((freie_plaetze!=null) && (freie_plaetze.getValue().toString()!="")) sql.append("anzahl="+freie_plaetze.getValue().toString()+",");
+					        	sql.append("studiengang_id="+dropdown_studiengang.getValue().toString()+",standort_id="+dropdown_standort.getValue().toString()+" WHERE ID="+item.getItemProperty("id").getValue().toString());
+						        statement_save.executeUpdate(sql.toString());
+						        con_save.commit();
+						        close();
+						        listener.close();
+				        	}
+				        	else{
+								Notification.show("Fehler", "Studiengangs- und Standortkombination bereits vorhanden", Notification.Type.ERROR_MESSAGE);
+				        	}
 			        	}
 
 					} catch (SQLException e1) {
@@ -493,6 +510,8 @@ import com.vaadin.ui.Button.ClickEvent;
 					if(value=="");
 					else{
 						try{
+							durchschnitt.setValue(durchschnitt.getValue().replace(",", "."));
+							value = durchschnitt.getValue();
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
@@ -525,6 +544,8 @@ import com.vaadin.ui.Button.ClickEvent;
 					if(value.toString()=="");
 					else{
 						try{
+							deutsch.setValue(deutsch.getValue().replace(",", "."));
+							value = deutsch.getValue();
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
@@ -557,6 +578,8 @@ import com.vaadin.ui.Button.ClickEvent;
 					if(value.toString()=="");
 					else{
 						try{
+							englisch.setValue(englisch.getValue().replace(",", "."));
+							value = englisch.getValue();
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
@@ -589,6 +612,8 @@ import com.vaadin.ui.Button.ClickEvent;
 					if(value.toString()=="");
 					else{
 						try{
+							mathe.setValue(mathe.getValue().replace(",", "."));
+							value = mathe.getValue();
 							if((Double.parseDouble(value.toString())<1) || (Double.parseDouble(value.toString())>6)){
 								throw new InvalidValueException("Note zwischen 1.0 und 6.0");
 							}
