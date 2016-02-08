@@ -1,5 +1,8 @@
 package com.example.bewerberportal;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +21,9 @@ import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.query.TableQuery;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -27,14 +32,23 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.Upload;
+import com.vaadin.ui.Upload.Receiver;
+import com.vaadin.ui.Upload.SucceededEvent;
+import com.vaadin.ui.Upload.SucceededListener;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class FirmenProfil extends Panel implements View {
+public class FirmenProfil extends Panel implements View, Receiver, SucceededListener{
 
 
+	File  file;
+	Upload upload;
+	
+	
 	SQLContainer cont_firma = null;
 	SQLContainer cont_standort = null;
 	SQLContainer cont_anpartner = null;
@@ -132,7 +146,7 @@ public class FirmenProfil extends Panel implements View {
 
 	public Panel buildFirma() {
 
-		Panel pnl_firma = new Panel();
+		Panel pnl_firma = new Panel("Firma");
 		pnl_firma.setWidth("100%");
 		FormLayout formfirma = new FormLayout();
 		formfirma.setWidth("100%");
@@ -155,10 +169,19 @@ public class FirmenProfil extends Panel implements View {
 		formfirma.addComponent(namefield = binder_firma.buildAndBind("Name", "name"));
 		formfirma.addComponent(webfield = binder_firma.buildAndBind("Website", "website"));
 		// formfirma.addComponent(logofield = binder.buildAndBind("Logo","logo"));
+		
+		//ImageUploader receiver = new ImageUploader();
+		upload = new Upload();
+	    upload.setButtonCaption("Logo hochladen");
+	    upload.addListener((Upload.SucceededListener) this);
+		formfirma.addComponent(upload);
+		
+		
 
 		namefield.setReadOnly(true);
 		webfield.setReadOnly(true);
-		// logofield.setReadOnly(true);
+		upload.setReadOnly(true);
+
 
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
@@ -183,7 +206,7 @@ public class FirmenProfil extends Panel implements View {
 			public void buttonClick(ClickEvent event) {
 				namefield.setReadOnly(false);
 				webfield.setReadOnly(false);
-				// logofield.setReadOnly(false);
+				upload.setReadOnly(false);
 				hl_botbtns.setVisible(true);
 			}
 		});
@@ -195,7 +218,7 @@ public class FirmenProfil extends Panel implements View {
 			public void buttonClick(ClickEvent event) {
 				namefield.setReadOnly(true);
 				webfield.setReadOnly(true);
-				// logofield.setReadOnly(true);
+				upload.setReadOnly(true);
 				btn_edit.setEnabled(true);
 				hl_botbtns.setVisible(false);
 				binder_firma.discard();
@@ -213,7 +236,7 @@ public class FirmenProfil extends Panel implements View {
 						cont_firma.commit();
 						namefield.setReadOnly(true);
 						webfield.setReadOnly(true);
-						// logofield.setReadOnly(true);
+						upload.setReadOnly(true);
 						btn_edit.setEnabled(true);
 						hl_botbtns.setVisible(false);
 					}
@@ -235,7 +258,7 @@ public class FirmenProfil extends Panel implements View {
 		FieldGroup binder_anpartner;
 		FieldGroup binder_standort;
 
-		Panel pnl_ort = new Panel();
+		Panel pnl_ort = new Panel("Standort");
 		pnl_ort.setWidth("100%");
 		FormLayout formort = new FormLayout();
 		formort.setWidth("100%");
@@ -352,6 +375,7 @@ public class FirmenProfil extends Panel implements View {
 			        	con_delete = DatabaseConnector.getPool().reserveConnection();
 			        	statement_delete = con_delete.createStatement();
 			        	statement_delete.execute("DELETE FROM standort WHERE id = '"+item_standort.getItemProperty("id").getValue().toString()+"'");
+			        	statement_delete.execute("DELETE FROM ansprechpartner WHERE id = '"+item_standort.getItemProperty("ansprechpartner_id").getValue().toString()+"'");
 			        	statement_delete.execute("COMMIT");
 			        	con_delete.commit();
 			        	cont_standort.refresh();
@@ -452,7 +476,7 @@ public class FirmenProfil extends Panel implements View {
 
 	public void createStandort() {
 
-		Panel pnl_ort = new Panel();
+		Panel pnl_ort = new Panel("Standort");
 		pnl_ort.setWidth("100%");
 		FormLayout formort = new FormLayout();
 		formort.setWidth("100%");
@@ -666,6 +690,34 @@ public class FirmenProfil extends Panel implements View {
 		vl_fir.addComponent(pnl_ort, index++);
 
 	}
+	
+	public OutputStream receiveUpload(String filename,
+            String mimeType) {
+		
+		 // Create upload stream
+        FileOutputStream fos = null; // Stream to write to
+        try {
+            // Open the file for writing.
+            file = new File("C:/Users/Public/Pictures/" + filename);
+            fos = new FileOutputStream(file);
+            System.out.println("JA");
+        } catch (final java.io.FileNotFoundException e) {
+            new Notification("Could not open file<br/>",
+                             e.getMessage(),
+                             Notification.Type.ERROR_MESSAGE)
+                .show(Page.getCurrent());
+            return null;
+        }
+        return fos;
+		
+	}
+	
+
+    @Override
+    public void uploadSucceeded(SucceededEvent event) {
+        // TODO Auto-generated method stub
+        //upload.setSource(new FileResource(file));
+    }
 
 	@Override
 	public void enter(ViewChangeEvent event) {
