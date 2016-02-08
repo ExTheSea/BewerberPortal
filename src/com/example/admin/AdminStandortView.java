@@ -6,6 +6,7 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
+import com.example.admin.ManageDataPopUp.SaveListener;
 import com.example.bewerberportal.PopupLöschen;
 import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
@@ -34,37 +35,12 @@ public class AdminStandortView extends VerticalLayout implements View {
 		
 		Grid grid = new Grid();
 		
-		/**
-		 * {
-			
-			@Override
-			public void editItem(Object itemId) throws IllegalStateException, IllegalArgumentException {
-				super.editItem(itemId);
-			}
-			
-			@Override
-			public void saveEditor() throws CommitException {
-				super.saveEditor();
-				try {
-					cont.commit();
-				} catch (UnsupportedOperationException | SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			@Override
-			public void cancelEditor() {
-				super.cancelEditor();
-			}
-		}
-		 */
         TableQuery tq = new TableQuery("standort", DatabaseConnector.getPool());
         try {
             cont = new SQLContainer(tq);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        cont.setAutoCommit(true);
         
         
         Button btn_addNew = new Button("Neuer Standort");
@@ -78,8 +54,18 @@ public class AdminStandortView extends VerticalLayout implements View {
 				item.getItemProperty("strasse").setValue("");
 				item.getItemProperty("ort").setValue("");
 				item.getItemProperty("plz").setValue("");
-				grid.cancelEditor();
-				grid.editItem(cont.lastItemId());
+				new ManageDataPopUp(item, new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							grid.scrollTo(itemId);
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
         addComponent(btn_addNew);
@@ -96,13 +82,21 @@ public class AdminStandortView extends VerticalLayout implements View {
         filter.setTextFilter("plz", true, true);
         
         grid.setSizeFull();
-        grid.setEditorEnabled(true);
         grid.getColumn("id").setEditable(false).setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				grid.cancelEditor();
-				grid.editItem(event.getItemId());
+				new ManageDataPopUp(cont.getItem(event.getItemId()), new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 			
 			@Override

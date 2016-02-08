@@ -99,5 +99,14 @@ $v-panel-border: 0px solid v-shade;
 	.v-cell-value{
 		text-align: right;
 	}
+	
+	.tokentextfield .v-filterselect .v-filterselect-button{
+		 display: block;
+	}
+	
+	.v-widget.tokenfield .v-readonly .v-button-caption {
+	    color: black;
+	    pointer-events: none !important;
+	}
   // Insert your own theme rules here
 }

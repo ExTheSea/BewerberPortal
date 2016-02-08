@@ -10,6 +10,7 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
+import com.example.admin.ManageDataPopUp.SaveListener;
 import com.example.bewerberportal.PopupLöschen;
 import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
@@ -46,8 +47,6 @@ public class AdminStudienplaetzeView extends VerticalLayout implements View {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        cont.setAutoCommit(true);
-        
         
         Button btn_addNew = new Button("Neuer Studienplatz");
         btn_addNew.addClickListener(new Button.ClickListener() {
@@ -55,17 +54,26 @@ public class AdminStudienplaetzeView extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Object itemId = cont.addItem();
-				Item item = cont.getItem(cont.lastItemId());
-				item.getItemProperty("firmenprofil_id").setValue(0);
+				Item item = cont.getItem(itemId);
 				item.getItemProperty("studiengang_id").setValue(0);
 				item.getItemProperty("standort_id").setValue(0);
 				item.getItemProperty("anzahl").setValue(0);
-				item.getItemProperty("note_deutsch").setValue(0);
-				item.getItemProperty("note_englisch").setValue(0);
-				item.getItemProperty("note_mathe").setValue(0);
-				item.getItemProperty("zeugnisschnitt").setValue(0);
-				grid.cancelEditor();
-				grid.editItem(cont.lastItemId());
+				item.getItemProperty("note_deutsch").setValue(0d);
+				item.getItemProperty("note_englisch").setValue(0d);
+				item.getItemProperty("note_mathe").setValue(0d);
+				item.getItemProperty("zeugnisschnitt").setValue(0d);
+				new ManageDataPopUp(item, new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							grid.scrollTo(itemId);
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
         addComponent(btn_addNew);
@@ -85,13 +93,21 @@ public class AdminStudienplaetzeView extends VerticalLayout implements View {
         filter.setNumberFilter("zeugnisschnitt");
         
         grid.setSizeFull();
-        grid.setEditorEnabled(true);
         grid.getColumn("id").setEditable(false).setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				grid.cancelEditor();
-				grid.editItem(event.getItemId());
+				new ManageDataPopUp(cont.getItem(event.getItemId()), new SaveListener() {
+					
+					@Override
+					public void save() {
+						try {
+							cont.commit();
+						} catch (UnsupportedOperationException | SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 			
 			@Override
