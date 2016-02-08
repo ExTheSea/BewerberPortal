@@ -177,12 +177,13 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 	    upload.addListener((Upload.SucceededListener) this);
 		formfirma.addComponent(upload);
 		
-		
+		namefield.setWidth("400");
+		webfield.setWidth("400");
 
 		namefield.setReadOnly(true);
 		webfield.setReadOnly(true);
-		upload.setReadOnly(true);
 
+		upload.setVisible(false);
 
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
@@ -207,7 +208,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 			public void buttonClick(ClickEvent event) {
 				namefield.setReadOnly(false);
 				webfield.setReadOnly(false);
-				upload.setReadOnly(false);
+				upload.setVisible(true);
 				hl_botbtns.setVisible(true);
 			}
 		});
@@ -219,7 +220,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 			public void buttonClick(ClickEvent event) {
 				namefield.setReadOnly(true);
 				webfield.setReadOnly(true);
-				upload.setReadOnly(true);
+				upload.setVisible(false);
 				btn_edit.setEnabled(true);
 				hl_botbtns.setVisible(false);
 				binder_firma.discard();
@@ -237,7 +238,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 						cont_firma.commit();
 						namefield.setReadOnly(true);
 						webfield.setReadOnly(true);
-						upload.setReadOnly(true);
+						upload.setVisible(false);
 						btn_edit.setEnabled(true);
 						hl_botbtns.setVisible(false);
 					}
@@ -309,6 +310,14 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		anpartnerfield.setReadOnly(true);
 		mailfield.setReadOnly(true);
 		telefield.setReadOnly(true);
+		
+		aliasfield.setWidth("400");
+		strassefield.setWidth("400");
+		plzfield.setWidth("400");
+		ortfield.setWidth("400");
+		anpartnerfield.setWidth("400");
+		mailfield.setWidth("400");
+		telefield.setWidth("400");
 
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
@@ -568,13 +577,13 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 			@Override
 			public void validate(Object value) throws InvalidValueException {
 				
-				try {
+				/*try {
 		            Integer convertedValue = (Integer) tf_plz.getConvertedValue();
 		        } catch (ConversionException e) {
 		        	throw new InvalidValueException("Nur Ziffern verwenden");
 		        	
 		        }
-				
+				*/
 				if ((tf_plz.getValue() == null) || (tf_plz.getValue().toString() == ""))
 					throw new InvalidValueException("Feld kann nicht leer sein");
 			}
@@ -596,6 +605,14 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		formort.addComponent(tf_anpartner);
 		formort.addComponent(tf_mail);
 		formort.addComponent(tf_tele);
+		
+		tf_alias.setWidth("400");
+		tf_strasse.setWidth("400");
+		tf_plz.setWidth("400");
+		tf_ort.setWidth("400");
+		tf_anpartner.setWidth("400");
+		tf_mail.setWidth("400");
+		tf_tele.setWidth("400");
 
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
