@@ -20,6 +20,7 @@ import com.vaadin.data.util.PropertyValueGenerator;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
@@ -110,20 +111,24 @@ public class AdminFirmenView extends VerticalLayout implements View {
 							}
 							DatabaseConnector.getPool().releaseConnection(con);
 						}
-						
-						Window wind = new Window();
-						wind.center();
-						wind.setModal(true);
-						wind.setSizeFull();
-						wind.setContent(new FirmenProfil(txt_user.getValue()));
-						BewerberportalUI.getCurrent().addWindow(wind);
-						wind.addCloseListener(new CloseListener() {
+						Button btn_back = new Button("Zurück");
+						btn_back.setIcon(FontAwesome.ARROW_LEFT);
+						removeAllComponents();
+						addComponent(btn_back);
+						btn_back.addClickListener(new Button.ClickListener() {
 							
 							@Override
-							public void windowClose(CloseEvent e) {
+							public void buttonClick(ClickEvent event) {
+								removeAllComponents();
 								cont.refresh();
+						        addComponent(btn_addNew);
+						        addComponent(grid);
+						        setExpandRatio(grid, 1f);
 							}
 						});
+						FirmenProfil prof = new FirmenProfil(txt_user.getValue());
+						addComponent(prof);
+						setExpandRatio(prof, 1f);
 					}
 				});
 				vl_user.addComponent(btn_next);
@@ -152,8 +157,23 @@ public class AdminFirmenView extends VerticalLayout implements View {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				// TODO Auto-generated method stub
-				
+//				Button btn_back = new Button("Back");
+//				removeAllComponents();
+//				addComponent(btn_back);
+//				btn_back.addClickListener(new Button.ClickListener() {
+//					
+//					@Override
+//					public void buttonClick(ClickEvent event) {
+//						removeAllComponents();
+//						cont.refresh();
+//				        addComponent(btn_addNew);
+//				        addComponent(grid);
+//				        setExpandRatio(grid, 1f);
+//					}
+//				});
+//				FirmenProfil prof = new FirmenProfil());
+//				addComponent(prof);
+//				setExpandRatio(prof, 1f);
 			}
 			
 			@Override

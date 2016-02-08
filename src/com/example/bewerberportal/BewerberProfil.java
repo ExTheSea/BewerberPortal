@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import org.vaadin.tokenfield.TokenField;
@@ -16,6 +17,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanUtil;
+import com.vaadin.data.util.converter.Converter;
 import com.vaadin.data.util.filter.Like;
 import com.vaadin.data.util.sqlcontainer.RowId;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
@@ -33,6 +35,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextArea;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 public class BewerberProfil extends Panel implements View {
@@ -307,6 +310,37 @@ public class BewerberProfil extends Panel implements View {
 		formnoten.addComponent(englischfield = binder.buildAndBind("Englischnote", "note_englisch"));
 		formnoten.addComponent(mathefield = binder.buildAndBind("Mathenote", "note_mathe"));
 		schnittfield.setReadOnly(true);
+		Converter notenconverter = new Converter<String, Double>() {
+
+			@Override
+			public Double convertToModel(String value, Class<? extends Double> targetType, Locale locale)
+					throws com.vaadin.data.util.converter.Converter.ConversionException {
+				String tmp = value.replace(",", ".");
+				return Double.valueOf(tmp);
+			}
+
+			@Override
+			public String convertToPresentation(Double value, Class<? extends String> targetType, Locale locale)
+					throws com.vaadin.data.util.converter.Converter.ConversionException {
+				return ""+value;
+			}
+
+			@Override
+			public Class<Double> getModelType() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Class<String> getPresentationType() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
+		((TextField)schnittfield).setConverter(notenconverter);
+		((TextField)deutschfield).setConverter(notenconverter);
+		((TextField)englischfield).setConverter(notenconverter);
+		((TextField)mathefield).setConverter(notenconverter);
 		deutschfield.setReadOnly(true);
 		englischfield.setReadOnly(true);
 		mathefield.setReadOnly(true);
