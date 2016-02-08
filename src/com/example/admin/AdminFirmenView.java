@@ -97,6 +97,18 @@ public class AdminFirmenView extends VerticalLayout implements View {
 							statement.executeBatch();
 						} catch (SQLException e1) {
 							e1.printStackTrace();
+						}finally {
+							try {
+								statement.close();
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+							try {
+								con.close();
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+							DatabaseConnector.getPool().releaseConnection(con);
 						}
 						
 						Window wind = new Window();

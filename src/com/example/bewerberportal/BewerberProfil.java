@@ -455,8 +455,10 @@ public class BewerberProfil extends Panel implements View {
 			Item item = cont_bewricht.getItem(itemId);
 			for (Iterator it_tokens = richtfield.getTokenIds().iterator(); it_tokens.hasNext();) {
 				Object token = (Object) it_tokens.next();
-				if(token.toString().equals(item.getItemProperty("studiengang_id").getValue().toString()))
+				if(token.toString().equals(item.getItemProperty("studiengang_id").getValue().toString())){
+					System.out.println(token);
 					richtfield.addToken(token);
+				}
 			}
 		}
 		formRichtung.addComponent(richtfield);

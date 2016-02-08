@@ -131,6 +131,7 @@ public class AdminBenutzerView extends VerticalLayout implements View {
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
+							DatabaseConnector.getPool().releaseConnection(con);
 						}
 						
 						

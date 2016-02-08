@@ -123,6 +123,7 @@ public class AdminLieblingsfaecherView extends VerticalLayout implements View {
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
+							DatabaseConnector.getPool().releaseConnection(con);
 						}
 						
 						cont.removeItem(event.getItemId());

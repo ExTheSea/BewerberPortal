@@ -121,6 +121,7 @@ public class AdminStudiengangView extends VerticalLayout implements View {
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
+							DatabaseConnector.getPool().releaseConnection(con);
 						}
 						cont.removeItem(event.getItemId());
 						try {
