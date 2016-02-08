@@ -14,7 +14,8 @@ import com.vaadin.data.util.sqlcontainer.RowId;
 	import com.example.data.TableQuery;
 	import com.example.login.CurrentUser;
 	import com.vaadin.shared.ui.label.ContentMode;
-	import com.vaadin.ui.Button;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 	import com.vaadin.ui.HorizontalLayout;
 	import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
@@ -112,12 +113,11 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_freie_plaetze.setSizeFull();
 			vl_popup.addComponent(hl_freie_plaetze);
 			hl_freie_plaetze.addComponent(new Label("Freie Plätze"));
-			hl_freie_plaetze.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField freie_plaetze = new TextField();
 			if(item.getItemProperty("anzahl").getValue()!=null)freie_plaetze.setValue(item.getItemProperty("anzahl").getValue().toString());
 			hl_freie_plaetze.addComponent(freie_plaetze);
-			
+			hl_freie_plaetze.setComponentAlignment(freie_plaetze, Alignment.TOP_RIGHT);
 			freie_plaetze.addValidator(new Validator() {
 				
 				private static final long serialVersionUID = 1L;
@@ -145,12 +145,11 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_durschnitt.setSizeFull();
 			vl_popup.addComponent(hl_durschnitt);
 			hl_durschnitt.addComponent(new Label("Notendurchschnitt"));
-			hl_durschnitt.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField durchschnitt = new TextField();
 			if(item.getItemProperty("zeugnisschnitt").getValue()!=null)durchschnitt.setValue(item.getItemProperty("zeugnisschnitt").getValue().toString());
 			hl_durschnitt.addComponent(durchschnitt);
-			
+			hl_durschnitt.setComponentAlignment(durchschnitt, Alignment.TOP_RIGHT);
 			durchschnitt.addValidator(new Validator() {
 				
 				private static final long serialVersionUID = 1L;
@@ -182,12 +181,11 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_deutsch.setSizeFull();
 			vl_popup.addComponent(hl_deutsch);
 			hl_deutsch.addComponent(new Label("Deutsch"));
-			hl_deutsch.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField deutsch = new TextField();
 			if(item.getItemProperty("note_deutsch").getValue()!=null)deutsch.setValue(item.getItemProperty("note_deutsch").getValue().toString());
 			hl_deutsch.addComponent(deutsch);
-			
+			hl_deutsch.setComponentAlignment(deutsch, Alignment.TOP_RIGHT);
 			deutsch.addValidator(new Validator() {
 
 				private static final long serialVersionUID = 1L;
@@ -217,12 +215,11 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_englisch.setSizeFull();
 			vl_popup.addComponent(hl_englisch);
 			hl_englisch.addComponent(new Label("Englisch"));
-			hl_englisch.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField englisch = new TextField();
 			if(item.getItemProperty("note_englisch").getValue()!=null)englisch.setValue(item.getItemProperty("note_englisch").getValue().toString());
 			hl_englisch.addComponent(englisch);
-			
+			hl_englisch.setComponentAlignment(englisch, Alignment.TOP_RIGHT);
 			englisch.addValidator(new Validator() {
 
 				private static final long serialVersionUID = 1L;
@@ -252,12 +249,11 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_mathe.setSizeFull();
 			vl_popup.addComponent(hl_mathe);
 			hl_mathe.addComponent(new Label("Mathe"));
-			hl_mathe.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField mathe = new TextField();
 			if(item.getItemProperty("note_mathe").getValue()!=null)mathe.setValue(item.getItemProperty("note_mathe").getValue().toString());
 			hl_mathe.addComponent(mathe);
-			
+			hl_mathe.setComponentAlignment(mathe, Alignment.TOP_RIGHT);
 			mathe.addValidator(new Validator() {
 
 				private static final long serialVersionUID = 1L;
@@ -465,11 +461,10 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_freie_plaetze.setSizeFull();
 			vl_popup.addComponent(hl_freie_plaetze);
 			hl_freie_plaetze.addComponent(new Label("Freie Plätze"));
-			hl_freie_plaetze.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField freie_plaetze = new TextField();
 			hl_freie_plaetze.addComponent(freie_plaetze);
-			
+			hl_freie_plaetze.setComponentAlignment(freie_plaetze, Alignment.TOP_RIGHT);
 			freie_plaetze.addValidator(new Validator() {
 				
 				private static final long serialVersionUID = 1L;
@@ -496,11 +491,10 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_durschnitt.setSizeFull();
 			vl_popup.addComponent(hl_durschnitt);
 			hl_durschnitt.addComponent(new Label("Notendurchschnitt"));
-			hl_durschnitt.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField durchschnitt = new TextField();
 			hl_durschnitt.addComponent(durchschnitt);
-			
+			hl_durschnitt.setComponentAlignment(durchschnitt, Alignment.TOP_RIGHT);
 			durchschnitt.addValidator(new Validator() {
 
 				private static final long serialVersionUID = 1L;
@@ -530,11 +524,10 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_deutsch.setSizeFull();
 			vl_popup.addComponent(hl_deutsch);
 			hl_deutsch.addComponent(new Label("Deutsch"));
-			hl_deutsch.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField deutsch = new TextField();
 			hl_deutsch.addComponent(deutsch);
-			
+			hl_deutsch.setComponentAlignment(deutsch, Alignment.TOP_RIGHT);
 			deutsch.addValidator(new Validator() {
 
 				private static final long serialVersionUID = 1L;
@@ -564,11 +557,10 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_englisch.setSizeFull();
 			vl_popup.addComponent(hl_englisch);
 			hl_englisch.addComponent(new Label("Englisch"));
-			hl_englisch.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField englisch = new TextField();
 			hl_englisch.addComponent(englisch);
-			
+			hl_englisch.setComponentAlignment(englisch, Alignment.TOP_RIGHT);
 			englisch.addValidator(new Validator() {
 
 				private static final long serialVersionUID = 1L;
@@ -598,11 +590,10 @@ import com.vaadin.ui.Button.ClickEvent;
 			hl_mathe.setSizeFull();
 			vl_popup.addComponent(hl_mathe);
 			hl_mathe.addComponent(new Label("Mathe"));
-			hl_mathe.addComponent(new Label("&nbsp", ContentMode.HTML));
 			
 			TextField mathe = new TextField();
 			hl_mathe.addComponent(mathe);
-			
+			hl_mathe.setComponentAlignment(mathe, Alignment.TOP_RIGHT);
 			mathe.addValidator(new Validator() {
 
 				private static final long serialVersionUID = 1L;
