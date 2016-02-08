@@ -13,8 +13,10 @@ import com.example.admin.AdminStudiengangView;
 import com.example.admin.AdminStudienplaetzeView;
 import com.example.login.BasicAccessControl;
 import com.example.login.CurrentUser;
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.annotations.Viewport;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.Responsive;
@@ -27,7 +29,6 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -35,6 +36,8 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 @Theme("bewerberportal")
+@Viewport("initial-scale = 1.0,maximum-scale = 1.0")
+@PreserveOnRefresh
 public class BewerberportalUI extends UI {
 
 	BasicAccessControl control = new BasicAccessControl();
@@ -53,7 +56,6 @@ public class BewerberportalUI extends UI {
 	protected void init(VaadinRequest request) {
 		addStyleName("whitebackground");
 		Responsive.makeResponsive(this);
-		
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setSizeFull();
 		setContent(layout);
@@ -71,6 +73,13 @@ public class BewerberportalUI extends UI {
 		
 		Button btn_menu = new Button();
 		btn_menu.setIcon(FontAwesome.BARS);
+		btn_menu.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				pnl_menu.setVisible(!pnl_menu.isVisible());
+			}
+		});
 		hl_header.addComponent(btn_menu);
 		
 		btn_login = new Button("Anmelden");
@@ -179,5 +188,10 @@ public class BewerberportalUI extends UI {
 			}
 		});
 		
+	}
+	@Override
+	public void close() {
+		CurrentUser.set("");
+		super.close();
 	}
 }
