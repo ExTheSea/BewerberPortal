@@ -115,13 +115,10 @@ public class AdminBenutzerFirmenprofilView extends VerticalLayout implements Vie
 					@Override
 					public void delete() {
 
+						cont.setAutoCommit(true);
 						
 						cont.removeItem(event.getItemId());
-						try {
-							cont.commit();
-						} catch (UnsupportedOperationException | SQLException e) {
-							e.printStackTrace();
-						}
+						cont.setAutoCommit(false);
 					}
 					
 					@Override

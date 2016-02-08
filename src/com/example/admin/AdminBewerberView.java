@@ -17,10 +17,13 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -83,20 +86,25 @@ public class AdminBewerberView extends VerticalLayout implements View {
 						if(!txt_user.isValid())
 							return;
 						wind_user.close();
-						
-						Window wind = new Window();
-						wind.center();
-						wind.setModal(true);
-						wind.setSizeFull();
-						wind.setContent(new BewerberProfil(txt_user.getValue()));
-						BewerberportalUI.getCurrent().addWindow(wind);
-						wind.addCloseListener(new CloseListener() {
+
+						Button btn_back = new Button("Zurück");
+						btn_back.setIcon(FontAwesome.ARROW_LEFT);
+						removeAllComponents();
+						addComponent(btn_back);
+						btn_back.addClickListener(new Button.ClickListener() {
 							
 							@Override
-							public void windowClose(CloseEvent e) {
+							public void buttonClick(ClickEvent event) {
+								removeAllComponents();
 								cont.refresh();
+						        addComponent(btn_addNew);
+						        addComponent(grid);
+						        setExpandRatio(grid, 1f);
 							}
 						});
+						BewerberProfil prof = new BewerberProfil(txt_user.getValue());
+						addComponent(prof);
+						setExpandRatio(prof, 1f);
 					}
 				});
 				vl_user.addComponent(btn_next);
@@ -134,19 +142,24 @@ public class AdminBewerberView extends VerticalLayout implements View {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
-				Window wind = new Window();
-				wind.center();
-				wind.setModal(true);
-				wind.setSizeFull();
-				wind.setContent(new BewerberProfil(cont.getItem(event.getItemId()).getItemProperty("benutzer_id").getValue().toString()));
-				BewerberportalUI.getCurrent().addWindow(wind);
-				wind.addCloseListener(new CloseListener() {
+				Button btn_back = new Button("Zurück");
+				btn_back.setIcon(FontAwesome.ARROW_LEFT);
+				removeAllComponents();
+				addComponent(btn_back);
+				btn_back.addClickListener(new Button.ClickListener() {
 					
 					@Override
-					public void windowClose(CloseEvent e) {
+					public void buttonClick(ClickEvent event) {
+						removeAllComponents();
 						cont.refresh();
+				        addComponent(btn_addNew);
+				        addComponent(grid);
+				        setExpandRatio(grid, 1f);
 					}
 				});
+				BewerberProfil prof = new BewerberProfil(cont.getItem(event.getItemId()).getItemProperty("benutzer_id").getValue().toString());
+				addComponent(prof);
+				setExpandRatio(prof, 1f);
 			}
 			
 			@Override
@@ -157,10 +170,16 @@ public class AdminBewerberView extends VerticalLayout implements View {
 					@Override
 					public void delete() {
 						cont.removeItem(event.getItemId());
+						
 						try {
 							cont.commit();
 						} catch (UnsupportedOperationException | SQLException e) {
-							e.printStackTrace();
+							Notification.show("Fehler beim Löschen", "Datensatz kann nicht gelöschen da Verknüpfungen existieren", Type.ERROR_MESSAGE);
+							try {
+								cont.rollback();
+							} catch (UnsupportedOperationException | SQLException e1) {
+							}
+							cont.refresh();
 						}
 					}
 					
