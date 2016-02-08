@@ -10,6 +10,7 @@ import org.vaadin.gridutil.cell.GridCellFilter;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer;
 import org.vaadin.gridutil.renderer.EditDeleteButtonValueRenderer.EditDeleteButtonClickListener;
 
+import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.bewerberportal.StellenangebotPopUp.PopUpCloseListener;
 import com.example.data.DatabaseConnector;
 import com.example.data.TableQuery;
@@ -156,33 +157,45 @@ public class StellenangebotView extends VerticalLayout implements View {
 			
 			@Override
 			public void onDelete(RendererClickEvent event) {
-		        Connection con_delete = null;
-		        Statement statement_delete = null;
-		        try {
-		        	con_delete = DatabaseConnector.getPool().reserveConnection();
-		        	statement_delete = con_delete.createStatement();
-		        	statement_delete.executeUpdate("DELETE FROM studienplaetze WHERE id = '"+cont_gen.getItem(event.getItemId()).getItemProperty("id").getValue().toString()+"'");
-			        con_delete.commit();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}finally {
-					try {
-						statement_delete.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
+				new PopupLöschen("Studienplatz", new DeleteListener() {
+					
+					@Override
+					public void delete() {
+				        Connection con_delete = null;
+				        Statement statement_delete = null;
+				        try {
+				        	con_delete = DatabaseConnector.getPool().reserveConnection();
+				        	statement_delete = con_delete.createStatement();
+				        	statement_delete.executeUpdate("DELETE FROM studienplaetze WHERE id = '"+cont_gen.getItem(event.getItemId()).getItemProperty("id").getValue().toString()+"'");
+					        con_delete.commit();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}finally {
+							try {
+								statement_delete.close();
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+							try {
+								con_delete.close();
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+			    			try {
+			    				DatabaseConnector.getPool().releaseConnection(con_delete);
+			    			} catch (Exception e) {
+			    				e.printStackTrace();
+			    			}
+						}
+				        cont.refresh();
 					}
-					try {
-						con_delete.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
+					
+					@Override
+					public void close() {
+						
 					}
-	    			try {
-	    				DatabaseConnector.getPool().releaseConnection(con_delete);
-	    			} catch (Exception e) {
-	    				e.printStackTrace();
-	    			}
-				}
-		        cont.refresh();
+				});
+
 				
 			}
 		})).setWidth(140);
