@@ -409,7 +409,6 @@ public class BewerberProfil extends Panel implements View {
 		TokenField richtfield = new TokenField("Wunschrichtung"){
 			@Override
 			public void addToken(Object tokenId) {
-				System.out.println(tokenId);
 				if(getContainerDataSource().containsId(tokenId))
 					if(!isReadOnly())
 						super.addToken(tokenId);
@@ -456,7 +455,6 @@ public class BewerberProfil extends Panel implements View {
 			for (Iterator it_tokens = richtfield.getTokenIds().iterator(); it_tokens.hasNext();) {
 				Object token = (Object) it_tokens.next();
 				if(token.toString().equals(item.getItemProperty("studiengang_id").getValue().toString())){
-					System.out.println(token);
 					richtfield.addToken(token);
 				}
 			}
@@ -480,13 +478,25 @@ public class BewerberProfil extends Panel implements View {
 			@Override
 			public void addToken(Object tokenId) {
 				if(getContainerDataSource().containsId(tokenId))
-					super.setReadOnly(false);
-					super.addToken(tokenId);
+					if(!isReadOnly())
+						super.addToken(tokenId);
+					else{
+						super.setReadOnly(false);
+						super.addToken(tokenId);
+						super.setReadOnly(true);
+					}
 			}
 			@Override
 			protected void rememberToken(String tokenId) {
 				if(getContainerDataSource().containsId(tokenId))
 					super.rememberToken(tokenId);
+			}
+
+			@Override
+			public void removeToken(Object tokenId) {
+				if(isReadOnly())
+					return;
+				super.removeToken(tokenId);
 			}
 		};
 		liebfachfield.setContainerDataSource(liebfachcont);
@@ -497,7 +507,7 @@ public class BewerberProfil extends Panel implements View {
 			@Override
 			public void fetchMetaData() {
 				primaryKeyColumns = new ArrayList<>();
-				primaryKeyColumns.add("bewerberprofil_id");
+				primaryKeyColumns.add("lieblingsfaecher_id");
 				super.fetchMetaData();
 			}
 		};
@@ -564,6 +574,7 @@ public class BewerberProfil extends Panel implements View {
 				richtfield.setReadOnly(true);
 				LinkedHashSet<RowId> richtvalues = (LinkedHashSet<RowId>) richtfield.getValue();
 				cont_bewricht.removeAllContainerFilters();
+				cont_bewricht.setAutoCommit(true);
 				for (Iterator it_richtremove = cont_bewricht.getItemIds().iterator(); it_richtremove
 						.hasNext();) {
 					Object ItemID = (Object) it_richtremove.next();
@@ -574,6 +585,8 @@ public class BewerberProfil extends Panel implements View {
 				
 					}
 				}
+				cont_bewricht.setAutoCommit(false);
+
 				Collection<Filter> arr_bewfilt = cont_bewricht.getContainerFilters();
 				try {
 					cont_bewricht.commit();
@@ -598,24 +611,46 @@ public class BewerberProfil extends Panel implements View {
 					cont_bewricht.addContainerFilter(filter);
 				}
 				
-//				for (Iterator it_richttoke = richtfield.getTokenIds().iterator(); it_richttoke
-//						.hasNext();) {
-//					Object tokenId = (Object) it_richttoke.next();
-//					System.out.println(tokenId);
-//					System.out.println(richtfield.getTokenCaption(tokenId));
-//				}
-//				try {
-//					
-////					cont_bewricht.commit();
-//				} catch (UnsupportedOperationException | SQLException e) {
-//					e.printStackTrace();
-//				}
 				liebfachfield.setReadOnly(true);
-//				try {
-//					cont_bewliebfach.commit();
-//				} catch (UnsupportedOperationException | SQLException e) {
-//					e.printStackTrace();
-//				}
+				LinkedHashSet<RowId> liblvalues = (LinkedHashSet<RowId>) liebfachfield.getValue();
+				cont_bewliebfach.removeAllContainerFilters();
+				cont_bewliebfach.setAutoCommit(true);
+				for (Iterator it_richtremove = cont_bewliebfach.getItemIds().iterator(); it_richtremove
+						.hasNext();) {
+					Object ItemID = (Object) it_richtremove.next();
+					if(ItemID!=null){
+					Item item = cont_bewliebfach.getItem(ItemID);
+					if(item != null && cont_bewliebfach.getItem(ItemID).getItemProperty("bewerberprofil_id").getValue().toString().equals(bewerberprofil_id))
+						cont_bewliebfach.removeItem(ItemID);
+				
+					}
+				}
+				cont_bewliebfach.setAutoCommit(false);
+
+				Collection<Filter> arr_lieblfilt = cont_bewliebfach.getContainerFilters();
+				try {
+					cont_bewliebfach.commit();
+				} catch (UnsupportedOperationException | SQLException e1) {
+					e1.printStackTrace();
+				}
+				for (Iterator it_tokens = liblvalues.iterator(); it_tokens.hasNext();) {
+					Object token = it_tokens.next();
+					Object itemID = cont_bewliebfach.addItem();
+					Item item = cont_bewliebfach.getItem(itemID);
+					item.getItemProperty("bewerberprofil_id").setValue(Integer.valueOf(bewerberprofil_id));
+					item.getItemProperty("lieblingsfaecher_id").setValue(Integer.valueOf(token.toString()));
+				}
+				try {
+					cont_bewliebfach.commit();
+				} catch (UnsupportedOperationException | SQLException e) {
+					e.printStackTrace();
+				}
+				for (Iterator it_filter = arr_lieblfilt.iterator(); it_filter
+						.hasNext();) {
+					Filter filter = (Filter) it_filter.next();
+					cont_bewliebfach.addContainerFilter(filter);
+				}
+				
 				btn_edit.setEnabled(true);
 				hl_tätigbtns.setVisible(false);
 			}
