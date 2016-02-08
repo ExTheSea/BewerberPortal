@@ -112,9 +112,10 @@ public class BewerberportalUI extends UI {
 		hl_content.addComponent(css_content);
 		hl_content.setExpandRatio(css_content, 1f);
 		
-		pnl_menu.addView(new TestView(), "Test", "Test", FontAwesome.ASTERISK);
-		pnl_menu.addView(new FirmenSucheView(), "Suche", "Suche", FontAwesome.ASTERISK);
-		pnl_menu.setActiveView("Test");
+		pnl_menu.addView(new HomeView(), "Home", "Home", FontAwesome.HOME);
+		pnl_menu.addView(new FirmenSucheView(), "Suche", "Suche", FontAwesome.SEARCH);
+		pnl_menu.setActiveView("Home");
+		getNavigator().setErrorView(new HomeView());
 	}
 	
 	public static BewerberportalUI getCurrent(){
