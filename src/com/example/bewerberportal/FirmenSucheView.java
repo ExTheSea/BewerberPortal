@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.vaadin.gridutil.cell.GridCellFilter;
 
 import com.example.data.DatabaseConnector;
+import com.example.data.GeoHelper;
 import com.example.data.TableQuery;
 import com.example.login.CurrentUser;
 import com.vaadin.data.Item;
@@ -51,18 +52,22 @@ public class FirmenSucheView extends VerticalLayout implements View {
     String bewerberprofil_englisch = null;
     String bewerberprofil_mathe = null;
     String bewerberprofil_zeugnisschnitt = null;
+    String bewerberprofil_lat = null;
+    String bewerberprofil_lng = null;
     ArrayList<String> studiengang_bewerber;
 	Between deutschFilter = null;
 	Between englischFilter = null;
 	Between matheFilter = null;
 	Between zeugnisschnittFilter = null;
 	HorizontalLayout hlCheckbox = new HorizontalLayout();
+	Grid testgrid;
+	GridCellFilter filter;
 	public FirmenSucheView() {
 		setMargin(true);
 		setSpacing(true);
 		setSizeFull();
 
-		Grid testgrid = new Grid();
+		testgrid = new Grid();
         TableQuery tq_test = new TableQuery("firmensucheview", DatabaseConnector.getPool()){
 
 			private static final long serialVersionUID = 1L;
@@ -85,13 +90,16 @@ public class FirmenSucheView extends VerticalLayout implements View {
 
 			@Override
 			public Integer getValue(Item item, Object itemId, Object propertyId) {
-				// TODO Auto-generated method stub
-				return null;
+				if(bewerberprofil_lat != null && !bewerberprofil_lat.isEmpty() && item.getItemProperty("lat").getValue()!=null && !item.getItemProperty("lat").getValue().toString().isEmpty()){
+					return Double.valueOf(GeoHelper.distance(Double.valueOf(bewerberprofil_lat), Double.valueOf(bewerberprofil_lng), 
+							Double.valueOf(item.getItemProperty("lat").getValue().toString()), 
+							Double.valueOf(item.getItemProperty("lng").getValue().toString()), "K")).intValue();
+				}else			
+					return null;
 			}
 
 			@Override
 			public Class<Integer> getType() {
-				// TODO Auto-generated method stub
 				return Integer.class;
 			}
 		});
@@ -106,13 +114,15 @@ public class FirmenSucheView extends VerticalLayout implements View {
             try {
     			con = DatabaseConnector.getPool().reserveConnection();
     	        statement = con.createStatement();
-    	        ResultSet rsProfil = statement.executeQuery("SELECT id, note_deutsch, note_englisch, note_mathe, zeugnisschnitt from bewerberprofil where benutzer_id = '"+CurrentUser.get()+"'");
+    	        ResultSet rsProfil = statement.executeQuery("SELECT id, note_deutsch, note_englisch, note_mathe, zeugnisschnitt, lat, lng from bewerberprofil where benutzer_id = '"+CurrentUser.get()+"'");
     	        if(rsProfil.first()){
     		        bewerberprofil_id = rsProfil.getString("id");
     		        bewerberprofil_deutsch = rsProfil.getString("note_deutsch");
     		        bewerberprofil_englisch = rsProfil.getString("note_englisch");
     		        bewerberprofil_mathe = rsProfil.getString("note_mathe");
     		        bewerberprofil_zeugnisschnitt = rsProfil.getString("zeugnisschnitt");
+    		        bewerberprofil_lat = rsProfil.getString("lat");
+    		        bewerberprofil_lng = rsProfil.getString("lng");
     		        ResultSet rsStudiengang = statement.executeQuery("SELECT bezeichnung from studiengang, studiengang_bewerberprofil where studiengang_bewerberprofil.bewerberprofil_id = '"+bewerberprofil_id+"' AND studiengang.id = studiengang_bewerberprofil.studiengang_id");
     		        rsStudiengang.first();
     		        if(rsStudiengang.first()){
@@ -298,13 +308,13 @@ public class FirmenSucheView extends VerticalLayout implements View {
         testgrid.addColumn("ort");
         testgrid.addColumn("ansprechpartnername").setHeaderCaption("Ansprechpartner");
         
-        GridCellFilter filter = new GridCellFilter(testgrid);
+        filter = new GridCellFilter(testgrid);
         filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");
         filter.setTextFilter("ansprechpartnername", true, true).setInputPrompt("Filter Ansprechpartner");;
         filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Bezeichnung");
         filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
         
-        if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="")){
+        if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="") && (bewerberprofil_lat != null) && (!bewerberprofil_lat.isEmpty())){
         	//am besten nur Einfügen wenn PLZ vorhanden und Entfernung berechnet werden kann
         	testgrid.addColumn("Distanz");
         	FieldGroup group_dist = filter.setNumberFilter("Distanz");
@@ -340,13 +350,15 @@ public class FirmenSucheView extends VerticalLayout implements View {
             try {
     			con = DatabaseConnector.getPool().reserveConnection();
     	        statement = con.createStatement();
-    	        ResultSet rsProfil = statement.executeQuery("SELECT id, note_deutsch, note_englisch, note_mathe, zeugnisschnitt from bewerberprofil where benutzer_id = '"+CurrentUser.get()+"'");
+    	        ResultSet rsProfil = statement.executeQuery("SELECT id, note_deutsch, note_englisch, note_mathe, zeugnisschnitt, lat, lng from bewerberprofil where benutzer_id = '"+CurrentUser.get()+"'");
     	        if(rsProfil.first()){
     		        bewerberprofil_id = rsProfil.getString("id");
     		        bewerberprofil_deutsch = rsProfil.getString("note_deutsch");
     		        bewerberprofil_englisch = rsProfil.getString("note_englisch");
     		        bewerberprofil_mathe = rsProfil.getString("note_mathe");
     		        bewerberprofil_zeugnisschnitt = rsProfil.getString("zeugnisschnitt");
+    		        bewerberprofil_lat = rsProfil.getString("lat");
+    		        bewerberprofil_lng = rsProfil.getString("lng");
     		        ResultSet rsStudiengang = statement.executeQuery("SELECT bezeichnung from studiengang, studiengang_bewerberprofil where studiengang_bewerberprofil.bewerberprofil_id = '"+bewerberprofil_id+"' AND studiengang.id = studiengang_bewerberprofil.studiengang_id");
     		        rsStudiengang.first();
     		        if(rsStudiengang.first()){
@@ -412,6 +424,14 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				zeugnisschnittFilter = new Between("zeugnisschnitt", bewerberprofil_zeugnisschnitt, 6);
 				zeugnisschnittMatching.setValue(true);
 			}
+			System.out.println(testgrid.getColumn("Distanz"));
+	        if((testgrid.getColumn("Distanz")==null) && (bewerberprofil_lat != null) && (!bewerberprofil_lat.isEmpty())){
+	        	//am besten nur Einfügen wenn PLZ vorhanden und Entfernung berechnet werden kann
+	        	testgrid.addColumn("Distanz");
+	        	FieldGroup group_dist = filter.setNumberFilter("Distanz");
+	            ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
+	            ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
+	        }
 		}
 	}
 
