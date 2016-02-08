@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
+import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
 import com.sun.xml.internal.ws.encoding.soap.SOAP12Constants;
 import com.vaadin.data.Item;
@@ -49,6 +50,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 	File  file;
 	Upload upload;
 	
+	boolean edit = false;
 	
 	SQLContainer cont_firma = null;
 	SQLContainer cont_standort = null;
@@ -173,12 +175,15 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		
 		//ImageUploader receiver = new ImageUploader();
 		upload = new Upload();
+		upload.setReceiver(this);
 	    upload.setButtonCaption("Logo hochladen");
-	    upload.addListener((Upload.SucceededListener) this);
+	    upload.addSucceededListener(this);
+	    
+	    
 		formfirma.addComponent(upload);
 		
-		namefield.setWidth("400");
-		webfield.setWidth("400");
+		namefield.setWidth("100%");
+		webfield.setWidth("100%");
 
 		namefield.setReadOnly(true);
 		webfield.setReadOnly(true);
@@ -210,6 +215,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 				webfield.setReadOnly(false);
 				upload.setVisible(true);
 				hl_botbtns.setVisible(true);
+				edit = true;
 			}
 		});
 
@@ -224,6 +230,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 				btn_edit.setEnabled(true);
 				hl_botbtns.setVisible(false);
 				binder_firma.discard();
+				edit = false;
 			}
 		});
 
@@ -241,6 +248,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 						upload.setVisible(false);
 						btn_edit.setEnabled(true);
 						hl_botbtns.setVisible(false);
+						edit = false;
 					}
 				} catch (CommitException e) {
 					e.printStackTrace();
@@ -302,6 +310,30 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		formort.addComponent(anpartnerfield = binder_anpartner.buildAndBind("Ansprechpartner", "name"));
 		formort.addComponent(mailfield = binder_anpartner.buildAndBind("E-Mail", "email"));
 		formort.addComponent(telefield = binder_anpartner.buildAndBind("Telefonnummer", "telefonnummer"));
+		
+		((TextField)plzfield).addValidator((new Validator() {
+
+			@Override
+			public void validate(Object value) throws InvalidValueException {
+				
+				try {
+					
+				  	Integer.parseInt(value.toString());
+				  	
+					if ((value == null) || (value == "")){
+						throw new InvalidValueException("Feld kann nicht leer sein");
+					}
+					else {
+						if (value.toString().length() != 5) {
+							throw new InvalidValueException("Postleitzahlen haben 5 Stellen");
+						}
+					}
+				  	
+		        } catch (NumberFormatException e) {
+		        	throw new InvalidValueException("Nur Ziffern verwenden");	
+		        }
+			}
+		}));
 
 		aliasfield.setReadOnly(true);
 		strassefield.setReadOnly(true);
@@ -311,13 +343,13 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		mailfield.setReadOnly(true);
 		telefield.setReadOnly(true);
 		
-		aliasfield.setWidth("400");
-		strassefield.setWidth("400");
-		plzfield.setWidth("400");
-		ortfield.setWidth("400");
-		anpartnerfield.setWidth("400");
-		mailfield.setWidth("400");
-		telefield.setWidth("400");
+		aliasfield.setWidth("100%");
+		strassefield.setWidth("100%");
+		plzfield.setWidth("100%");
+		ortfield.setWidth("100%");
+		anpartnerfield.setWidth("100%");
+		mailfield.setWidth("100%");
+		telefield.setWidth("100%");
 
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
@@ -353,6 +385,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 				mailfield.setReadOnly(false);
 				telefield.setReadOnly(false);
 				hl_botbtns.setVisible(true);
+				edit = true;
 			}
 		});
 
@@ -371,6 +404,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 				hl_botbtns.setVisible(false);
 				binder_standort.discard();
 				binder_anpartner.discard();
+				edit = false;
 			}
 		});
 		
@@ -379,40 +413,56 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//DELETE THIS PANEL UND DB			        
-				Connection con_delete = null;
-			    Statement statement_delete = null;
-			      	try {
-			        	con_delete = DatabaseConnector.getPool().reserveConnection();
-			        	statement_delete = con_delete.createStatement();
-			        	statement_delete.execute("DELETE FROM standort WHERE id = '"+item_standort.getItemProperty("id").getValue().toString()+"'");
-			        	statement_delete.execute("DELETE FROM ansprechpartner WHERE id = '"+item_standort.getItemProperty("ansprechpartner_id").getValue().toString()+"'");
-			        	statement_delete.execute("COMMIT");
-			        	con_delete.commit();
-			        	cont_standort.refresh();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}finally {
-						try {
-							statement_delete.close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-						try {
-							con_delete.close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-						try {
-							DatabaseConnector.getPool().releaseConnection(con_delete);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+						     
+				new PopupLöschen("der Standort", new DeleteListener() {
+					
+					@Override
+					public void delete() {
+						// TODO Auto-generated method stub
+						
+						Connection con_delete = null;
+					    Statement statement_delete = null;
+					      	try {
+					        	con_delete = DatabaseConnector.getPool().reserveConnection();
+					        	statement_delete = con_delete.createStatement();
+					        	statement_delete.execute("DELETE FROM standort WHERE id = '"+item_standort.getItemProperty("id").getValue().toString()+"'");
+					        	statement_delete.execute("DELETE FROM ansprechpartner WHERE id = '"+item_standort.getItemProperty("ansprechpartner_id").getValue().toString()+"'");
+					        	statement_delete.execute("COMMIT");
+					        	con_delete.commit();
+					        	cont_standort.refresh();
+					        	edit = false;
+								vl_fir.removeComponent(pnl_ort);
+								index--;
+							} catch (SQLException e1) {
+								e1.printStackTrace();
+							}finally {
+								try {
+									statement_delete.close();
+								} catch (SQLException e) {
+									e.printStackTrace();
+								}
+								try {
+									con_delete.close();
+								} catch (SQLException e) {
+									e.printStackTrace();
+								}
+								try {
+									DatabaseConnector.getPool().releaseConnection(con_delete);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						
 					}
-
-				vl_fir.removeComponent(pnl_ort);
-				index--;
+					
+					@Override
+					public void close() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 			}
+				
 		});
 
 		// Save Button
@@ -440,6 +490,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 						telefield.setReadOnly(true);
 						btn_edit.setEnabled(true);
 						hl_botbtns.setVisible(false);
+			        	edit = false;
 
 					}
 				} catch (CommitException e) {
@@ -464,6 +515,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		formbutton.setMargin(true);
 		formbutton.setSpacing(true);
 		pnl_button.setContent(formbutton);
+    	
 
 		Button btn_standort = new Button(" Standort");
 		btn_standort.setIcon(FontAwesome.PLUS_CIRCLE);
@@ -487,6 +539,8 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 	}
 
 	public void createStandort() {
+		
+		edit = true;
 
 		Panel pnl_ort = new Panel("Standort");
 		pnl_ort.setWidth("100%");
@@ -577,15 +631,22 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 			@Override
 			public void validate(Object value) throws InvalidValueException {
 				
-				/*try {
-		            Integer convertedValue = (Integer) tf_plz.getConvertedValue();
-		        } catch (ConversionException e) {
-		        	throw new InvalidValueException("Nur Ziffern verwenden");
-		        	
+				try {
+					
+				  	Integer.parseInt(value.toString());
+				  	
+					if ((value == null) || (value == "")){
+						throw new InvalidValueException("Feld kann nicht leer sein");
+					}
+					else {
+						if (value.toString().length() != 5) {
+							throw new InvalidValueException("Postleitzahlen haben 5 Stellen");
+						}
+					}
+				  	
+		        } catch (NumberFormatException e) {
+		        	throw new InvalidValueException("Nur Ziffern verwenden");	
 		        }
-				*/
-				if ((tf_plz.getValue() == null) || (tf_plz.getValue().toString() == ""))
-					throw new InvalidValueException("Feld kann nicht leer sein");
 			}
 		});
 
@@ -606,13 +667,13 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		formort.addComponent(tf_mail);
 		formort.addComponent(tf_tele);
 		
-		tf_alias.setWidth("400");
-		tf_strasse.setWidth("400");
-		tf_plz.setWidth("400");
-		tf_ort.setWidth("400");
-		tf_anpartner.setWidth("400");
-		tf_mail.setWidth("400");
-		tf_tele.setWidth("400");
+		tf_alias.setWidth("100%");
+		tf_strasse.setWidth("100%");
+		tf_plz.setWidth("100%");
+		tf_ort.setWidth("100%");
+		tf_anpartner.setWidth("100%");
+		tf_mail.setWidth("100%");
+		tf_tele.setWidth("100%");
 
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
@@ -637,6 +698,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 				vl_fir.removeComponent(pnl_ort);
 				index--;
+		    	edit = false;
 			}
 		});
 
@@ -714,7 +776,8 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 			}
 		});
-
+		
+    	edit = false;
 		vl_fir.addComponent(pnl_ort, index++);
 
 	}
@@ -726,9 +789,8 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
         FileOutputStream fos = null; // Stream to write to
         try {
             // Open the file for writing.
-            file = new File("C:/Users/Public/Pictures/" + filename);
+            file = new File("/tmp/uploads/" + filename);
             fos = new FileOutputStream(file);
-            System.out.println("JA");
         } catch (final java.io.FileNotFoundException e) {
             new Notification("Could not open file<br/>",
                              e.getMessage(),
@@ -743,7 +805,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
     @Override
     public void uploadSucceeded(SucceededEvent event) {
-        // TODO Auto-generated method stub
+
         //upload.setSource(new FileResource(file));
     }
 
