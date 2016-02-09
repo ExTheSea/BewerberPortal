@@ -142,12 +142,12 @@
 	INSERT INTO go2dhbw.ansprechpartner (name,email,telefonnummer) VALUES('Marie Mustermann','MarieMustermann@mapple.com','92190276');
 
 	#Firmenprofil
-	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('Fujitsu',LOAD_FILE('C:/Users/Public/Pictures/fujitsu_logo.gif'),'http://fujitsu.com');
-	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('CCF',LOAD_FILE('C:/Users/Public/Pictures/ccf_logo.png'),'http://ccf.de');
-	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('mApple',LOAD_FILE('C:/Users/Public/Pictures/mapple_logo.png'),'http://mapple.com');
-	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('MDPV',LOAD_FILE('C:/Users/Public/Pictures/mpdv_logo.png'),'http://mpdv.de');
-	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('KIVBF',LOAD_FILE('C:/Users/Public/Pictures/kivbf_logo.png'),'http://kivbf.de');
-	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('Gaagle',LOAD_FILE('C:/Users/Public/Pictures/gaagle_logo.png'),'http://gaagle.de');
+	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('Fujitsu',LOAD_FILE('C:/Users/Public/Pictures/fujitsu_logo.gif'),'http://www.fujitsu.com');
+	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('CCF',LOAD_FILE('C:/Users/Public/Pictures/ccf_logo.png'),'http://www.ccf.de');
+	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('mApple',LOAD_FILE('C:/Users/Public/Pictures/mapple_logo.png'),'http://www.mapple.com');
+	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('MDPV',LOAD_FILE('C:/Users/Public/Pictures/mpdv_logo.png'),'http://www.mpdv.de');
+	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('KIVBF',LOAD_FILE('C:/Users/Public/Pictures/kivbf_logo.png'),'http://www.kivbf.de');
+	INSERT INTO go2dhbw.firmenprofil (name,logo,website) VALUES('Gaagle',LOAD_FILE('C:/Users/Public/Pictures/gaagle_logo.png'),'http://www.gaagle.de');
 	
 	#Benutzer_Firmenprofil
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(3,1);
@@ -190,13 +190,13 @@
 	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (6,2,'Niederlassung Mitte','Gaagle Way 1','Mosbach','74821','49.3537', '9.1343');
 	
 	#Studienplatz
-	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2.2,1.2,2.2,1.2,2,2,2);
-	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2.1,1.1,2.1,1.1,1,1,2);
-	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2.3,1.3,2.3,1.3,3,3,2);
-	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2.4,1.4,2.4,1.4,4,4,2);
-	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2.5,1.5,2.5,1.5,5,5,2);
-	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2.6,1.6,2.6,1.6,6,6,2);
-
+	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2,3,2,2.5,2,2,2);
+	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(3,2,3,3,1,1,3);
+	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2,2,2,2,3,3,1);
+	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(3,3,3,3,4,4,1);
+	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(2,2,2,2.5,5,5,1);
+	INSERT INTO go2dhbw.studienplaetze (note_deutsch,note_englisch,note_mathe,zeugnisschnitt,studiengang_id,standort_id,anzahl) VALUES(3,3,2,2.7,6,6,4);
+	
 	#Bewerberprofil
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
 	VALUES(4,'Christian Schneider',1992,'0123456789','Fuﬂball, Handball','ECDL',1,1,1,1,'74821','49.3537', '9.1343');                                                                      
@@ -219,7 +219,9 @@
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
 	VALUES(13,'Ramona Mustermann',1997,'0123456789','Wandern','-',1.3,3.2,4.0,2.8,'74072','49.1236', '9.197');                                                                             
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(14,'Daniel Maier',1992,'0123456789','Ballet tanzen','-',3,3,4,3.3,'74072','49.1236', '9.197');	                                                                                	
+	VALUES(14,'Daniel Maier',1992,'0123456789','Ballet tanzen','-',3,3,4,3.3,'74072','49.1236', '9.197');	
+	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
+	VALUES(1,'Moritz Schwarz',1992,'0123456789','-','-',1,1,1,1,'74072','49.1236', '9.197');	
 	
 	#Mehr Lieblingsfaecher zur Auswahl
 	INSERT INTO go2dhbw.lieblingsfaecher (id,bezeichnung) VALUE (4,'Biologie');
