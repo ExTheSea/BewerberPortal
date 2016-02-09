@@ -477,6 +477,7 @@ public class BewerberProfil extends Panel implements View {
 				super.removeToken(tokenId);
 			}
 		};
+		richtcont.sort(new Object[]{"bezeichnung"}, new boolean[]{true});
 		richtfield.setContainerDataSource(richtcont);
 		richtfield.setReadOnly(true);
 		richtfield.setTokenCaptionPropertyId("bezeichnung");
@@ -521,6 +522,7 @@ public class BewerberProfil extends Panel implements View {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		liebfachcont.sort(new Object[]{"bezeichnung"}, new boolean[]{true});
 		TokenField liebfachfield = new TokenField("Lieblingsfächer"){
 			@Override
 			public void addToken(Object tokenId) {

@@ -124,7 +124,7 @@ public class AdminStudienplaetzeView extends VerticalLayout implements View {
 						try {
 							cont.commit();
 						} catch (UnsupportedOperationException | SQLException e) {
-							Notification.show("Fehler beim Löschen", "Datensatz kann nicht gelöschen da Verknüpfungen existieren", Type.ERROR_MESSAGE);
+							Notification.show("Fehler beim Löschen", "Datensatz kann nicht gelöscht werden da Verknüpfungen existieren", Type.ERROR_MESSAGE);
 							try {
 								cont.rollback();
 							} catch (UnsupportedOperationException | SQLException e1) {
