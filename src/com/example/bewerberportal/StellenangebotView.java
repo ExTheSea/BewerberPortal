@@ -139,7 +139,7 @@ public class StellenangebotView extends VerticalLayout implements View {
         filter.setTextFilter("alias", true, true).setInputPrompt("Filter Alias");;
         filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
         filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Studiengang");
-        
+        grid.sort("Bezeichnung");
         grid.setSizeFull();
         grid.getColumn("Bearbeiten").setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			

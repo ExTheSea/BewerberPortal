@@ -23,6 +23,7 @@ import com.vaadin.data.util.filter.Between;
 import com.vaadin.data.util.filter.Like;
 import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
+import com.vaadin.data.util.sqlcontainer.query.OrderBy;
 import com.vaadin.event.SelectionEvent;
 import com.vaadin.event.SelectionEvent.SelectionListener;
 import com.vaadin.navigator.View;
@@ -42,7 +43,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 
     SQLContainer cont_test = null;
 	Or studiengangFilter = null;
-	CheckBox studiengangMatching = null;
+	CheckBox studiengangMatching = new CheckBox("Studiengang");;
 	CheckBox deutschMatching = new CheckBox("Deutsch");
 	CheckBox englischMatching = new CheckBox("Englisch");
 	CheckBox matheMatching = new CheckBox("Mathe");
@@ -152,17 +153,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
     				e.printStackTrace();
     			}
     		}
-
-			if(!studiengang_bewerber.isEmpty()){
-	            Like[] filters = new Like[studiengang_bewerber.size()];
-	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
-	    			String string = studiengang_bewerber.get(i).toString();
-	    			Like filterID = new Like("Bezeichnung", string, false);
-	    			filters[i] = filterID;
-	    		}
-	    		studiengangFilter = new Or(filters);
-	    		
-				studiengangMatching = new CheckBox("Studiengang");
+            try{
 				studiengangMatching.addValueChangeListener(new ValueChangeListener() {
 
 					private static final long serialVersionUID = 1L;
@@ -178,9 +169,27 @@ public class FirmenSucheView extends VerticalLayout implements View {
 						
 					}
 				});
-				studiengangMatching.setValue(true);
-				hlCheckbox.addComponent(studiengangMatching);
+    			if(!studiengang_bewerber.isEmpty()){
+    	            Like[] filters = new Like[studiengang_bewerber.size()];
+    	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
+    	    			String string = studiengang_bewerber.get(i).toString();
+    	    			Like filterID = new Like("Bezeichnung", string, false);
+    	    			filters[i] = filterID;
+    	    		}
+    	    		studiengangFilter = new Or(filters);
+    	    		
+
+    				studiengangMatching.setValue(true);
+    				hlCheckbox.addComponent(studiengangMatching);
+    			}
+            	else{
+    				deutschFilter= new Between("note_deutsch", 0, 6);
+    				deutschMatching.setValue(true);
+    			}
+            }catch(Exception e){
+            	e.printStackTrace();;
 			}
+
 			try{
 				deutschMatching.addValueChangeListener(new ValueChangeListener() {
 
@@ -303,20 +312,19 @@ public class FirmenSucheView extends VerticalLayout implements View {
         testgrid.setSizeFull();
         testgrid.removeAllColumns();
         testgrid.addColumn("name");
-        testgrid.addColumn("Bezeichnung");
+        testgrid.addColumn("Bezeichnung").setHeaderCaption("Studiengang");
         testgrid.addColumn("anzahl");
         testgrid.addColumn("ort");
         testgrid.addColumn("ansprechpartnername").setHeaderCaption("Ansprechpartner");
         
         filter = new GridCellFilter(testgrid);
         filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");
-        filter.setTextFilter("ansprechpartnername", true, true).setInputPrompt("Filter Ansprechpartner");;
-        filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Bezeichnung");
+        filter.setTextFilter("ansprechpartnername", true, true).setInputPrompt("Filter Ansprechpartner");
+        filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Studiengang");
         filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
-        
+        testgrid.sort("Bezeichnung");
         if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="") && (bewerberprofil_lat != null) && (!bewerberprofil_lat.isEmpty())){
-        	//am besten nur Einfügen wenn PLZ vorhanden und Entfernung berechnet werden kann
-        	testgrid.addColumn("Distanz");
+        	testgrid.addColumn("Distanz").setHeaderCaption("Distanz (km)");
         	FieldGroup group_dist = filter.setNumberFilter("Distanz");
             ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
             ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
@@ -390,7 +398,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
     		}
 			if(!studiengang_bewerber.isEmpty()){
 				if(hlCheckbox.getComponentIndex(studiengangMatching)==-1)hlCheckbox.addComponent(studiengangMatching);
-				studiengangMatching.setValue(false);
+				else studiengangMatching.setValue(false);
 	            Like[] filters = new Like[studiengang_bewerber.size()];
 	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
 	    			String string = studiengang_bewerber.get(i).toString();
@@ -424,10 +432,8 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				zeugnisschnittFilter = new Between("zeugnisschnitt", bewerberprofil_zeugnisschnitt, 6);
 				zeugnisschnittMatching.setValue(true);
 			}
-			System.out.println(testgrid.getColumn("Distanz"));
 	        if((testgrid.getColumn("Distanz")==null) && (bewerberprofil_lat != null) && (!bewerberprofil_lat.isEmpty())){
-	        	//am besten nur Einfügen wenn PLZ vorhanden und Entfernung berechnet werden kann
-	        	testgrid.addColumn("Distanz");
+	        	testgrid.addColumn("Distanz").setHeaderCaption("Distanz (km)");
 	        	FieldGroup group_dist = filter.setNumberFilter("Distanz");
 	            ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
 	            ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
