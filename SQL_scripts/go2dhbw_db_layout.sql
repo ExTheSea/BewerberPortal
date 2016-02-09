@@ -12,7 +12,7 @@ PRIMARY KEY (id)
 );
 
 INSERT INTO go2dhbw.accounttyp VALUES(0, "Administrator");
-INSERT INTO go2dhbw.accounttyp VALUES(1, "Student");
+INSERT INTO go2dhbw.accounttyp VALUES(1, "Bewerber");
 INSERT INTO go2dhbw.accounttyp VALUES(2, "Firma");
 
 CREATE TABLE go2dhbw.benutzer

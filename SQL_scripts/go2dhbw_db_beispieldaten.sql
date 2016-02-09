@@ -5,7 +5,6 @@
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(1,'bewerber@go2dhbw.de','bewerber');
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(2,'firma@go2dhbw.de','firma');
 	
-	
 	#Benutzer
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(1,'ChristianSchneider@freenet.de','34846938');
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(1,'SabineMusterfrau@t-online.de','73140721');
@@ -78,8 +77,6 @@
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(1,'RamonaSchneider@freenet.de','38732712');
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(1,'Null@freenet.de','38732712');
 
-
-
 	#Firmenlogins
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(2,'MichaelMueller@mpdv.de','66528558');
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(2,'DanielMusterfrau@mpdv.de','54445814');
@@ -111,8 +108,6 @@
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(2,'JessicaFischer@mpdv.de','20130502');
 	INSERT INTO go2dhbw.benutzer (account_id,email,passwort) VALUES(2,'SabineWeber@kivbf.de','7533394');
 
-	
-
 	#Studiengänge
 	INSERT INTO go2dhbw.studiengang (bezeichnung) VALUE('Wirtschaftsinformatik');
 	INSERT INTO go2dhbw.studiengang (bezeichnung) VALUE('Maschinenbau');
@@ -128,9 +123,8 @@
 	INSERT INTO go2dhbw.studiengang (bezeichnung) VALUE('Bauwesen-Projektmanagement');
 	INSERT INTO go2dhbw.studiengang (bezeichnung) VALUE('Holztechnik');
 	
-	
 	#Ansprechpartner
-	INSERT INTO go2dhbw.ansprechpartner (name,email,telefonnummer) VALUES('Max Meier','MaxMustermensch@fujitsu.com','41278907');
+	INSERT INTO go2dhbw.ansprechpartner (name,email,telefonnummer) VALUES('Max Meier','MaxMeier@fujitsu.com','41278907');
 	INSERT INTO go2dhbw.ansprechpartner (name,email,telefonnummer) VALUES('Marius Schneider','MariusSchneider@gaagle.de','41278908');
 	INSERT INTO go2dhbw.ansprechpartner (name,email,telefonnummer) VALUES('Jessica Maier','JessicaMaier@mpdv.de','61105768');
 	INSERT INTO go2dhbw.ansprechpartner (name,email,telefonnummer) VALUES('Daniel Mueller','DanielMueller@gaagle.de','57876313');
@@ -187,11 +181,10 @@
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(98,4);
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(99,5);
 	
-	
 	#Standort
 	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (1,1,'Hauptsitz','Arnold Jansen Straße','Mosbach','74821','49.3537', '9.1343');
-	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (2,7,'Zentrale','Sonnenallee 3','Malven','97070','49.7685', '9.9382');
-	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (3,5,'Niederlassung Nord','Mapple Drive 1','Silicon Valley','74172','49.1902', '9.2192');
+	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (2,7,'Zentrale','Sonnenallee 3','Würzburg','97070','49.7685', '9.9382');
+	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (3,5,'Niederlassung Nord','Mapple Drive 1','Neckarsulm','74172','49.1902', '9.2192');
 	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (4,3,'Hauptsitz','Römerring 1','Mosbach','74821','49.3537', '9.1343');
 	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (5,15,'Am Wasserturm','Freiherr vom Baum 23','Heilbronn','74072','49.1236', '9.197');
 	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (6,2,'Niederlassung Mitte','Gaagle Way 1','Mosbach','74821','49.3537', '9.1343');
@@ -206,29 +199,27 @@
 
 	#Bewerberprofil
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(2,'Christian Schneider',1992,'0123456789','Fußball, Handball','ECDL',1,1,1,1,'74821','49.3537', '9.1343');                                                                      
+	VALUES(4,'Christian Schneider',1992,'0123456789','Fußball, Handball','ECDL',1,1,1,1,'74821','49.3537', '9.1343');                                                                      
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(3,'Sabine Musterfrau',1987,'0123456789','Programmieren','-',2.3,2.2,1.2,1.9,'74847','49.3519', '9.0908');                                                                   
+	VALUES(5,'Sabine Musterfrau',1987,'0123456789','Programmieren','-',2.3,2.2,1.2,1.9,'74847','49.3519', '9.0908');                                                                   
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(4,'Jessica Weber',1999,'0123456789','Kochen, Yoga, Schwimmen','Freischwimmer, Seepferdchen',2,2,1,1.6,'74847','49.3519', '9.0908');                                            
+	VALUES(6,'Jessica Weber',1999,'0123456789','Kochen, Yoga, Schwimmen','Freischwimmer, Seepferdchen',2,2,1,1.6,'74847','49.3519', '9.0908');                                            
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(5,'Max Musterfrau',1996,'0123456789','Bodybuilding, Joggen, Federball','ECDL, SAP TERP 10',2,2,2,2,'74523','49.1067', '9.7741');                                          
+	VALUES(7,'Max Musterfrau',1996,'0123456789','Bodybuilding, Joggen, Federball','ECDL, SAP TERP 10',2,2,2,2,'74523','49.1067', '9.7741');                                          
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(6,'Phil Maier',1996,'0123456789','Tanzen','Asubildung Sambatanz',3,3,3,3,'74523','49.1067', '9.7741');                                                                        
+	VALUES(8,'Phil Maier',1996,'0123456789','Tanzen','Ausbildung Sambatanz',3,3,3,3,'74523','49.1067', '9.7741');                                                                        
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(7,'Laura Weber',1993,'0123456789','Reiten, Paintball spielen','-',2.5,2.5,2.5,2.5,'97070','49.7685', '9.9382');                                                                   
+	VALUES(9,'Laura Weber',1993,'0123456789','Reiten, Paintball spielen','-',2.5,2.5,2.5,2.5,'97070','49.7685', '9.9382');                                                                   
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(8,'Michael Musterfrau',1992,'0123456789','Computer spielen','-',2,3,1,2,'97070','49.7685', '9.9382');                                                                             
+	VALUES(10,'Michael Musterfrau',1992,'0123456789','Computer spielen','-',2,3,1,2,'97070','49.7685', '9.9382');                                                                             
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(9,'Jessica Mueller',1991,'0123456789','kochen, backen','-',3,3,2,2.6,'97070','49.7685', '9.9382');                                                                               
+	VALUES(11,'Jessica Mueller',1991,'0123456789','kochen, backen','-',3,3,2,2.6,'97070','49.7685', '9.9382');                                                                               
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(10,'Sophia Schmitt',1985,'0123456789','Extreme Mountanbiking','-',2,2,2,2,'74072','49.1236', '9.197');                                                                           
+	VALUES(12,'Sophia Schmitt',1985,'0123456789','Extreme Mountanbiking','-',2,2,2,2,'74072','49.1236', '9.197');                                                                           
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(11,'Ramona Mustermann',1997,'0123456789','Wandern','-',1.3,3.2,4.0,2.8,'74072','49.1236', '9.197');                                                                             
+	VALUES(13,'Ramona Mustermann',1997,'0123456789','Wandern','-',1.3,3.2,4.0,2.8,'74072','49.1236', '9.197');                                                                             
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(12,'Daniel Maier',1992,'0123456789','Ballet tanzen','-',3,3,4,3.3,'74072','49.1236', '9.197');	                                                                                
-	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(13,'Null Value',1992,'0123456789','Ballet tanzen','-',3,3,4,3.3,'74072','49.1236', '9.197');	
+	VALUES(14,'Daniel Maier',1992,'0123456789','Ballet tanzen','-',3,3,4,3.3,'74072','49.1236', '9.197');	                                                                                	
 	
 	#Mehr Lieblingsfaecher zur Auswahl
 	INSERT INTO go2dhbw.lieblingsfaecher (id,bezeichnung) VALUE (4,'Biologie');
