@@ -11,6 +11,7 @@ import java.util.Set;
 import org.vaadin.tokenfield.TokenField;
 
 import com.example.data.DatabaseConnector;
+import com.example.data.GeoHelper;
 import com.example.login.CurrentUser;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.Item;
@@ -124,12 +125,15 @@ public class BewerberProfil extends Panel implements View {
 		Field<?> jahrfield;
 		Field<?> mailfield;
 		Field<?> telnrfield;
+		Field<?> plzfield;
 		formtop.addComponent(namefield = binder.buildAndBind("Name", "name"));
 		formtop.addComponent(jahrfield = binder.buildAndBind("Geburtsjahr", "geburtsjahr"));
 		formtop.addComponent(telnrfield = binder.buildAndBind("Telefonnummer", "telefonnummer"));
+		formtop.addComponent(plzfield = binder.buildAndBind("PLZ", "plz"));
 		namefield.setReadOnly(true);
 		jahrfield.setReadOnly(true);
 		telnrfield.setReadOnly(true);
+		plzfield.setReadOnly(true);
 		
 		
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
@@ -153,6 +157,7 @@ public class BewerberProfil extends Panel implements View {
 				namefield.setReadOnly(false);
 				jahrfield.setReadOnly(false);
 				telnrfield.setReadOnly(false);
+				plzfield.setReadOnly(false);
 				btn_edit.setEnabled(false);
 				hl_botbtns.setVisible(true);
 			}
@@ -165,6 +170,7 @@ public class BewerberProfil extends Panel implements View {
 				namefield.setReadOnly(true);
 				jahrfield.setReadOnly(true);
 				telnrfield.setReadOnly(true);
+				plzfield.setReadOnly(true);
 				btn_edit.setEnabled(true);
 				hl_botbtns.setVisible(false);
 				binder.discard();
@@ -178,10 +184,19 @@ public class BewerberProfil extends Panel implements View {
 				try {
 					if(binder.isValid()){
 						binder.commit();
+						if(!binder.getField("plz").getValue().toString().isEmpty()){
+							String[] koord = GeoHelper.getKoordinaten(binder.getField("plz").getValue().toString());
+							binder.getItemDataSource().getItemProperty("lat").setValue(koord[0]);
+							binder.getItemDataSource().getItemProperty("lng").setValue(koord[1]);
+						}else{
+							binder.getItemDataSource().getItemProperty("lat").setValue("");
+							binder.getItemDataSource().getItemProperty("lng").setValue("");
+						}
 						cont.commit();
 						namefield.setReadOnly(true);
 						jahrfield.setReadOnly(true);
 						telnrfield.setReadOnly(true);
+						plzfield.setReadOnly(true);
 						btn_edit.setEnabled(true);
 						hl_botbtns.setVisible(false);
 					}
@@ -462,6 +477,7 @@ public class BewerberProfil extends Panel implements View {
 				super.removeToken(tokenId);
 			}
 		};
+		richtcont.sort(new Object[]{"bezeichnung"}, new boolean[]{true});
 		richtfield.setContainerDataSource(richtcont);
 		richtfield.setReadOnly(true);
 		richtfield.setTokenCaptionPropertyId("bezeichnung");
@@ -506,6 +522,7 @@ public class BewerberProfil extends Panel implements View {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		liebfachcont.sort(new Object[]{"bezeichnung"}, new boolean[]{true});
 		TokenField liebfachfield = new TokenField("Lieblingsfächer"){
 			@Override
 			public void addToken(Object tokenId) {

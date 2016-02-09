@@ -44,5 +44,8 @@
 		<dependency   org="org.vaadin.addons"  name="tokenfield" rev="7.0.1" />
 
 		<dependency org="org.vaadin.addons" name="vaadin-grid-util" rev="1.0.8" />
+		
+		<dependency org="com.google.maps" name="google-maps-services" rev="0.1.10"/>
+		
 	</dependencies>
 </ivy-module>
