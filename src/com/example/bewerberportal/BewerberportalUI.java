@@ -150,7 +150,7 @@ public class BewerberportalUI extends UI {
 			break;
 		case 1:
 			pnl_menu.addView(new BewerberProfil(CurrentUser.get()), "Profil", "Bewerber", FontAwesome.USER);
-			pnl_menu.addView(new FirmenSucheView(), "Suche", "Suche", FontAwesome.ASTERISK);
+			pnl_menu.addView(new FirmenSucheView(), "Suche", "Suche", FontAwesome.SEARCH);
 			pnl_menu.setActiveView("Profil");
 			break;
 		case 2:

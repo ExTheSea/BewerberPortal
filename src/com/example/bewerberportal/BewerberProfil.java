@@ -331,7 +331,12 @@ public class BewerberProfil extends Panel implements View {
 			public Double convertToModel(String value, Class<? extends Double> targetType, Locale locale)
 					throws com.vaadin.data.util.converter.Converter.ConversionException {
 				String tmp = value.replace(",", ".");
-				return Double.valueOf(tmp);
+				try{
+					return Double.valueOf(tmp);
+				}catch(Exception e){
+					return 0.0;
+				}
+				
 			}
 
 			@Override
