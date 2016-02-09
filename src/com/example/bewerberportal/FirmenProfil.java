@@ -1,12 +1,16 @@
 package com.example.bewerberportal;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.example.bewerberportal.PopupLöschen.DeleteListener;
@@ -16,48 +20,62 @@ import com.sun.xml.internal.ws.encoding.soap.SOAP12Constants;
 import com.vaadin.data.Item;
 import com.vaadin.data.Validator;
 import com.vaadin.data.Validator.InvalidValueException;
+
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.converter.Converter.ConversionException;
 import com.vaadin.data.util.filter.Like;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.query.TableQuery;
+import com.vaadin.event.dd.DragAndDropEvent;
+import com.vaadin.event.dd.DropHandler;
+import com.vaadin.event.dd.acceptcriteria.AcceptAll;
+import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
+import com.vaadin.server.StreamResource;
+import com.vaadin.server.StreamResource.StreamSource;
+import com.vaadin.server.StreamVariable;
+import com.vaadin.server.StreamVariable.StreamingEndEvent;
+import com.vaadin.server.StreamVariable.StreamingErrorEvent;
+import com.vaadin.server.StreamVariable.StreamingProgressEvent;
+import com.vaadin.server.StreamVariable.StreamingStartEvent;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.DragAndDropWrapper;
+import com.vaadin.ui.DragAndDropWrapper.WrapperTransferable;
 import com.vaadin.ui.renderers.ClickableRenderer.RendererClickEvent;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Html5File;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.Upload;
-import com.vaadin.ui.Upload.Receiver;
-import com.vaadin.ui.Upload.SucceededEvent;
-import com.vaadin.ui.Upload.SucceededListener;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class FirmenProfil extends Panel implements View, Receiver, SucceededListener{
+public class FirmenProfil extends Panel implements View {
 
 
 	File  file;
-	Upload upload;
-	
-	boolean edit = false;
+	byte[] bas;
 	
 	SQLContainer cont_firma = null;
 	SQLContainer cont_standort = null;
 	SQLContainer cont_anpartner = null;
+	SQLContainer cont_stellan = null;
 
 	FieldGroup binder_firma;
+	private Image firmen_logo;
 
 	String benutzer_id;
 	String firmenprofil_id;
@@ -119,7 +137,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 		binder_firma = new FieldGroup(item_firma);
 
-		vl_fir.addComponent(buildFirma(), index++);
+		vl_fir.addComponent(buildFirma(item_firma), index++);
 
 		TableQuery tq_standort = new TableQuery("standort", DatabaseConnector.getPool());
 		try {
@@ -131,6 +149,22 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		TableQuery tq_ansprechpartner = new TableQuery("ansprechpartner", DatabaseConnector.getPool());
 		try {
 			cont_anpartner = new SQLContainer(tq_ansprechpartner);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		com.example.data.TableQuery tq_stellenangebote = new com.example.data.TableQuery("firmensucheview", DatabaseConnector.getPool()) {
+
+			private static final long serialVersionUID = 1L;
+
+			public void fetchMetaData() {
+                primaryKeyColumns= new ArrayList<String>();     
+                primaryKeyColumns.add("id");
+                super.fetchMetaData();
+            };
+		};
+		try {
+			cont_stellan = new SQLContainer(tq_stellenangebote);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -148,7 +182,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 	}
 
-	public Panel buildFirma() {
+	public Panel buildFirma(Item item_firma) {
 
 		Panel pnl_firma = new Panel("Firma");
 		pnl_firma.setWidth("100%");
@@ -165,31 +199,55 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		formfirma.addComponent(hl_firma);
 		hl_firma.addComponent(btn_edit);
 		hl_firma.setComponentAlignment(btn_edit, Alignment.TOP_RIGHT);
+		
+	    StreamSource streamSource = new StreamSource()
+	      {
 
+			private static final long serialVersionUID = 1L;
+
+			public InputStream getStream()
+		        {
+			        byte[] bas = (byte[]) item_firma.getItemProperty("logo").getValue();
+			        FirmenProfil.this.bas = bas;
+			        return (bas == null) ? null : new ByteArrayInputStream(bas);
+		        }
+	      };
+	      
+		if(streamSource.getStream()!=null) {
+			firmen_logo = new Image("", new StreamResource(streamSource, "Logo"));
+		}
+		else {
+			firmen_logo = new Image(null, new ThemeResource("kein_logo.png"));
+		}
+		firmen_logo.setWidth("300");
+
+		
+		ImageDropBox dropbox = new ImageDropBox(firmen_logo);
+		dropbox.setSizeUndefined();
+		dropbox.setEnabled(false);
+
+				
+		formfirma.addComponent(dropbox);		
+		Label lbl_infologo = new Label("Zum Ändern, neues Bild auf aktuelles Logo ziehen");
+		lbl_infologo.setVisible(false);
+		formfirma.addComponent(lbl_infologo);
+				
 		Field<?> namefield;
 		Field<?> webfield;
 		// Field<?> logofield;
+	    
 
 		formfirma.addComponent(namefield = binder_firma.buildAndBind("Name", "name"));
 		formfirma.addComponent(webfield = binder_firma.buildAndBind("Website", "website"));
 		// formfirma.addComponent(logofield = binder.buildAndBind("Logo","logo"));
 		
-		//ImageUploader receiver = new ImageUploader();
-		upload = new Upload();
-		upload.setReceiver(this);
-	    upload.setButtonCaption("Logo hochladen");
-	    upload.addSucceededListener(this);
-	    
-	    
-		formfirma.addComponent(upload);
-		
+
 		namefield.setWidth("100%");
 		webfield.setWidth("100%");
 
 		namefield.setReadOnly(true);
 		webfield.setReadOnly(true);
 
-		upload.setVisible(false);
 
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
@@ -206,6 +264,8 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		hl_botbtns.addComponent(btn_cancel);
 		hl_botbtns.setVisible(false);
 		formfirma.addComponent(hl_botbtns);
+		
+
 
 		// Edit Button
 		btn_edit.addClickListener(new Button.ClickListener() {
@@ -214,9 +274,10 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 			public void buttonClick(ClickEvent event) {
 				namefield.setReadOnly(false);
 				webfield.setReadOnly(false);
-				upload.setVisible(true);
+				dropbox.setEnabled(true);
+				lbl_infologo.setVisible(true);
 				hl_botbtns.setVisible(true);
-				edit = true;
+				
 			}
 		});
 
@@ -227,11 +288,33 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 			public void buttonClick(ClickEvent event) {
 				namefield.setReadOnly(true);
 				webfield.setReadOnly(true);
-				upload.setVisible(false);
+				dropbox.setEnabled(false);
+				lbl_infologo.setVisible(false);
 				btn_edit.setEnabled(true);
 				hl_botbtns.setVisible(false);
 				binder_firma.discard();
-				edit = false;
+			    StreamSource streamSource = new StreamSource()
+			      {
+
+					private static final long serialVersionUID = 1L;
+
+					public InputStream getStream()
+				        {
+					        byte[] bas = (byte[]) item_firma.getItemProperty("logo").getValue();
+					        FirmenProfil.this.bas = bas;
+					        return (bas == null) ? null : new ByteArrayInputStream(bas);
+				        }
+			      };
+			      
+				if(streamSource.getStream()!=null) {
+					firmen_logo.setSource(new StreamResource(streamSource, "Logo"));
+				}
+				else {
+					bas = null;
+					firmen_logo.setSource(new ThemeResource("kein_logo.png"));
+		
+				}
+				
 			}
 		});
 
@@ -243,13 +326,15 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 				try {
 					if (binder_firma.isValid()) {
 						binder_firma.commit();
+						if(bas != null)
+							item_firma.getItemProperty("logo").setValue(bas);
 						cont_firma.commit();
 						namefield.setReadOnly(true);
 						webfield.setReadOnly(true);
-						upload.setVisible(false);
 						btn_edit.setEnabled(true);
+						dropbox.setEnabled(false);
+						lbl_infologo.setVisible(false);
 						hl_botbtns.setVisible(false);
-						edit = false;
 					}
 				} catch (CommitException e) {
 					e.printStackTrace();
@@ -306,22 +391,35 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 		if (cont_anpartner.size() > 0) {
 			item_ansprechpartner = cont_anpartner.getItem(cont_anpartner.firstItemId());
 		}
-
+		
 		binder_anpartner = new FieldGroup(item_ansprechpartner);
 		formort.addComponent(anpartnerfield = binder_anpartner.buildAndBind("Ansprechpartner", "name"));
 		formort.addComponent(mailfield = binder_anpartner.buildAndBind("E-Mail", "email"));
 		formort.addComponent(telefield = binder_anpartner.buildAndBind("Telefonnummer", "telefonnummer"));
 		
-		((TextField)plzfield).addValidator((new Validator() {
 
+		Validator notNullValidator = new Validator() {
 			@Override
 			public void validate(Object value) throws InvalidValueException {
-				
+				if ((value == null) || (value == "" || (value.toString().isEmpty()))){
+					throw new InvalidValueException("Feld kann nicht leer sein");
+				}
+			}
+		};
+		
+		((TextField)aliasfield).addValidator(notNullValidator);
+		((TextField)strassefield).addValidator(notNullValidator);
+		((TextField)ortfield).addValidator(notNullValidator);
+		((TextField)anpartnerfield).addValidator(notNullValidator);
+		((TextField)mailfield).addValidator(notNullValidator);
+		((TextField)telefield).addValidator(notNullValidator);
+		
+		((TextField)plzfield).addValidator((new Validator() {
+			@Override
+			public void validate(Object value) throws InvalidValueException {
 				try {
-					
 				  	Integer.parseInt(value.toString());
-				  	
-					if ((value == null) || (value == "")){
+					if ((value == null) || (value == "" ) || (value.toString().isEmpty())){
 						throw new InvalidValueException("Feld kann nicht leer sein");
 					}
 					else {
@@ -329,7 +427,6 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 							throw new InvalidValueException("Postleitzahlen haben 5 Stellen");
 						}
 					}
-				  	
 		        } catch (NumberFormatException e) {
 		        	throw new InvalidValueException("Nur Ziffern verwenden");	
 		        }
@@ -386,7 +483,6 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 				mailfield.setReadOnly(false);
 				telefield.setReadOnly(false);
 				hl_botbtns.setVisible(true);
-				edit = true;
 			}
 		});
 
@@ -405,7 +501,6 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 				hl_botbtns.setVisible(false);
 				binder_standort.discard();
 				binder_anpartner.discard();
-				edit = false;
 			}
 		});
 		
@@ -414,6 +509,17 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 			@Override
 			public void buttonClick(ClickEvent event) {
+				
+				
+				cont_stellan.removeAllContainerFilters();
+				cont_stellan.addContainerFilter(new Like("standort_id", item_standort.getItemProperty("id").getValue().toString()));
+				Item item_stellan = null;
+				if (cont_stellan.size() > 0) {
+					//item_stellan = cont_stellan.getItem(cont_stellan.firstItemId());
+					Notification.show("Error", "Es gibt noch " + cont_stellan.size() + " Stellenangebot(e) zu diesem Standort", Notification.Type.ERROR_MESSAGE);
+				}
+				
+				else {
 						     
 				new PopupLöschen("der Standort", new DeleteListener() {
 					
@@ -431,7 +537,6 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 					        	statement_delete.execute("COMMIT");
 					        	con_delete.commit();
 					        	cont_standort.refresh();
-					        	edit = false;
 								vl_fir.removeComponent(pnl_ort);
 								index--;
 							} catch (SQLException e1) {
@@ -464,6 +569,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 				});
 			}
 				
+		}
 		});
 
 		// Save Button
@@ -480,6 +586,7 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 						String[] koord = GeoHelper.getKoordinaten(binder_standort.getField("strasse").getValue()+" "+binder_standort.getField("plz").getValue()+" "+binder_standort.getField("ort").getValue());
 						item_standort.getItemProperty("lat").setValue(koord[0]);
 						item_standort.getItemProperty("lng").setValue(koord[1]);
+						
 						cont_standort.commit();
 						cont_anpartner.removeAllContainerFilters();
 						for (Iterator it_anspr = cont_anpartner.getItemIds().iterator(); it_anspr.hasNext();) {
@@ -495,7 +602,6 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 						telefield.setReadOnly(true);
 						btn_edit.setEnabled(true);
 						hl_botbtns.setVisible(false);
-			        	edit = false;
 
 					}
 				} catch (CommitException e) {
@@ -545,7 +651,6 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 	public void createStandort() {
 		
-		edit = true;
 
 		Panel pnl_ort = new Panel("Standort");
 		pnl_ort.setWidth("100%");
@@ -581,56 +686,24 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 			}
 		});
 */
-
-		tf_alias.addValidator(new Validator() {
-
-			@Override
-			public void validate(Object value) throws InvalidValueException {
-				if ((tf_alias.getValue() == null) || (tf_alias.getValue().toString() == ""))
-					throw new InvalidValueException("Feld kann nicht leer sein");
-			}
-		});
-
-		tf_strasse.addValidator(new Validator() {
+		
+		Validator validator = new Validator() {
 
 			@Override
 			public void validate(Object value) throws InvalidValueException {
-				if ((tf_strasse.getValue() == null) || (tf_strasse.getValue().toString() == ""))
+				if ((value == null) || (value.toString() == ""))
 					throw new InvalidValueException("Feld kann nicht leer sein");
 			}
-		});
-		tf_anpartner.addValidator(new Validator() {
+		};
 
-			@Override
-			public void validate(Object value) throws InvalidValueException {
-				if ((tf_anpartner.getValue() == null) || (tf_anpartner.getValue().toString() == ""))
-					throw new InvalidValueException("Feld kann nicht leer sein");
-			}
-		});
-		tf_mail.addValidator(new Validator() {
-
-			@Override
-			public void validate(Object value) throws InvalidValueException {
-				if ((tf_mail.getValue() == null) || (tf_mail.getValue().toString() == ""))
-					throw new InvalidValueException("Feld kann nicht leer sein");
-			}
-		});
-		tf_tele.addValidator(new Validator() {
-
-			@Override
-			public void validate(Object value) throws InvalidValueException {
-				if ((tf_tele.getValue() == null) || (tf_tele.getValue().toString() == ""))
-					throw new InvalidValueException("Feld kann nicht leer sein");
-			}
-		});
-		tf_ort.addValidator(new Validator() {
-
-			@Override
-			public void validate(Object value) throws InvalidValueException {
-				if ((tf_ort.getValue() == null) || (tf_ort.getValue().toString() == ""))
-					throw new InvalidValueException("Feld kann nicht leer sein");
-			}
-		});
+		tf_alias.addValidator(validator);
+		tf_strasse.addValidator(validator);
+		tf_anpartner.addValidator(validator);
+		tf_mail.addValidator(validator);
+		tf_tele.addValidator(validator);
+		tf_ort.addValidator(validator);
+		
+		
 		tf_plz.addValidator(new Validator() {
 
 			@Override
@@ -703,7 +776,6 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 
 				vl_fir.removeComponent(pnl_ort);
 				index--;
-		    	edit = false;
 			}
 		});
 
@@ -738,6 +810,8 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 						statement_save.execute("INSERT INTO standort (firmenprofil_id, ansprechpartner_id, alias, strasse, ort, plz, lat, lng) VALUES ('"+firmenprofil_id+"', '"+rs.getString("id")+"', '"+tf_alias.getValue().toString()+"', '"+tf_strasse.getValue().toString()+"', '"+tf_ort.getValue().toString()+"', '"+ tf_plz.getValue().toString()+"', '"+koord[0]+"', '"+koord[1]+"')");
 
 						con_save.commit();
+						
+						
 						try {
 							
 							ResultSet rs2 = statement_save.executeQuery("SELECT id FROM standort WHERE alias='"+tf_alias.getValue().toString()+"' AND strasse='"+tf_strasse.getValue().toString()+"' AND plz='"+tf_plz.getValue().toString()+"' AND ort='"+tf_ort.getValue().toString()+"'");
@@ -781,41 +855,118 @@ public class FirmenProfil extends Panel implements View, Receiver, SucceededList
 			}
 		});
 		
-    	edit = false;
 		vl_fir.addComponent(pnl_ort, index++);
 
 	}
 	
-	public OutputStream receiveUpload(String filename,
-            String mimeType) {
-		
-		 // Create upload stream
-        FileOutputStream fos = null; // Stream to write to
-        try {
-            // Open the file for writing.
-            file = new File("/tmp/uploads/" + filename);
-            fos = new FileOutputStream(file);
-        } catch (final java.io.FileNotFoundException e) {
-            new Notification("Could not open file<br/>",
-                             e.getMessage(),
-                             Notification.Type.ERROR_MESSAGE)
-                .show(Page.getCurrent());
-            return null;
-        }
-        return fos;
-		
-	}
-	
-
-    @Override
-    public void uploadSucceeded(SucceededEvent event) {
-
-        //upload.setSource(new FileResource(file));
-    }
-
 	@Override
 	public void enter(ViewChangeEvent event) {
 
 	}
+	
+	
+	
+
+    private class ImageDropBox extends DragAndDropWrapper implements
+    DropHandler {
+       
+    Image logo;
+    public ImageDropBox(final Component root) {
+        super(root);
+    	this.logo = (Image) root;
+        setDropHandler(this);
+    }
+   
+    @Override
+    public void drop(final DragAndDropEvent dropEvent) {
+   
+        // expecting this to be an html5 drag
+        final WrapperTransferable tr = (WrapperTransferable) dropEvent
+                .getTransferable();
+        final Html5File[] files = tr.getFiles();
+        if (files != null) {
+            for (final Html5File html5File : files) {
+                final String fileName = html5File.getFileName();
+                    final ByteArrayOutputStream bas = new ByteArrayOutputStream();
+                    final StreamVariable streamVariable = new StreamVariable() {
+   
+                        @Override
+                        public OutputStream getOutputStream() {
+                            return bas;
+                        }
+   
+                        @Override
+                        public boolean listenProgress() {
+                            return false;
+                        }
+   
+                        @Override
+                        public void onProgress(
+                                final StreamingProgressEvent event) {
+                        }
+   
+                        @Override
+                        public void streamingStarted(
+                                final StreamingStartEvent event) {
+                        }
+   
+                        @Override
+                        public void streamingFinished(
+                                final StreamingEndEvent event) {
+                            showFile(fileName, html5File.getType(), bas);
+                        }
+   
+                        @Override
+                        public void streamingFailed(
+                                final StreamingErrorEvent event) {
+                        }
+   
+                        @Override
+                        public boolean isInterrupted() {
+                            return false;
+                        }
+                    };
+                    html5File.setStreamVariable(streamVariable);
+                	BewerberportalUI.getCurrent().setPollInterval(1000);
+            }
+   
+        } else {
+            final String text = tr.getText();
+            if (text != null) {
+                //showText("File nicht angekommen");
+            }
+        }
+    }
+    
+   
+    private void showFile(final String name, final String type,
+            final ByteArrayOutputStream bas) {
+        final byte[] byteArray = bas.toByteArray();
+        ByteArrayInputStream bis = new ByteArrayInputStream(byteArray);
+        FirmenProfil.this.bas = bas.toByteArray();
+        final StreamSource streamSource = new StreamSource() {
+            @Override
+            public InputStream getStream() {
+                if (bas != null) {
+                	return bis;
+                }else
+                	return null;
+            }
+        };
+        final StreamResource resource = new StreamResource(streamSource,
+                name);
+   
+        logo.setSource(resource);
+    	BewerberportalUI.getCurrent().setPollInterval(-1);
+    }
+    
+
+	@Override
+	public AcceptCriterion getAcceptCriterion() {
+		return AcceptAll.get();
+	}
+	
+	
+    }
 
 }
