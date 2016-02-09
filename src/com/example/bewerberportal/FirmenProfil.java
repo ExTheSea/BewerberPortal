@@ -15,10 +15,15 @@ import java.util.Iterator;
 
 import com.example.bewerberportal.PopupLöschen.DeleteListener;
 import com.example.data.DatabaseConnector;
+import com.example.data.GeoHelper;
+import com.sun.xml.internal.ws.encoding.soap.SOAP12Constants;
 import com.vaadin.data.Item;
 import com.vaadin.data.Validator;
+import com.vaadin.data.Validator.InvalidValueException;
+
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.util.converter.Converter.ConversionException;
 import com.vaadin.data.util.filter.Like;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.query.TableQuery;
@@ -28,6 +33,7 @@ import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
@@ -44,6 +50,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.DragAndDropWrapper.WrapperTransferable;
+import com.vaadin.ui.renderers.ClickableRenderer.RendererClickEvent;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -575,6 +582,11 @@ public class FirmenProfil extends Panel implements View {
 					if (binder_standort.isValid() && binder_anpartner.isValid()) {
 						binder_standort.commit();
 						binder_anpartner.commit();
+						
+						String[] koord = GeoHelper.getKoordinaten(binder_standort.getField("strasse").getValue()+" "+binder_standort.getField("plz").getValue()+" "+binder_standort.getField("ort").getValue());
+						item_standort.getItemProperty("lat").setValue(koord[0]);
+						item_standort.getItemProperty("lng").setValue(koord[1]);
+						
 						cont_standort.commit();
 						cont_anpartner.removeAllContainerFilters();
 						for (Iterator it_anspr = cont_anpartner.getItemIds().iterator(); it_anspr.hasNext();) {
@@ -784,6 +796,7 @@ public class FirmenProfil extends Panel implements View {
 				if (tf_alias.isValid() & tf_strasse.isValid() & tf_anpartner.isValid() & tf_mail.isValid()
 						& tf_tele.isValid() & tf_ort.isValid() & tf_plz.isValid()) {
 
+					String[] koord = GeoHelper.getKoordinaten(tf_strasse.getValue()+" "+tf_plz.getValue()+" "+tf_ort.getValue());
 					Connection con_save = null;
 					Statement statement_save = null;
 					try {
@@ -794,7 +807,7 @@ public class FirmenProfil extends Panel implements View {
 						ResultSet rs = statement_save.executeQuery("SELECT id FROM ansprechpartner WHERE name='"+tf_anpartner.getValue().toString()+"' AND email='"+tf_mail.getValue().toString()+"' AND telefonnummer='"+tf_tele.getValue().toString()+"'");
 						rs.first();
 						String anpartner_id = rs.getString("id");
-						statement_save.execute("INSERT INTO standort (firmenprofil_id, ansprechpartner_id, alias, strasse, ort, plz) VALUES ('"+firmenprofil_id+"', '"+rs.getString("id")+"', '"+tf_alias.getValue().toString()+"', '"+tf_strasse.getValue().toString()+"', '"+tf_ort.getValue().toString()+"', '"+ tf_plz.getValue().toString()+"')");
+						statement_save.execute("INSERT INTO standort (firmenprofil_id, ansprechpartner_id, alias, strasse, ort, plz, lat, lng) VALUES ('"+firmenprofil_id+"', '"+rs.getString("id")+"', '"+tf_alias.getValue().toString()+"', '"+tf_strasse.getValue().toString()+"', '"+tf_ort.getValue().toString()+"', '"+ tf_plz.getValue().toString()+"', '"+koord[0]+"', '"+koord[1]+"')");
 
 						con_save.commit();
 						
