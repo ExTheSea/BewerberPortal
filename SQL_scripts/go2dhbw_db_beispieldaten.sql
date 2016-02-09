@@ -221,7 +221,7 @@
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
 	VALUES(14,'Daniel Maier',1992,'0123456789','Ballet tanzen','-',3,3,4,3.3,'74072','49.1236', '9.197');	
 	INSERT INTO go2dhbw.bewerberprofil (benutzer_id,name,geburtsjahr,telefonnummer,hobbies,zusatzqualifikationen,note_deutsch,note_englisch,note_mathe,zeugnisschnitt, plz, lat, lng)
-	VALUES(1,'Moritz Schwarz',1992,'0123456789','-','-',1,1,1,1,'74072','49.1236', '9.197');	
+	VALUES(2,'Moritz Schwarz',1992,'0123456789','-','-',1,1,1,1,'74072','49.1236', '9.197');	
 	
 	#Mehr Lieblingsfaecher zur Auswahl
 	INSERT INTO go2dhbw.lieblingsfaecher (id,bezeichnung) VALUE (4,'Biologie');
