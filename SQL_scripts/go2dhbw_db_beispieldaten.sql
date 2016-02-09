@@ -151,35 +151,35 @@
 	
 	#Benutzer_Firmenprofil
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(3,1);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(71,4);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(72,4);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(73,3);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(74,6);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(75,3);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(74,4);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(75,4);
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(76,3);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(77,4);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(78,5);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(79,2);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(80,6);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(77,6);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(78,3);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(79,3);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(80,4);
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(81,5);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(82,4);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(83,5);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(84,6);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(82,2);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(83,6);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(84,5);
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(85,4);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(86,3);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(87,3);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(86,5);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(87,6);
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(88,4);
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(89,2);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(90,3);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(91,6);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(92,4);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(90,2);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(91,4);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(92,2);
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(93,3);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(94,4);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(95,3);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(96,4);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(94,6);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(95,4);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(96,2);
 	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(97,4);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(98,4);
-	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(99,5);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(98,3);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(99,4);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(100,4);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(101,4);
+	INSERT INTO go2dhbw.benutzer_firmenprofil (benutzer_id,firmenprofil_id) VALUES(102,5);
 	
 	#Standort
 	INSERT INTO go2dhbw.standort (firmenprofil_id,ansprechpartner_id,alias,strasse,ort,plz,lat,lng) VALUES (1,1,'Hauptsitz','Arnold Jansen Straﬂe','Mosbach','74821','49.3537', '9.1343');
