@@ -39,10 +39,10 @@ public class FirmenSucheView extends VerticalLayout implements View {
 	
 	private static final long serialVersionUID = 1L;
 
-
+	//Erstellen von Variablen die im Kontstruktor und erneuten Enter der Seite benötigt werden
     SQLContainer cont_test = null;
 	Or studiengangFilter = null;
-	CheckBox studiengangMatching = null;
+	CheckBox studiengangMatching = new CheckBox("Studiengang");;
 	CheckBox deutschMatching = new CheckBox("Deutsch");
 	CheckBox englischMatching = new CheckBox("Englisch");
 	CheckBox matheMatching = new CheckBox("Mathe");
@@ -66,7 +66,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 		setMargin(true);
 		setSpacing(true);
 		setSizeFull();
-
+		//Abruf Datenbank des firmensucheview
 		testgrid = new Grid();
         TableQuery tq_test = new TableQuery("firmensucheview", DatabaseConnector.getPool()){
 
@@ -83,6 +83,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        //Hinzufügen der Distanz Spalte und Berechnung der Distanz
         GeneratedPropertyContainer cont_gen = new GeneratedPropertyContainer(cont_test);
         cont_gen.addGeneratedProperty("Distanz", new PropertyValueGenerator<Integer>() {
 
@@ -103,13 +104,14 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				return Integer.class;
 			}
 		});
+        //Matching für Angemeldeten User
         if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="")){
             hlCheckbox.setSizeFull();
             hlCheckbox.setHeight(null);
             hlCheckbox.addComponent(new Label("Matching: "));
             Connection con = null;
             Statement statement = null;
-
+            //Abruf der User Informationen
             studiengang_bewerber = new  ArrayList<String>();
             try {
     			con = DatabaseConnector.getPool().reserveConnection();
@@ -152,17 +154,8 @@ public class FirmenSucheView extends VerticalLayout implements View {
     				e.printStackTrace();
     			}
     		}
-
-			if(!studiengang_bewerber.isEmpty()){
-	            Like[] filters = new Like[studiengang_bewerber.size()];
-	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
-	    			String string = studiengang_bewerber.get(i).toString();
-	    			Like filterID = new Like("Bezeichnung", string, false);
-	    			filters[i] = filterID;
-	    		}
-	    		studiengangFilter = new Or(filters);
-	    		
-				studiengangMatching = new CheckBox("Studiengang");
+            try{
+            	//Matching des Studiengang
 				studiengangMatching.addValueChangeListener(new ValueChangeListener() {
 
 					private static final long serialVersionUID = 1L;
@@ -178,10 +171,23 @@ public class FirmenSucheView extends VerticalLayout implements View {
 						
 					}
 				});
-				studiengangMatching.setValue(true);
-				hlCheckbox.addComponent(studiengangMatching);
+    			if(!studiengang_bewerber.isEmpty()){
+    	            Like[] filters = new Like[studiengang_bewerber.size()];
+    	    		for (int i = 0; i < studiengang_bewerber.size(); i++) {
+    	    			String string = studiengang_bewerber.get(i).toString();
+    	    			Like filterID = new Like("Bezeichnung", string, false);
+    	    			filters[i] = filterID;
+    	    		}
+    	    		studiengangFilter = new Or(filters);
+    				studiengangMatching.setValue(true);
+    				hlCheckbox.addComponent(studiengangMatching);
+    			}
+            }catch(Exception e){
+				e.printStackTrace();;
 			}
+
 			try{
+				//Matching der Deutschnote
 				deutschMatching.addValueChangeListener(new ValueChangeListener() {
 
 					private static final long serialVersionUID = 1L;
@@ -211,6 +217,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				e.printStackTrace();;
 			}
 			try{
+				//Matching der Englischnote
 				englischMatching.addValueChangeListener(new ValueChangeListener() {
 
 					private static final long serialVersionUID = 1L;
@@ -240,6 +247,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 			}
 
 			try{
+				//Matching der Mathenote
 				matheMatching.addValueChangeListener(new ValueChangeListener() {
 
 					private static final long serialVersionUID = 1L;
@@ -268,6 +276,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				e.printStackTrace();;
 			}
 			try{
+				//Matching des Zeugnisschnitt
 				zeugnisschnittMatching.addValueChangeListener(new ValueChangeListener() {
 
 					private static final long serialVersionUID = 1L;
@@ -298,7 +307,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
 
 			addComponent(hlCheckbox);
         }
-
+        //Entfernen und Hinzufügen der gewünschten Spalten
         testgrid.setContainerDataSource(cont_gen);
         testgrid.setSizeFull();
         testgrid.removeAllColumns();
@@ -313,13 +322,10 @@ public class FirmenSucheView extends VerticalLayout implements View {
         filter.setTextFilter("ansprechpartnername", true, true).setInputPrompt("Filter Ansprechpartner");;
         filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Bezeichnung");
         filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
-        
+        //Hinzufügen der Distanz wenn berechenbar
         if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="") && (bewerberprofil_lat != null) && (!bewerberprofil_lat.isEmpty())){
         	//am besten nur Einfügen wenn PLZ vorhanden und Entfernung berechnet werden kann
         	testgrid.addColumn("Distanz");
-        	FieldGroup group_dist = filter.setNumberFilter("Distanz");
-            ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
-            ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
         }
 
         testgrid.setColumnOrder(new Object[]{"name", "Bezeichnung", "anzahl", "ort"});
@@ -337,12 +343,12 @@ public class FirmenSucheView extends VerticalLayout implements View {
 		});
 	}
 	
-	
+	//Erneuter Aufruf der Seite
 	@Override
 	public void enter(ViewChangeEvent event) {
 		cont_test.refresh();
 		if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="")){
-			
+			//Erneuter Abruf der User Informationen die evtl. geändert wurden
             Connection con = null;
             Statement statement = null;
 
@@ -388,6 +394,7 @@ public class FirmenSucheView extends VerticalLayout implements View {
     				e.printStackTrace();
     			}
     		}
+            //Erneuter Aufbau des Matching auf Studiengang
 			if(!studiengang_bewerber.isEmpty()){
 				if(hlCheckbox.getComponentIndex(studiengangMatching)==-1)hlCheckbox.addComponent(studiengangMatching);
 				studiengangMatching.setValue(false);
@@ -400,18 +407,21 @@ public class FirmenSucheView extends VerticalLayout implements View {
 	    		studiengangFilter = new Or(filters);
 				studiengangMatching.setValue(true);
 			}
+			//Erneuter Aufbau des Matching auf Deutsch
 			if((bewerberprofil_deutsch!="")&&(bewerberprofil_deutsch!=null)&&((Double.parseDouble(bewerberprofil_deutsch)!=0.0))){
 				if(hlCheckbox.getComponentIndex(deutschMatching)==-1)hlCheckbox.addComponent(deutschMatching);
 				deutschMatching.setValue(false);
 				deutschFilter= new Between("note_deutsch", bewerberprofil_deutsch, 6);
 				deutschMatching.setValue(true);
 			}
+			//Erneuter Aufbau des Matching auf Englisch
 			if((bewerberprofil_englisch!="")&&(bewerberprofil_englisch!=null)&&((Double.parseDouble(bewerberprofil_englisch)!=0.0))){
 				if(hlCheckbox.getComponentIndex(englischMatching)==-1)hlCheckbox.addComponent(englischMatching);
 				englischMatching.setValue(false);
 				englischFilter= new Between("note_englisch", bewerberprofil_englisch, 6);
 				englischMatching.setValue(true);
 			}
+			//Erneuter Aufbau des Matching auf Mathe
 			if((bewerberprofil_mathe!="")&&(bewerberprofil_mathe!=null)&&((Double.parseDouble(bewerberprofil_mathe)!=0.0))){
 				if(hlCheckbox.getComponentIndex(matheMatching)==-1)hlCheckbox.addComponent(matheMatching);
 				matheMatching.setValue(false);
@@ -424,13 +434,9 @@ public class FirmenSucheView extends VerticalLayout implements View {
 				zeugnisschnittFilter = new Between("zeugnisschnitt", bewerberprofil_zeugnisschnitt, 6);
 				zeugnisschnittMatching.setValue(true);
 			}
-			System.out.println(testgrid.getColumn("Distanz"));
+			//Erneuter Aufbau des Matching auf Zeugnisschnitt
 	        if((testgrid.getColumn("Distanz")==null) && (bewerberprofil_lat != null) && (!bewerberprofil_lat.isEmpty())){
-	        	//am besten nur Einfügen wenn PLZ vorhanden und Entfernung berechnet werden kann
 	        	testgrid.addColumn("Distanz");
-	        	FieldGroup group_dist = filter.setNumberFilter("Distanz");
-	            ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
-	            ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
 	        }
 		}
 	}
