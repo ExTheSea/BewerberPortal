@@ -7,6 +7,7 @@ import java.io.InputStream;
 import com.vaadin.data.Item;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
@@ -58,7 +59,8 @@ public class StudienplatzPopUp extends Window {
 		vl_firma.addComponent(label_firma);
 		
 		Label label_website = new Label();
-		if(item.getItemProperty("website").getValue()!=null)label_website.setValue(item.getItemProperty("website").getValue().toString());
+		label_website.setContentMode(ContentMode.HTML);
+		if(item.getItemProperty("website").getValue()!=null)label_website.setValue("<a href='"+item.getItemProperty("website").getValue().toString()+"'>"+item.getItemProperty("website").getValue().toString()+"</a>");
 		label_website.setCaption("Website:");
 		vl_firma.addComponent(label_website);
 		
