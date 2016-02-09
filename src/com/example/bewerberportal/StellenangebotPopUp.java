@@ -34,15 +34,16 @@ import com.vaadin.ui.Button.ClickEvent;
 		private SQLContainer cont_studiengang = null;
 		private SQLContainer cont_standorte = null;
 		private PopUpCloseListener listener;
-		
+		//Konstruktor für vorhandenes Stellenangebot 
 		public StellenangebotPopUp(Item item, PopUpCloseListener listener) {
 			this.listener = listener;
+			//erstellen Grundlayout
 			VerticalLayout vl_popup = new VerticalLayout();
 			vl_popup.setMargin(true);
 			vl_popup.setSpacing(true);
 			vl_popup.setSizeFull();
 			setContent(vl_popup);
-
+			//Abruf der Studiengänge zum wählen
 	        TableQuery tq_studiengang = new TableQuery("studiengang", DatabaseConnector.getPool()){
 
 				private static final long serialVersionUID = 1L;
@@ -58,7 +59,7 @@ import com.vaadin.ui.Button.ClickEvent;
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-			
+	      //Abruf der Standorte zum wählen
 	        TableQuery tq_standort = new TableQuery("standort", DatabaseConnector.getPool()){
 
 				private static final long serialVersionUID = 1L;
@@ -75,7 +76,7 @@ import com.vaadin.ui.Button.ClickEvent;
 	            e.printStackTrace();
 	        }
 	        
-			
+			//Erstellen des Dropbown Menü Studiengang mit Validerung
 			ComboBox dropdown_studiengang = new ComboBox("Studiengang", cont_studiengang);
 			dropdown_studiengang.setNullSelectionAllowed(false);
 			dropdown_studiengang.setValue(new RowId((Integer)item.getItemProperty("studiengang_id").getValue()));
@@ -91,6 +92,7 @@ import com.vaadin.ui.Button.ClickEvent;
 				}
 			});
 			vl_popup.addComponent(dropdown_studiengang);
+			//Erstellen des Dropbown Menü Standort mit Filterung auf Firmenstandorte und Validerung
 			cont_standorte.addContainerFilter("firmenprofil_id", item.getItemProperty("firmenprofil_id").getValue().toString(), false, false);
 			ComboBox dropdown_standort = new ComboBox("Standort", cont_standorte);
 			dropdown_standort.setNullSelectionAllowed(false);
@@ -108,7 +110,7 @@ import com.vaadin.ui.Button.ClickEvent;
 			});
 			vl_popup.addComponent(dropdown_standort);
 			
-			
+			//Einfügen Feld Frei Studienplätze
 			HorizontalLayout hl_freie_plaetze = new HorizontalLayout();
 			hl_freie_plaetze.setSizeFull();
 			vl_popup.addComponent(hl_freie_plaetze);
@@ -141,6 +143,7 @@ import com.vaadin.ui.Button.ClickEvent;
 				}
 			});
 			
+			//Einfügen Feld Notendurchschnitt
 			HorizontalLayout hl_durschnitt = new HorizontalLayout();
 			hl_durschnitt.setSizeFull();
 			vl_popup.addComponent(hl_durschnitt);
@@ -176,7 +179,7 @@ import com.vaadin.ui.Button.ClickEvent;
 
 				}
 			});
-			
+			//Einfügen Feld Note Deutsch
 			HorizontalLayout hl_deutsch = new HorizontalLayout();
 			hl_deutsch.setSizeFull();
 			vl_popup.addComponent(hl_deutsch);
@@ -210,7 +213,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					}
 				}
 			});
-			
+			//Einfügen Feld Note Englisch
 			HorizontalLayout hl_englisch = new HorizontalLayout();
 			hl_englisch.setSizeFull();
 			vl_popup.addComponent(hl_englisch);
@@ -244,7 +247,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					}
 				}
 			});
-			
+			//Einfügen Feld Note Mathe
 			HorizontalLayout hl_mathe = new HorizontalLayout();
 			hl_mathe.setSizeFull();
 			vl_popup.addComponent(hl_mathe);
@@ -278,7 +281,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					}
 				}
 			});
-			
+			//Hinzufügen Speicher Button
 			Button btn_register = new Button("Speichern");
 			btn_register.setStyleName(ValoTheme.BUTTON_DANGER);
 			btn_register.setWidth("100%");
@@ -292,6 +295,7 @@ import com.vaadin.ui.Button.ClickEvent;
 			        Connection con_save = null;
 			        Statement statement_save = null;
 			        try {
+			        	//Überprüfen ob Felder Valide und Datensatz noch nicht vorhanden mit Standort und Studiengangskombination
 			        	if (dropdown_standort.isValid()&&dropdown_studiengang.isValid()&&deutsch.isValid()&&mathe.isValid()&&englisch.isValid()&&durchschnitt.isValid()){
 				        	con_save = DatabaseConnector.getPool().reserveConnection();
 				        	statement_save = con_save.createStatement();
@@ -354,14 +358,15 @@ import com.vaadin.ui.Button.ClickEvent;
 			//PopUp öffnen
 			BewerberportalUI.getCurrent().addWindow(this);
 		}
-		
+		//Konstruktor für neues Stellenangebot
 		public StellenangebotPopUp(PopUpCloseListener listener){
+			//erstellen Grundlayout
 			VerticalLayout vl_popup = new VerticalLayout();
 			vl_popup.setMargin(true);
 			vl_popup.setSpacing(true);
 			vl_popup.setSizeFull();
 			setContent(vl_popup);
-
+			//Abruf der Studiengänge zum wählen
 	        TableQuery tq_studiengang = new TableQuery("studiengang", DatabaseConnector.getPool()){
 
 				private static final long serialVersionUID = 1L;
@@ -377,9 +382,9 @@ import com.vaadin.ui.Button.ClickEvent;
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-			
+	        //Abruf der Standorte zum wählen
 	        TableQuery tq_standort = new TableQuery("standort", DatabaseConnector.getPool()){
-
+	        	
 				private static final long serialVersionUID = 1L;
 
 				public void fetchMetaData() {
@@ -394,7 +399,7 @@ import com.vaadin.ui.Button.ClickEvent;
 	            e.printStackTrace();
 	        }
 	        
-			
+	        //Erstellen des Dropbown Menü Studiengang mit Validerung
 			ComboBox dropdown_studiengang = new ComboBox("Studiengang", cont_studiengang);
 			dropdown_studiengang.setNullSelectionAllowed(false);
 			dropdown_studiengang.setWidth("100%");
@@ -439,7 +444,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					e.printStackTrace();
 				}
 			}
-			
+	        //Erstellen des Dropbown Menü Standort mit Filterung auf Firmenstandorte und Validerung
 			cont_standorte.addContainerFilter("firmenprofil_id", firmenprofil_id, false, false);
 			ComboBox dropdown_standort = new ComboBox("Standort", cont_standorte);
 			dropdown_standort.setNullSelectionAllowed(false);
@@ -456,7 +461,7 @@ import com.vaadin.ui.Button.ClickEvent;
 				}
 			});
 			vl_popup.addComponent(dropdown_standort);
-			
+			//Einfügen Feld Frei Studienplätze
 			HorizontalLayout hl_freie_plaetze = new HorizontalLayout();
 			hl_freie_plaetze.setSizeFull();
 			vl_popup.addComponent(hl_freie_plaetze);
@@ -487,6 +492,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					}
 				}
 			});
+			//Einfügen Feld Notendurchschnitt
 			HorizontalLayout hl_durschnitt = new HorizontalLayout();
 			hl_durschnitt.setSizeFull();
 			vl_popup.addComponent(hl_durschnitt);
@@ -519,7 +525,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					}
 				}
 			});
-			
+			//Einfügen Feld Note Deutsch
 			HorizontalLayout hl_deutsch = new HorizontalLayout();
 			hl_deutsch.setSizeFull();
 			vl_popup.addComponent(hl_deutsch);
@@ -552,7 +558,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					}
 				}
 			});
-			
+			//Einfügen Feld Note Englisch
 			HorizontalLayout hl_englisch = new HorizontalLayout();
 			hl_englisch.setSizeFull();
 			vl_popup.addComponent(hl_englisch);
@@ -585,7 +591,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					}
 				}
 			});
-			
+			//Einfügen Feld Note Mathe
 			HorizontalLayout hl_mathe = new HorizontalLayout();
 			hl_mathe.setSizeFull();
 			vl_popup.addComponent(hl_mathe);
@@ -618,7 +624,7 @@ import com.vaadin.ui.Button.ClickEvent;
 					}
 				}
 			});
-			
+			//Hinzufügen Speicher Button
 			Button btn_register = new Button("Speichern");
 			btn_register.setStyleName(ValoTheme.BUTTON_DANGER);
 			btn_register.setWidth("100%");
@@ -632,6 +638,7 @@ import com.vaadin.ui.Button.ClickEvent;
 			        Connection con_save = null;
 			        Statement statement_save = null;
 			        try {
+			        	//Überprüfen ob Felder Valide und Datensatz noch nicht vorhanden mit Standort und Studiengangskombination
 			        	if (dropdown_standort.isValid()&&dropdown_studiengang.isValid()&&deutsch.isValid()&&mathe.isValid()&&englisch.isValid()&&durchschnitt.isValid()){
 				        	con_save = DatabaseConnector.getPool().reserveConnection();
 				        	statement_save = con_save.createStatement();
