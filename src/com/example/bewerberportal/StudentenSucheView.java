@@ -62,7 +62,6 @@ public class StudentenSucheView extends VerticalLayout implements View {
             e.printStackTrace();
         }
         
-        //cont_test.getItem(cont_test.firstItemId()).getItemProperty("note_deutsch").setValue(3.2d);
         try {
 			cont_test.commit();
 		} catch (UnsupportedOperationException e) {
@@ -73,23 +72,6 @@ public class StudentenSucheView extends VerticalLayout implements View {
 			e.printStackTrace();
 		}
         
-        GeneratedPropertyContainer cont_gen = new GeneratedPropertyContainer(cont_test);
-        cont_gen.addGeneratedProperty("Ort", new PropertyValueGenerator<String>() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public String getValue(Item item, Object itemId, Object propertyId) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public Class<String> getType() {
-				// TODO Auto-generated method stub
-				return String.class;
-			}
-		});
         GridCellFilter filter = new GridCellFilter(testgrid);
         
         Connection con = null;
@@ -146,7 +128,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
         	cont_test.addContainerFilter(filterAlles);
         }
         
-        testgrid.setContainerDataSource(cont_gen);
+        testgrid.setContainerDataSource(cont_test);
         testgrid.setSizeFull();
         testgrid.removeAllColumns();
         testgrid.addColumn("studiengang");
@@ -162,7 +144,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 			public void textChange(TextChangeEvent event) {
 				for (Iterator it_filters = stud_filters.iterator(); it_filters.hasNext();) {
 					Filter filter = (Filter) it_filters.next();
-					cont_gen.removeContainerFilter(filter);
+					cont_test.removeContainerFilter(filter);
 				}
 				stud_filters.clear();
 				String search_text = event.getText();
@@ -170,7 +152,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 				for (int i = 0; i < arr_search.length; i++) {
 					String string = arr_search[i];
 					Like filter = new Like("studiengang", "%"+string+"%", false);
-					cont_gen.addContainerFilter(filter);
+					cont_test.addContainerFilter(filter);
 					stud_filters.add(filter);
 				}
 				
@@ -185,13 +167,12 @@ public class StudentenSucheView extends VerticalLayout implements View {
         filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");
         testgrid.addColumn("plz").setHeaderCaption("PLZ");
         filter.setTextFilter("plz", true, true).setInputPrompt("Filter PLZ");
-        testgrid.addColumn("Ort");
-        filter.setTextFilter("Ort", true, true).setInputPrompt("Filter Ort");
         testgrid.addColumn("zeugnisschnitt");
         FieldGroup group_dist = filter.setNumberFilter("zeugnisschnitt");
         ((TextField)group_dist.getField("smallest")).setInputPrompt("Min");
         ((TextField)group_dist.getField("biggest")).setInputPrompt("Max");
         
+        testgrid.sort("zeugnisschnitt");
 
         testgrid.setSizeFull();
         addComponent(testgrid);

@@ -155,8 +155,8 @@ public class BewerberportalUI extends UI {
 			break;
 		case 2:
 			pnl_menu.addView(new FirmenProfil(CurrentUser.get()), "Profil", "Profil", FontAwesome.BUILDING);
-			pnl_menu.addView(new StudentenSucheView(), "Suche", "Suche", FontAwesome.ASTERISK);
-			pnl_menu.addView(new StellenangebotView(), "Stellenangebot", "Stellenangebot", FontAwesome.ASTERISK);
+			pnl_menu.addView(new StudentenSucheView(), "Suche", "Suche", FontAwesome.SEARCH);
+			pnl_menu.addView(new StellenangebotView(), "Stellenangebot", "Stellenangebot", FontAwesome.CLIPBOARD);
 			pnl_menu.setActiveView("Profil");
 			break;
 		default:
