@@ -13,7 +13,7 @@ import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-
+//Aufruf wenn Firma Bewerber auswählt
 public class StudentPopUp extends Window {
 	/**
 	 * 
@@ -35,41 +35,41 @@ public class StudentPopUp extends Window {
 		hl_popup.addComponent(vl_basic);
 		vl_basic.setSizeFull();
 		vl_basic.setSpacing(true);
-		
+		//Einbinden des Namens des Bewerbers
 		Label name = new Label();
 		if(((item.getItemProperty("name").getValue()!=null) && ((item.getItemProperty("name").getValue().toString()!="")))) name.setValue(item.getItemProperty("name").getValue().toString());
 		name.setCaption("Name:");
 		vl_basic.addComponent(name);
-		
+		//Einbinden des Geburtsjahr
 		Label geburtsjahr = new Label();
 		if(((item.getItemProperty("geburtsjahr").getValue()!=null) && ((item.getItemProperty("geburtsjahr").getValue().toString()!="")))) geburtsjahr.setValue(item.getItemProperty("geburtsjahr").getValue().toString());
 		geburtsjahr.setCaption("Geburtsjahr:");
 		vl_basic.addComponent(geburtsjahr);
-		
+
 		VerticalLayout vl_contact = new VerticalLayout();
 		hl_popup.addComponent(vl_contact);
 		vl_contact.setSpacing(true);
-		
+		//Einbinden der E-Mail Adresse
 		Label label_email = new Label();
 		if(((item.getItemProperty("email").getValue()!=null) && ((item.getItemProperty("email").getValue().toString()!="")))) label_email.setValue(item.getItemProperty("email").getValue().toString());
 		label_email.setCaption("E-Mail:");
 		vl_contact.addComponent(label_email);
-		
+		//Einbinden der Telefonnummer
 		Label label_telefonnummer = new Label();
 		if(((item.getItemProperty("telefonnummer").getValue()!=null) && ((item.getItemProperty("telefonnummer").getValue().toString()!="")))) label_telefonnummer.setValue(item.getItemProperty("telefonnummer").getValue().toString());
 		label_telefonnummer.setCaption("Telefonnummer:");
 		vl_contact.addComponent(label_telefonnummer);
-		
+		//Einbinden der PLZ
 		Label label_ort = new Label();
-		if(((item.getItemProperty("plz").getValue()!=null) && ((item.getItemProperty("plz").getValue().toString()!="")))) label_ort.setValue((item.getItemProperty("plz").getValue().toString()+ " ort"));
+		if(((item.getItemProperty("plz").getValue()!=null) && ((item.getItemProperty("plz").getValue().toString()!="")))) label_ort.setValue((item.getItemProperty("plz").getValue().toString()));
 		label_ort.setCaption("Wohnort:");
 		vl_popup.addComponent(label_ort);
-		
+		//Einbinden der Hobbies
 		Label label_hobbies = new Label();
 		if(((item.getItemProperty("hobbies").getValue()!=null) && ((item.getItemProperty("hobbies").getValue().toString()!="")))) label_hobbies.setValue(item.getItemProperty("hobbies").getValue().toString());
 		label_hobbies.setCaption("Hobbys:");
 		vl_popup.addComponent(label_hobbies);
-		
+		//Einbinden der Zusatzqualifikationen
 		Label label_zusatzqualifikationen = new Label();
 		if(((item.getItemProperty("zusatzqualifikationen").getValue()!=null) && ((item.getItemProperty("zusatzqualifikationen").getValue().toString()!="")))) label_zusatzqualifikationen.setValue(item.getItemProperty("zusatzqualifikationen").getValue().toString());
 		label_zusatzqualifikationen.setCaption("Zusatzqualifikationen:");
@@ -86,7 +86,7 @@ public class StudentPopUp extends Window {
 		hl_information.addComponent(vl_noten);
 		vl_noten.setSizeFull();
 		vl_noten.setSpacing(true);
-		
+		//Einbinden der Deutschnote
 		HorizontalLayout hl_deutsch = new HorizontalLayout();
 		vl_noten.addComponent(hl_deutsch);
 		hl_deutsch.setSizeFull();
@@ -105,7 +105,7 @@ public class StudentPopUp extends Window {
 		vl_noten.addComponent(hl_englisch);
 		hl_englisch.setSizeFull();
 		hl_englisch.setSpacing(true);
-		
+		//Einbinden der Englischnote
 		Label label_englisch_text = new Label("Englisch");
 		hl_englisch.addComponent(label_englisch_text);
 		
@@ -119,7 +119,7 @@ public class StudentPopUp extends Window {
 		vl_noten.addComponent(hl_mathe);
 		hl_mathe.setSizeFull();
 		hl_mathe.setSpacing(true);
-		
+		//Einbinden der Mathenote
 		Label label_mathe_text = new Label("Mathe");
 		hl_mathe.addComponent(label_mathe_text);
 		
@@ -133,7 +133,7 @@ public class StudentPopUp extends Window {
 		vl_noten.addComponent(hl_noten_gesamt);
 		hl_noten_gesamt.setSizeFull();
 		hl_noten_gesamt.setSpacing(true);
-		
+		//Einbinden des Zeugnisschnitt
 		Label label_noten_gesamt_text = new Label("Zeugnisschnitt");
 		hl_noten_gesamt.addComponent(label_noten_gesamt_text);
 		
@@ -147,12 +147,12 @@ public class StudentPopUp extends Window {
 		hl_information.addComponent(vl_auswahl);
 		vl_auswahl.setSizeFull();
 		vl_auswahl.setSpacing(true);
-		
+		//Einbinden des Lieblingsfach
 		Label label_lieblingsfaecher = new Label();
 		if(((item.getItemProperty("lieblingsfach").getValue()!=null) && ((item.getItemProperty("lieblingsfach").getValue().toString()!="")))) label_lieblingsfaecher.setValue(item.getItemProperty("lieblingsfach").getValue().toString());
 		label_lieblingsfaecher.setCaption("Lieblingsfach:");
 		vl_auswahl.addComponent(label_lieblingsfaecher);
-		
+		//Einbinden der Wunschstudienrichtung
 		Label label_studiengang = new Label();
 		if(((item.getItemProperty("studiengang").getValue()!=null) && ((item.getItemProperty("studiengang").getValue().toString()!="")))) label_studiengang.setValue(item.getItemProperty("studiengang").getValue().toString());
 		label_studiengang.setCaption("Wunschstudienrichtung:");

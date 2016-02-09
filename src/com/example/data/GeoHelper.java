@@ -35,7 +35,6 @@ public class GeoHelper {
 		} else if (unit == "N") {
 			dist = dist * 0.8684;
 		}
-		System.out.println(dist);
 		return (dist);
 	}
 	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/

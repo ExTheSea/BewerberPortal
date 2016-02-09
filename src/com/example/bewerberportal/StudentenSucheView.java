@@ -36,7 +36,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 
 	
 	private static final long serialVersionUID = 1L;
-
+	//Definieren der Felder für Konstruktor und Enter
 	SQLContainer cont_test = null;
 	Or orfilter = null;
 	Like filterAlles = null;
@@ -44,7 +44,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 		setMargin(true);
 		setSpacing(true);
 		setSizeFull();
-		
+		//Abrufen des Studentensucheview
 		Grid testgrid = new Grid();
         TableQuery tq_test = new TableQuery("studentensucheview", DatabaseConnector.getPool()){
 
@@ -73,7 +73,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 		}
         
         GridCellFilter filter = new GridCellFilter(testgrid);
-        
+        //Abrufen der Studiengänge, die die Firma anbietet und der firmenprofil id
         Connection con = null;
         Statement statement = null;
         String firmenprofil_id = null;
@@ -111,6 +111,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 				e.printStackTrace();
 			}
 		}
+        //Matching auf angebotene Studiengänge
         if(!studiengang_firma.isEmpty()){
         	if(filterAlles!=null)cont_test.removeContainerFilter(filterAlles);
         	if(orfilter!=null)cont_test.removeContainerFilter(orfilter);
@@ -127,7 +128,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
         	filterAlles = new Like("studiengang", "", true);
         	cont_test.addContainerFilter(filterAlles);
         }
-        
+        //Entfernen unnötiger Spalten und erstellen des Studiengang Filters
         testgrid.setContainerDataSource(cont_test);
         testgrid.setSizeFull();
         testgrid.removeAllColumns();
@@ -160,7 +161,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 		});
         
 
-        
+        //Hinzufügen der Spalten
         studiengangFilter.setInputPrompt("Filter Studiengang, Studiengang");
         filter.getFilterRow().getCell("studiengang").setComponent(studiengangFilter);
         testgrid.addColumn("name");
@@ -176,6 +177,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 
         testgrid.setSizeFull();
         addComponent(testgrid);
+        //Aufruf der Auswahl
         testgrid.addSelectionListener(new SelectionListener() {
 			
 			private static final long serialVersionUID = 1L;
@@ -188,7 +190,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
         
 	}
 	
-	
+	//Neu Aufruf der Seite
 	@Override
 	public void enter(ViewChangeEvent event) {
 		cont_test.refresh();
@@ -196,6 +198,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
         Statement statement = null;
         String firmenprofil_id = null;
         ArrayList<String> studiengang_firma = new  ArrayList<String>();
+        //Abrufen der Angebotenen Studiengänge
         try {
 			con = DatabaseConnector.getPool().reserveConnection();
 	        statement = con.createStatement();
@@ -229,6 +232,7 @@ public class StudentenSucheView extends VerticalLayout implements View {
 				e.printStackTrace();
 			}
 		}
+        //Matching entfernen und setzen
         if(!studiengang_firma.isEmpty()){
         	if(filterAlles!=null)cont_test.removeContainerFilter(filterAlles);
         	if(orfilter!=null)cont_test.removeContainerFilter(orfilter);

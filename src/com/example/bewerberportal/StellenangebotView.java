@@ -40,6 +40,7 @@ public class StellenangebotView extends VerticalLayout implements View {
 		setMargin(true);
 		setSpacing(true);
 		setSizeFull();
+		//Button für neuen Studienplatz
 		Button anlegen = new Button("Studienplatz anlegen");
 		anlegen.setIcon(FontAwesome.PLUS);
 		anlegen.addClickListener(new Button.ClickListener() {
@@ -59,6 +60,7 @@ public class StellenangebotView extends VerticalLayout implements View {
 		});
 		addComponent(anlegen);
 		Grid grid = new Grid();
+		//Abfrage des firmensucheview
         TableQuery tq = new TableQuery("firmensucheview", DatabaseConnector.getPool()){
 
 			private static final long serialVersionUID = 1L;
@@ -74,7 +76,7 @@ public class StellenangebotView extends VerticalLayout implements View {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+        //Ermitteln der Firmenprofilid anhand des Benutzers
         Connection con = null;
         Statement statement = null;
         String firmenprofil_id = null;
@@ -106,7 +108,7 @@ public class StellenangebotView extends VerticalLayout implements View {
         
         
         CurrentUser.get();
-        
+        //Bearbeiten Spalte einfügen
         GeneratedPropertyContainer cont_gen = new GeneratedPropertyContainer(cont);
         cont_gen.addGeneratedProperty("Bearbeiten", new PropertyValueGenerator<String>() {
 
@@ -122,7 +124,7 @@ public class StellenangebotView extends VerticalLayout implements View {
 				return String.class;
 			}
 		});
-        
+        //Sortierung der Spalten und Reihenfolge einfügen
         cont_gen.addContainerFilter(new Like("firmenprofil_id", firmenprofil_id, true));
         grid.setContainerDataSource(cont_gen);
         grid.setSizeFull();
@@ -133,7 +135,7 @@ public class StellenangebotView extends VerticalLayout implements View {
         grid.addColumn("ort");
         grid.addColumn("Bezeichnung").setHeaderCaption("Studiengang");
         grid.addColumn("anzahl");
-        
+        grid.sort("Bezeichnung");
         GridCellFilter filter = new GridCellFilter(grid);
 
         filter.setTextFilter("alias", true, true).setInputPrompt("Filter Alias");;
@@ -145,6 +147,7 @@ public class StellenangebotView extends VerticalLayout implements View {
 			
 			@Override
 			public void onEdit(RendererClickEvent event) {
+				//Bearbeiten eines vorhanden Stellenangebotes
 				new StellenangebotPopUp(cont_gen.getItem(event.getItemId()), new PopUpCloseListener() {
 					
 					@Override
@@ -157,6 +160,7 @@ public class StellenangebotView extends VerticalLayout implements View {
 			
 			@Override
 			public void onDelete(RendererClickEvent event) {
+				//Löschen eines vorhanden Stellenangebotes
 				new PopupLöschen("Studienplatz", new DeleteListener() {
 					
 					@Override
@@ -208,7 +212,7 @@ public class StellenangebotView extends VerticalLayout implements View {
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		
+		cont.refresh();
 	}
 
 }
