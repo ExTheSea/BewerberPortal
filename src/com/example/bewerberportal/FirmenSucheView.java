@@ -312,15 +312,15 @@ public class FirmenSucheView extends VerticalLayout implements View {
         testgrid.setSizeFull();
         testgrid.removeAllColumns();
         testgrid.addColumn("name");
-        testgrid.addColumn("Bezeichnung");
+        testgrid.addColumn("Bezeichnung").setHeaderCaption("Studiengang");
         testgrid.addColumn("anzahl");
         testgrid.addColumn("ort");
         testgrid.addColumn("ansprechpartnername").setHeaderCaption("Ansprechpartner");
-        
+        testgrid.sort("Bezeichnung");
         filter = new GridCellFilter(testgrid);
         filter.setTextFilter("name", true, true).setInputPrompt("Filter Name");
         filter.setTextFilter("ansprechpartnername", true, true).setInputPrompt("Filter Ansprechpartner");;
-        filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Bezeichnung");
+        filter.setTextFilter("Bezeichnung", true, true).setInputPrompt("Filter Studiengang");
         filter.setTextFilter("ort", true, true).setInputPrompt("Filter Ort");
         //Hinzufügen der Distanz wenn berechenbar
         if((CurrentUser.get()!=null) && (CurrentUser.get().toString()!="") && (bewerberprofil_lat != null) && (!bewerberprofil_lat.isEmpty())){
