@@ -67,7 +67,6 @@ public class BewerberportalUI extends UI {
 		hl_header.setWidth("100%");
 		pnl_header.setContent(hl_header);
 		pnl_header.setWidth("100%");
-//		pnl_header.setStyleName(ValoTheme.PANEL_BORDERLESS);
 		pnl_header.setStyleName("headerborderless");
 		pnl_header.setHeight(null);
 		layout.addComponent(pnl_header);
@@ -155,8 +154,8 @@ public class BewerberportalUI extends UI {
 			break;
 		case 2:
 			pnl_menu.addView(new FirmenProfil(CurrentUser.get()), "Profil", "Profil", FontAwesome.BUILDING);
-			pnl_menu.addView(new StudentenSucheView(), "Suche", "Suche", FontAwesome.SEARCH);
 			pnl_menu.addView(new StellenangebotView(), "Stellenangebot", "Stellenangebot", FontAwesome.CLIPBOARD);
+			pnl_menu.addView(new StudentenSucheView(), "Suche", "Suche", FontAwesome.SEARCH);
 			pnl_menu.setActiveView("Profil");
 			break;
 		default:
