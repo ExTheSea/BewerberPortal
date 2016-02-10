@@ -712,19 +712,11 @@ public class FirmenProfil extends Panel implements View {
 		TextField tf_strasse = new TextField("Straße");
 		TextField tf_plz = new TextField("PLZ");
 		TextField tf_ort = new TextField("Ort");
-		//Button btn_anpartner = new Button("Ansprechpartner wählen");
 		TextField tf_anpartner = new TextField("Ansprechpartner");
 		TextField tf_mail = new TextField("E-Mail");
 		TextField tf_tele = new TextField("Telefonnummer");
 		
-		/*btn_anpartner.addClickListener(new Button.ClickListener() {
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				new AnsprechpartnerPopUp(firmenprofil_id);
-			}
-		});
-*/
 		//Validator zu den Textfeldern hinzufügen
 		Validator validator = new Validator() {
 
@@ -780,7 +772,6 @@ public class FirmenProfil extends Panel implements View {
 		formort.addComponent(tf_strasse);
 		formort.addComponent(tf_plz);
 		formort.addComponent(tf_ort);
-		//formort.addComponent(btn_anpartner);
 		formort.addComponent(tf_anpartner);
 		formort.addComponent(tf_mail);
 		formort.addComponent(tf_tele);
