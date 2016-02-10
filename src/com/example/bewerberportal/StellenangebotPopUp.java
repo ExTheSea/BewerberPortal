@@ -301,7 +301,15 @@ import com.vaadin.ui.Button.ClickEvent;
 				        	statement_save = con_save.createStatement();
 				        	ResultSet vorhanden = null;
 				        	vorhanden = statement_save.executeQuery("SELECT ID FROM go2dhbw.studienplaetze WHERE studiengang_id='"+dropdown_studiengang.getValue().toString()+"' AND standort_id='"+dropdown_standort.getValue().toString()+"'");
-				        	if(!vorhanden.first()){
+				        	Boolean kontrolle = true;
+				        	if(vorhanden.first()){
+				        		if(item.getItemProperty("id").getValue().toString().equals(vorhanden.getObject(1).toString())){
+				        			kontrolle=true;
+				        		}else{
+				        			kontrolle=false;
+				        		}
+				        	}
+				        	if(kontrolle){
 				        		con_save = DatabaseConnector.getPool().reserveConnection();
 					        	statement_save = con_save.createStatement();
 					        	StringBuilder sql = new StringBuilder();
