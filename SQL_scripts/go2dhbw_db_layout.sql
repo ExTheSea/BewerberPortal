@@ -103,7 +103,7 @@ PRIMARY KEY (id)
 
 CREATE TABLE go2dhbw.lieblingsfaecher
 (
-id int NOT NULL,
+id int NOT NULL AUTO_INCREMENT,
 bezeichnung VARCHAR(255),
 PRIMARY KEY (id)
 );
