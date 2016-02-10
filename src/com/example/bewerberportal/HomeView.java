@@ -16,10 +16,8 @@ public class HomeView extends VerticalLayout implements View {
 		setSpacing(true);
 		
 		setSizeFull();
+		//Erstellen des CustomLayout mit der Go2DHBW.html Datei
 		CustomLayout homelay = new CustomLayout("Go2DHBW");
-
-		Image img_logo = new Image(null, new ThemeResource("Logo.png"));
-		homelay.addComponent(img_logo, "logo");
 		
 		homelay.setSizeFull();
 		addComponent(homelay);

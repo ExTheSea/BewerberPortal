@@ -57,6 +57,7 @@ public class BewerberProfil extends Panel implements View {
 		vl_bew.setMargin(true);
 		vl_bew.setSpacing(true);
 		
+		//Datenbank-Anbindung erstellen
 		TableQuery tq = new TableQuery("bewerberprofil", DatabaseConnector.getPool());
 				try {
 			cont = new SQLContainer(tq);
@@ -68,6 +69,7 @@ public class BewerberProfil extends Panel implements View {
 		if(cont.size()>0){
 			item = cont.getItem(cont.firstItemId());
 		}else{
+			//Erstellen eines neuen Profils wenn noch keins vorhanden für den Nutzer
 			cont.removeAllContainerFilters();
 			item = cont.getItem(cont.addItem());
 			item.getItemProperty("benutzer_id").setValue(Integer.valueOf(benutzer_id));
@@ -93,6 +95,7 @@ public class BewerberProfil extends Panel implements View {
 		}
 		bewerberprofil_id = item.getItemProperty("id").getValue().toString();
 		
+		//Erstellen der FieldGroup zur Datenbindung
 		binder = new FieldGroup(item);
 		
 		vl_bew.addComponent(buildTop());
@@ -106,6 +109,10 @@ public class BewerberProfil extends Panel implements View {
 		
 	}
 	
+	/**
+	 * Erstes Panel mit Editierfelder für Name, PLZ, etc.
+	 * @return
+	 */
 	public Panel buildTop(){
 		Panel pnl_top = new Panel("Daten zur Person");
 		pnl_top.setWidth("100%");
@@ -126,6 +133,7 @@ public class BewerberProfil extends Panel implements View {
 		Field<?> mailfield;
 		Field<?> telnrfield;
 		Field<?> plzfield;
+		//Erstellen der Editierfelder, Anbindung an den Datenbank-Item und hinzufügen der Felder zum Layout
 		formtop.addComponent(namefield = binder.buildAndBind("Name", "name"));
 		formtop.addComponent(jahrfield = binder.buildAndBind("Geburtsjahr", "geburtsjahr"));
 		formtop.addComponent(telnrfield = binder.buildAndBind("Telefonnummer", "telefonnummer"));
@@ -135,7 +143,7 @@ public class BewerberProfil extends Panel implements View {
 		telnrfield.setReadOnly(true);
 		plzfield.setReadOnly(true);
 		
-		
+		//Speichern und Abbrechen Buttons
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
 		hl_botbtns.setSpacing(true);
@@ -167,6 +175,7 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
+				//Felder editierbar machen wenn auf Editieren geklickt wurde
 				namefield.setReadOnly(true);
 				jahrfield.setReadOnly(true);
 				telnrfield.setReadOnly(true);
@@ -183,8 +192,10 @@ public class BewerberProfil extends Panel implements View {
 			public void buttonClick(ClickEvent event) {
 				try {
 					if(binder.isValid()){
+						//Commit der Daten zur Datenbank
 						binder.commit();
 						if(!binder.getField("plz").getValue().toString().isEmpty()){
+							//Koordinaten suchen für PLZ
 							String[] koord = GeoHelper.getKoordinaten(binder.getField("plz").getValue().toString());
 							binder.getItemDataSource().getItemProperty("lat").setValue(koord[0]);
 							binder.getItemDataSource().getItemProperty("lng").setValue(koord[1]);
@@ -212,6 +223,10 @@ public class BewerberProfil extends Panel implements View {
 		return pnl_top;
 	}
 	
+	/**
+	 * Tätigkeit und Hobbies Felder
+	 * @return
+	 */
 	public Panel buildTätig(){
 		Panel pnl_tätig = new Panel("Tätigkeiten & Qualifikationen");
 		pnl_tätig.setWidth("100%");
@@ -300,7 +315,10 @@ public class BewerberProfil extends Panel implements View {
 	}
 	
 	
-	
+	/**
+	 * Noten-Panel
+	 * @return
+	 */
 	public Panel buildNoten(){
 		Panel pnl_noten = new Panel("Noten");
 		pnl_noten.setWidth("100%");
@@ -325,6 +343,8 @@ public class BewerberProfil extends Panel implements View {
 		formnoten.addComponent(englischfield = binder.buildAndBind("Englischnote", "note_englisch"));
 		formnoten.addComponent(mathefield = binder.buildAndBind("Mathenote", "note_mathe"));
 		schnittfield.setReadOnly(true);
+		
+		//Converter, der Kommas zu Punkte konvertiert zur Speicherung der Noten
 		Converter notenconverter = new Converter<String, Double>() {
 
 			@Override
@@ -432,7 +452,10 @@ public class BewerberProfil extends Panel implements View {
 		return pnl_noten;
 	}
 	
-	
+	/**
+	 * Studienrichtung und Lieblingsfächer
+	 * @return
+	 */
 	public Panel buildRichtung(){
 		Panel pnl_richtung = new Panel("Wunschstudienrichtung");
 		pnl_richtung.setWidth("100%");
@@ -448,9 +471,6 @@ public class BewerberProfil extends Panel implements View {
         formRichtung.addComponent(hl_edit);
         hl_edit.addComponent(btn_edit);
         hl_edit.setComponentAlignment(btn_edit, Alignment.TOP_RIGHT);
-//		Field<?> richtungfield;
-//		formRichtung.addComponent(richtungfield = binder.buildAndBind("Wunschrichtung", "hobbies"));
-//		richtungfield.setReadOnly(true);
 		TableQuery tq_richt = new TableQuery("studiengang", DatabaseConnector.getPool());
 		SQLContainer richtcont = null;
 		try {
@@ -458,7 +478,10 @@ public class BewerberProfil extends Panel implements View {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		//Erstellen des Studiengangrichtung-Feld mit dem externen Tokenfield Add-On 
 		TokenField richtfield = new TokenField("Wunschrichtung"){
+			//Überschreiben einige der Funktionen um die Funktion des Felds leicht zu verändern
+			
 			@Override
 			public void addToken(Object tokenId) {
 				if(getContainerDataSource().containsId(tokenId))
@@ -482,6 +505,7 @@ public class BewerberProfil extends Panel implements View {
 				super.removeToken(tokenId);
 			}
 		};
+		//Sortieren des Containers nach dem Namen und anschließendes Setzen des Containers am TokenField
 		richtcont.sort(new Object[]{"bezeichnung"}, new boolean[]{true});
 		richtfield.setContainerDataSource(richtcont);
 		richtfield.setReadOnly(true);
@@ -500,6 +524,7 @@ public class BewerberProfil extends Panel implements View {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		//Hinzufügen der schon vorhandenen Daten
 		cont_bewricht.addContainerFilter(new Like("bewerberprofil_id", bewerberprofil_id));
 		ArrayList<String> initvalue = new ArrayList<String>();
 		for (Iterator it_gang = cont_bewricht.getItemIds().iterator(); it_gang.hasNext();) {
@@ -519,7 +544,7 @@ public class BewerberProfil extends Panel implements View {
 		
 		
 		
-		
+		//lieblingsFach Tokenfield erstellen wie Studiengangrichtungtokenfield
 		TableQuery tq_liebfach = new TableQuery("lieblingsfaecher", DatabaseConnector.getPool());
 		SQLContainer liebfachcont = null;
 		try {
@@ -625,6 +650,7 @@ public class BewerberProfil extends Panel implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
+				//Speichern der Daten durch Löschen der alten Daten, iterieren über die aktuellen Daten und dann speichern dieser über einen Container
 				richtfield.setReadOnly(true);
 				LinkedHashSet<RowId> richtvalues = (LinkedHashSet<RowId>) richtfield.getValue();
 				cont_bewricht.removeAllContainerFilters();

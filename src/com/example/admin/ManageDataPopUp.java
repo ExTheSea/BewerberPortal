@@ -16,6 +16,11 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public class ManageDataPopUp extends Window {
 	
+	/**
+	 * Durchsucht die Properties und erstellt mit einer FieldGroup die Editierfelder
+	 * @param item
+	 * @param listener
+	 */
 	public ManageDataPopUp(Item item, SaveListener listener) {
 		
 		VerticalLayout vl_popup = new VerticalLayout();

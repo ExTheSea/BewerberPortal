@@ -41,6 +41,7 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
 		setSpacing(true);
 		setSizeFull();
 		
+		//Erstellen der Tabelle mit Datenbankanbindung
 		Grid grid = new Grid();
 		
         TableQuery tq = new TableQuery("ansprechpartner", DatabaseConnector.getPool());
@@ -50,7 +51,7 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
             e.printStackTrace();
         }
         
-        
+        //Erstellen des Button für die Anlage neuer Datensätze
         Button btn_addNew = new Button("Neuer Ansprechpartner");
         btn_addNew.addClickListener(new Button.ClickListener() {
 			
@@ -79,6 +80,8 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
         
         grid.setContainerDataSource(cont);
         grid.setSizeFull();
+        
+        //Erstellen des Filters
         GridCellFilter filter = new GridCellFilter(grid);
         
         filter.setNumberFilter("id");
@@ -87,6 +90,7 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
         filter.setTextFilter("telefonnummer", true, true);
         
         grid.setSizeFull();
+        //Hinzufügen der Button in der Tabelle
         grid.getColumn("id").setEditable(false).setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			
 			@Override
@@ -95,6 +99,7 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
 					
 					@Override
 					public void save() {
+						//Commit an die Datenbank
 						try {
 							cont.commit();
 						} catch (UnsupportedOperationException | SQLException e) {
@@ -111,6 +116,7 @@ public class AdminAnsprechpartnerView extends VerticalLayout implements View {
 					
 					@Override
 					public void delete() {
+						//Löschen der Zeile aus dem Container
 						cont.removeItem(event.getItemId());
 						
 						try {

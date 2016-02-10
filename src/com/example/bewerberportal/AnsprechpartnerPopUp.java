@@ -54,7 +54,6 @@ public class AnsprechpartnerPopUp extends Window {
 		e.printStackTrace();
 	}
 	
-	//cont_anpartner.addContainerFilter(new Like("id", cont_standort));
     
 	
 	
@@ -66,7 +65,6 @@ public class AnsprechpartnerPopUp extends Window {
 	
     ComboBox dropdown_anpartner = new ComboBox("Ansprechpartner", cont_anpartner);
 	dropdown_anpartner.setNullSelectionAllowed(false);
-	//dropdown_anpartner.setValue(new RowId((Integer)item.getItemProperty("studiengang_id").getValue()));
 	dropdown_anpartner.setWidth("100%");
 	dropdown_anpartner.setItemCaptionPropertyId("name");
 	dropdown_anpartner.addValidator(new Validator() {

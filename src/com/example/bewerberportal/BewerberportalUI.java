@@ -61,6 +61,7 @@ public class BewerberportalUI extends UI {
 		layout.setSizeFull();
 		setContent(layout);
 		
+		//Erstellen Header-Panel 
 		Panel pnl_header = new Panel();
 		hl_header = new HorizontalLayout();
 		hl_header.setMargin(true);
@@ -71,6 +72,7 @@ public class BewerberportalUI extends UI {
 		pnl_header.setHeight(null);
 		layout.addComponent(pnl_header);
 		
+		//Erstellen Button Menü zum Togglen des Menü
 		Button btn_menu = new Button();
 		btn_menu.setIcon(FontAwesome.BARS);
 		btn_menu.addClickListener(new Button.ClickListener() {
@@ -82,6 +84,7 @@ public class BewerberportalUI extends UI {
 		});
 		hl_header.addComponent(btn_menu);
 		
+		//Login Button
 		btn_login = new Button("Anmelden");
 		btn_login.setStyleName(ValoTheme.BUTTON_BORDERLESS);
 		btn_login.addClickListener(new Button.ClickListener() {
@@ -96,7 +99,7 @@ public class BewerberportalUI extends UI {
 		hl_header.setComponentAlignment(btn_login, Alignment.MIDDLE_RIGHT);
 
 		
-		
+		//Erstellen des Registrier Button
 		btn_register = new Button("Registrieren");
 		btn_register.setStyleName(ValoTheme.BUTTON_BORDERLESS);
 		btn_register.addClickListener(new Button.ClickListener() {
@@ -116,6 +119,7 @@ public class BewerberportalUI extends UI {
 		css_content = new CssLayout();
 		css_content.setSizeFull();
 		
+		//Menü Panel
 		pnl_menu = new MenuPanel(css_content);
 		hl_content.addComponent(pnl_menu);
 		hl_content.addComponent(css_content);
@@ -131,11 +135,17 @@ public class BewerberportalUI extends UI {
 		return (BewerberportalUI) UI.getCurrent();
 	}
 
+	/**
+	 * Modifizieren der Applikation nach dem Login
+	 * @param type
+	 * @param user
+	 */
 	public void login(int type, String user){
 		account_id = type;
 		pnl_menu.removeAllViews();
 		switch (type) {
 		case 0:
+			//Hinzufügen Admin-Views
 			pnl_menu.addView(new AdminBenutzerView(), "Benutzer", "Benutzer", FontAwesome.USERS);
 			pnl_menu.addView(new AdminBewerberView(), "Bewerber", "Bewerber", FontAwesome.USER);
 			pnl_menu.addView(new AdminFirmenView(), "Firma", "Firma", FontAwesome.BUILDING);
@@ -148,11 +158,13 @@ public class BewerberportalUI extends UI {
 			pnl_menu.setActiveView("Benutzer");
 			break;
 		case 1:
+			//Hinzufügen Bewerber-Views
 			pnl_menu.addView(new BewerberProfil(CurrentUser.get()), "Profil", "Bewerber", FontAwesome.USER);
 			pnl_menu.addView(new FirmenSucheView(), "Suche", "Suche", FontAwesome.SEARCH);
 			pnl_menu.setActiveView("Profil");
 			break;
 		case 2:
+			//Hinzufügen Firmen-Views
 			pnl_menu.addView(new FirmenProfil(CurrentUser.get()), "Profil", "Profil", FontAwesome.BUILDING);
 			pnl_menu.addView(new StellenangebotView(), "Stellenangebot", "Stellenangebot", FontAwesome.CLIPBOARD);
 			pnl_menu.addView(new StudentenSucheView(), "Suche", "Suche", FontAwesome.SEARCH);
@@ -161,6 +173,7 @@ public class BewerberportalUI extends UI {
 		default:
 			break;
 		}
+		//logout-Button hinzufügen
 		Button btn_logout = new Button("Logout");
 		btn_logout.setStyleName(ValoTheme.BUTTON_BORDERLESS);
 		btn_logout.addClickListener(new ClickListener() {
@@ -175,6 +188,7 @@ public class BewerberportalUI extends UI {
 		});
 		hl_header.replaceComponent(btn_register, btn_logout);
 		
+		//Hinzufügen User Button
 		Button btn_user = new Button(user);
 		btn_user.setStyleName(ValoTheme.BUTTON_BORDERLESS);
 		btn_user.setIcon(FontAwesome.USER);
@@ -189,6 +203,9 @@ public class BewerberportalUI extends UI {
 		});
 		
 	}
+	/**
+	 * Event wenn Applikation geschlossen wird, z.B. wenn Session abläuft. Setzt User zurück.
+	 */
 	@Override
 	public void close() {
 		CurrentUser.set("");

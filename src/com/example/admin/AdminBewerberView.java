@@ -66,6 +66,7 @@ public class AdminBewerberView extends VerticalLayout implements View {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
+				//PopUp zur Auswahl des zu verlinkenden User
 				Window wind_user = new Window();
 				VerticalLayout vl_user = new VerticalLayout();
 				vl_user.setMargin(true);
@@ -83,6 +84,7 @@ public class AdminBewerberView extends VerticalLayout implements View {
 					
 					@Override
 					public void buttonClick(ClickEvent event) {
+						//Initiieren des Bewerberprofil und Austausch der Content Area
 						if(!txt_user.isValid())
 							return;
 						wind_user.close();
@@ -136,7 +138,6 @@ public class AdminBewerberView extends VerticalLayout implements View {
         filter.setNumberFilter("zeugnisschnitt");
         
         grid.setSizeFull();
-//        grid.removeColumn("logo");
         grid.getColumn("id").setHeaderCaption("ID");
         grid.getColumn("id").setRenderer(new EditDeleteButtonValueRenderer(new EditDeleteButtonClickListener() {
 			
