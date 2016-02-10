@@ -82,10 +82,16 @@ public class FirmenProfil extends Panel implements View {
 	int index = 0;
 	VerticalLayout vl_fir = new VerticalLayout();
 
+	
+	
 	public FirmenProfil(String benutzer_id) {
 
+		
+		
 		this.benutzer_id = benutzer_id;
 		String ansprechpartner_id;
+		
+		//Bildschirmaufbau
 		setSizeFull();
 		setStyleName(ValoTheme.PANEL_BORDERLESS);
 		setContent(vl_fir);
@@ -93,6 +99,7 @@ public class FirmenProfil extends Panel implements View {
 		vl_fir.setMargin(true);
 		vl_fir.setSpacing(true);
 
+		//Selektion der Firmen_ID
 		Connection con = null;
 		Statement statement = null;
 
@@ -123,6 +130,7 @@ public class FirmenProfil extends Panel implements View {
 			}
 		}
 
+		//Selektion & Filterung der Firmentabelle nach Firmen_ID
 		TableQuery tq_firma = new TableQuery("firmenprofil", DatabaseConnector.getPool());
 		try {
 			cont_firma = new SQLContainer(tq_firma);
@@ -135,10 +143,12 @@ public class FirmenProfil extends Panel implements View {
 			item_firma = cont_firma.getItem(cont_firma.firstItemId());
 		}
 
+		//Hinzufügen eines Firmenpanels
 		binder_firma = new FieldGroup(item_firma);
 
 		vl_fir.addComponent(buildFirma(item_firma), index++);
-
+		
+		//Selektion der Standorttabelle
 		TableQuery tq_standort = new TableQuery("standort", DatabaseConnector.getPool());
 		try {
 			cont_standort = new SQLContainer(tq_standort);
@@ -146,6 +156,7 @@ public class FirmenProfil extends Panel implements View {
 			e.printStackTrace();
 		}
 
+		//Selektion  der Ansprechpartnertabelle
 		TableQuery tq_ansprechpartner = new TableQuery("ansprechpartner", DatabaseConnector.getPool());
 		try {
 			cont_anpartner = new SQLContainer(tq_ansprechpartner);
@@ -153,6 +164,7 @@ public class FirmenProfil extends Panel implements View {
 			e.printStackTrace();
 		}
 		
+		//Selektion  der Stellenangebotstabelle
 		com.example.data.TableQuery tq_stellenangebote = new com.example.data.TableQuery("firmensucheview", DatabaseConnector.getPool()) {
 
 			private static final long serialVersionUID = 1L;
@@ -169,8 +181,10 @@ public class FirmenProfil extends Panel implements View {
 			e.printStackTrace();
 		}
 		
+		//Filtern der Selektierten Standorttabelle nach Firmen_ID
 		cont_standort.addContainerFilter(new Like("firmenprofil_id", firmenprofil_id));
 		Item item_standort = null;
+		//Hinzufügen aller gefundenen Standorte als Panels
 		for (Iterator it_standorte = cont_standort.getItemIds().iterator(); it_standorte.hasNext();) {
 			Object itemID = (Object) it_standorte.next();
 			item_standort = cont_standort.getItem(itemID);
@@ -178,6 +192,7 @@ public class FirmenProfil extends Panel implements View {
 			vl_fir.addComponent(buildStandort(ansprechpartner_id, item_standort), index++);
 		}
 
+		//Knopf zum erstellen neuer Standortpanels
 		vl_fir.addComponent(buildAddStandort());
 
 	}
@@ -192,6 +207,7 @@ public class FirmenProfil extends Panel implements View {
 		formfirma.setSpacing(true);
 		pnl_firma.setContent(formfirma);
 
+		//Bearbeiten Knopf
 		HorizontalLayout hl_firma = new HorizontalLayout();
 		hl_firma.setWidth("100%");
 		Button btn_edit = new Button("Bearbeiten");
@@ -200,6 +216,8 @@ public class FirmenProfil extends Panel implements View {
 		hl_firma.addComponent(btn_edit);
 		hl_firma.setComponentAlignment(btn_edit, Alignment.TOP_RIGHT);
 		
+		
+		//Laden des Firmenlogos
 	    StreamSource streamSource = new StreamSource()
 	      {
 
@@ -222,6 +240,7 @@ public class FirmenProfil extends Panel implements View {
 		firmen_logo.setWidth("300");
 
 		
+		//Initialisieren & hinzufügen der Logodropbox
 		ImageDropBox dropbox = new ImageDropBox(firmen_logo);
 		dropbox.setSizeUndefined();
 		dropbox.setEnabled(false);
@@ -232,14 +251,25 @@ public class FirmenProfil extends Panel implements View {
 		lbl_infologo.setVisible(false);
 		formfirma.addComponent(lbl_infologo);
 				
+		//Textfelder hinzufügen
 		Field<?> namefield;
-		Field<?> webfield;
-		// Field<?> logofield;
-	    
+		Field<?> webfield;	    
 
 		formfirma.addComponent(namefield = binder_firma.buildAndBind("Name", "name"));
 		formfirma.addComponent(webfield = binder_firma.buildAndBind("Website", "website"));
-		// formfirma.addComponent(logofield = binder.buildAndBind("Logo","logo"));
+		
+		//Validator zu den Textfeldern hinzufügen
+		Validator notNullValidator = new Validator() {
+			@Override
+			public void validate(Object value) throws InvalidValueException {
+				if ((value == null) || (value == "" || (value.toString().isEmpty()))){
+					throw new InvalidValueException("Feld kann nicht leer sein");
+				}
+			}
+		};
+		
+		((TextField)namefield).addValidator(notNullValidator);
+		((TextField)webfield).addValidator(notNullValidator);
 		
 
 		namefield.setWidth("100%");
@@ -248,12 +278,11 @@ public class FirmenProfil extends Panel implements View {
 		namefield.setReadOnly(true);
 		webfield.setReadOnly(true);
 
-
+		//Speicher und Abbrechen Knöpfe
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
 		hl_botbtns.setSpacing(true);
 		Button btn_save = new Button("Speichern");
-
 		btn_save.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 		hl_botbtns.addComponent(btn_save);
 		hl_botbtns.setExpandRatio(btn_save, 1f);
@@ -362,6 +391,7 @@ public class FirmenProfil extends Panel implements View {
 		formort.setSpacing(true);
 		pnl_ort.setContent(formort);
 
+		//Bearbeiten Knopf
 		HorizontalLayout hl_ort = new HorizontalLayout();
 		hl_ort.setWidth("100%");
 		Button btn_edit = new Button("Bearbeiten");
@@ -370,6 +400,8 @@ public class FirmenProfil extends Panel implements View {
 		hl_ort.addComponent(btn_edit);
 		hl_ort.setComponentAlignment(btn_edit, Alignment.TOP_RIGHT);
 
+		
+		//Textfelder hinzufügen
 		Field<?> aliasfield;
 		Field<?> strassefield;
 		Field<?> plzfield;
@@ -378,13 +410,14 @@ public class FirmenProfil extends Panel implements View {
 		Field<?> mailfield;
 		Field<?> telefield;
 
-
+		//Standortfelder
 		binder_standort = new FieldGroup(item_standort);
 		formort.addComponent(aliasfield = binder_standort.buildAndBind("Alias", "alias"));
 		formort.addComponent(strassefield = binder_standort.buildAndBind("Straße", "strasse"));
 		formort.addComponent(plzfield = binder_standort.buildAndBind("PLZ", "plz"));
 		formort.addComponent(ortfield = binder_standort.buildAndBind("Ort", "ort"));
 
+		//Filter nach Ansprechpartner mit Standort_ID
 		cont_anpartner.removeAllContainerFilters();
 		cont_anpartner.addContainerFilter(new Like("id", ansprechpartner_id));
 		Item item_ansprechpartner = null;
@@ -392,12 +425,14 @@ public class FirmenProfil extends Panel implements View {
 			item_ansprechpartner = cont_anpartner.getItem(cont_anpartner.firstItemId());
 		}
 		
+		//Ansprechpartnerfelder
 		binder_anpartner = new FieldGroup(item_ansprechpartner);
 		formort.addComponent(anpartnerfield = binder_anpartner.buildAndBind("Ansprechpartner", "name"));
 		formort.addComponent(mailfield = binder_anpartner.buildAndBind("E-Mail", "email"));
 		formort.addComponent(telefield = binder_anpartner.buildAndBind("Telefonnummer", "telefonnummer"));
 		
 
+		//Validator zu den Textfeldern hinzufügen
 		Validator notNullValidator = new Validator() {
 			@Override
 			public void validate(Object value) throws InvalidValueException {
@@ -449,6 +484,7 @@ public class FirmenProfil extends Panel implements View {
 		mailfield.setWidth("100%");
 		telefield.setWidth("100%");
 
+		//Speichern, Abbrechen und Löschen Knopf
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
 		hl_botbtns.setSpacing(true);
@@ -627,11 +663,12 @@ public class FirmenProfil extends Panel implements View {
 		formbutton.setSpacing(true);
 		pnl_button.setContent(formbutton);
     	
-
+		//Hinzufügen Knopf
 		Button btn_standort = new Button(" Standort");
 		btn_standort.setIcon(FontAwesome.PLUS_CIRCLE);
 		btn_standort.addClickListener(new Button.ClickListener() {
 
+			//Neuer Standort erstellen
 			@Override
 			public void buttonClick(ClickEvent event) {
 				createStandort();
@@ -669,6 +706,8 @@ public class FirmenProfil extends Panel implements View {
 		hl_ort.addComponent(btn_edit);
 		hl_ort.setComponentAlignment(btn_edit, Alignment.TOP_RIGHT);
 
+		
+		//Textfelder erstellen
 		TextField tf_alias = new TextField("Alias");
 		TextField tf_strasse = new TextField("Straße");
 		TextField tf_plz = new TextField("PLZ");
@@ -686,7 +725,7 @@ public class FirmenProfil extends Panel implements View {
 			}
 		});
 */
-		
+		//Validator zu den Textfeldern hinzufügen
 		Validator validator = new Validator() {
 
 			@Override
@@ -736,6 +775,7 @@ public class FirmenProfil extends Panel implements View {
 		tf_ort.setValidationVisible(false);
 		tf_plz.setValidationVisible(false);
 
+		//Textfelder hinzufügen
 		formort.addComponent(tf_alias);
 		formort.addComponent(tf_strasse);
 		formort.addComponent(tf_plz);
@@ -753,6 +793,7 @@ public class FirmenProfil extends Panel implements View {
 		tf_mail.setWidth("100%");
 		tf_tele.setWidth("100%");
 
+		//Speichern und Abbrechen Knopf
 		HorizontalLayout hl_botbtns = new HorizontalLayout();
 		hl_botbtns.setWidth("100%");
 		hl_botbtns.setSpacing(true);
@@ -863,10 +904,9 @@ public class FirmenProfil extends Panel implements View {
 	public void enter(ViewChangeEvent event) {
 
 	}
-	
-	
-	
 
+	
+	//Logik für Drag&Drop Box
     private class ImageDropBox extends DragAndDropWrapper implements
     DropHandler {
        
@@ -880,7 +920,7 @@ public class FirmenProfil extends Panel implements View {
     @Override
     public void drop(final DragAndDropEvent dropEvent) {
    
-        // expecting this to be an html5 drag
+        // (expecting this to be an html5 drag)
         final WrapperTransferable tr = (WrapperTransferable) dropEvent
                 .getTransferable();
         final Html5File[] files = tr.getFiles();
@@ -933,7 +973,7 @@ public class FirmenProfil extends Panel implements View {
         } else {
             final String text = tr.getText();
             if (text != null) {
-                //showText("File nicht angekommen");
+                //(showText("File nicht angekommen");)
             }
         }
     }
