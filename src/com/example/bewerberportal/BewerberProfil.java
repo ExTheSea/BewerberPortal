@@ -647,6 +647,7 @@ public class BewerberProfil extends Panel implements View {
 				} catch (UnsupportedOperationException | SQLException e1) {
 					e1.printStackTrace();
 				}
+				if(richtvalues!=null)
 				for (Iterator it_tokens = richtvalues.iterator(); it_tokens.hasNext();) {
 					Object token = it_tokens.next();
 					Object itemID = cont_bewricht.addItem();
@@ -687,13 +688,14 @@ public class BewerberProfil extends Panel implements View {
 				} catch (UnsupportedOperationException | SQLException e1) {
 					e1.printStackTrace();
 				}
-				for (Iterator it_tokens = liblvalues.iterator(); it_tokens.hasNext();) {
-					Object token = it_tokens.next();
-					Object itemID = cont_bewliebfach.addItem();
-					Item item = cont_bewliebfach.getItem(itemID);
-					item.getItemProperty("bewerberprofil_id").setValue(Integer.valueOf(bewerberprofil_id));
-					item.getItemProperty("lieblingsfaecher_id").setValue(Integer.valueOf(token.toString()));
-				}
+				if(liblvalues!=null)
+					for (Iterator it_tokens = liblvalues.iterator(); it_tokens.hasNext();) {
+						Object token = it_tokens.next();
+						Object itemID = cont_bewliebfach.addItem();
+						Item item = cont_bewliebfach.getItem(itemID);
+						item.getItemProperty("bewerberprofil_id").setValue(Integer.valueOf(bewerberprofil_id));
+						item.getItemProperty("lieblingsfaecher_id").setValue(Integer.valueOf(token.toString()));
+					}
 				try {
 					cont_bewliebfach.commit();
 				} catch (UnsupportedOperationException | SQLException e) {
